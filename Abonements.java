@@ -27,6 +27,8 @@ public class Abonements {
                 System.out.println("+ Grupu/Individualie trenini - kalistenika vai klinsu kapsana");
                 System.out.println("+ Pieejams viss aprikojums");
                 System.out.println("+ Pieejama sauna");
+                
+                break;
             case 3:
                 System.out.println("GET CORE ULTRA");
                 System.out.println();
