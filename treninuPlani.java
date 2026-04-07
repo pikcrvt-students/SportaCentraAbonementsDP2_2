@@ -104,10 +104,51 @@ public class treninuPlani {
                                         System.out.println(line);
                         found = true;
                         }
-                                }
+                              }
                 if (!found) {
                 System.out.println("Treniņš un/vai grūtības pakāpe netika atrasta.");
                         }
                 scanner.close();
                 }
+
+                public static void paradaTreninuPlanus() {  //*parāda visus treniņus */
+
+                        System.out.println("-----PIEEJAMIE TRENIŅU PLĀNI-----");
+
+                        if (treninuList.isEmpty()) {
+                                System.out.println("Nav pievienots neviens treniņu plāns!");
+                                return;
+                        }
+
+                        for (String line : treninuList) {
+                                String[] parts = line.split(",");
+
+                                System.out.println("ID: " + parts[0]);
+                                System.out.println("Sporta veids: " + parts[1]);
+                                System.out.println("Grūtības pakāpe: " + parts[2]);
+                                System.out.println("Treniņa datums: " + parts[3]);
+                                System.out.println("Treniņa ilgums: " + parts[4]);
+                                System.out.println("Treniņa apraksts: " + parts[5]);
+                                System.out.println("Brīvās vietas: " + parts[6]);
+                        
+                                System.out.println("-----------------------------");
+                        }
+                }
+
+                public static void paradaPieteikusosTreninus () {
+
+                        System.out.println("-----TU ESI PIETEICIES ŠAJOS TRENIŅOS!-----");
+
+                        boolean found = false;
+
+                        for (String line : treninuList) {
+                                
+                                //*būs jāieraksta pārbaude, ka lietotajs ir pieteicies treninam */
+                        }
+
+                        if (!found) {
+                                System.out.println("Tu neesi pieteicies nevienam treniņam!");
+                        }
+                }
+
         }
