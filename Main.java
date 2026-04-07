@@ -8,7 +8,8 @@ public class Main {
         System.out.println("SAKUMS");
         System.out.println();
         System.out.println("1. Registresana");
-        System.out.println("2. Iziet");
+        System.out.println("2. Pislegasanas");
+        System.out.println("3. Iziet");
         System.out.println();
 
         int regIzvele = scanner.nextInt();
@@ -30,8 +31,24 @@ public class Main {
                         break;
                 }
                 break;
-
             case 2:
+                System.out.println("Ka jus gribat pieslegties?");
+                System.out.println("1. Klients");
+                System.out.println("2. Treneris");
+
+                int pieslegIzvele = scanner.nextInt();
+
+                switch (pieslegIzvele) {
+                    case 1:
+                        //Lietotaji.klientuPieslegsana();
+                        break;
+                    case 2:
+                        Treneri.treneruPieslegsana();
+                        break;
+                }
+                break;
+
+            case 3:
                 System.out.println("Uz redzēšanos!");
                 break;
         }
@@ -115,7 +132,7 @@ public class Main {
                         }
                     break;
                 case 5:
-                    // Lietotaji.iemaksatNaudukonta();
+                    Lietotaji.naudasIemaksa();
                     int atpakalIzvele5 = scanner.nextInt();
                     switch(atpakalIzvele5) {
                             case 1:
@@ -170,7 +187,7 @@ public class Main {
                     // treninuPlani.apskatitTreneruSarakstu();
                     break;
                 case 4:
-                    // Treneri.redigetProfilaDatus();
+                    Treneri.redigetTerneraprofilaDatus();
                     break;
                 case 5:
                     System.out.println("Uz redzēšanos!");
