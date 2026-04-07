@@ -149,6 +149,67 @@ public class treninuPlani {
                         if (!found) {
                                 System.out.println("Tu neesi pieteicies nevienam treniņam!");
                         }
+
+                        public static boolean parbaudaVaiTreninsPilns(String treninaData) {
+                                String[] parts = treninaData.split(",");
+                                int brivasVietas = Integer.parseInt(parts[7].trim());
+                                return brivasVietas <= 0;
+                        }
+
+                        public static void updateBrivasVietas(int treninaID) {
+                                for (int i = 0; i < treninuList.size(); i++) {
+                                       
+                                        int id = Integer.parseInt(parts[0].trim());
+
+                                        if (id = treninaID) {
+
+                                                int brivasVietas = Integer.parseInt(parts[7].trim());
+                                                brivasVietas--;
+                                                parts[7] = String.valueOf(brivasVietas);
+
+                                                String updatedTreninaData = String.join(",", parts);
+                                                treninuList.set(i, updatedTreninaData);
+                                                updateFileTrenini();
+                                                return;
+                                        }
+                        }
+
+                public static void pieteiktiesTreninam (String userID, int treninaID, boolean isTreneris) {
+
+                        if (isTreneris) {
+                                System.out.println("Treneri nevar pieteikties treniņiem!");
+                                return;
+                        }
+
+                        String treninaData = null;
+
+                        for (String line : treninuList) {
+                                String[] parts = line.split(", ");
+                                int id = Integer.parseInt(parts[0].trim());
+
+                                if (id == treninaID) {
+                                        treninaData = line;
+                                        break;
+                                }
+                        }
+
+                       if (treninaData == null) {
+
+                        System.out.println("Treniņš ar ID " + treninaID + " netika atrasts.");
+                        return;
+                }
+
+                        if (parbaudaVaiTreninsPilns(treninaData)) {
+                                System.out.println("Šis treniņš ir pilns. Izvēlieties citu treniņu.");
+                                return;
+                        }
+
+                        String pieteikums = userID + "," + treninaID;
+                        pieteikumi.add(pieteikums);
+                        updatePieteikumiFile();
+
+                        updateBrivasVietas(treninaID);
+                        System.out.println("Tu esi veiksmīgi pieteicies treniņam ar ID " + treninaID + ".");
                 }
 
         }
