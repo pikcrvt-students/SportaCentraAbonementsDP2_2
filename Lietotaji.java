@@ -147,4 +147,22 @@ public class Lietotaji {
         }
     }
 
-}
+    public static void naudasIemaksa() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ievadiet savu e-pastu:");
+        String ievaditaisEpasts = scanner.nextLine();
+
+        for (int i = 0; i < klientuList.size(); i++) {
+            String[] klientInfo = klientuList.get(i).split(",");
+            if (klientInfo[2].equals(ievaditaisEpasts)) {
+                System.out.println("Ievadiet iemaksa summu:");
+                double summa = scanner.nextDouble();
+                
+                System.out.println("Naudas iemaksa veiksmiga! Jusu summa: " + summa);
+                return;
+            }
+        }
+
+        System.out.println("E-pasts nav atrasts. LLudzu, meginiet velreiz."); 
+
+}}
