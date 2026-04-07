@@ -10,17 +10,17 @@ public class Treneri {
 
      public static void treneruRegistresana() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Ievadiet savu vardu:");
+        System.out.print("Ievadiet savu vardu:");
         String treneraVards = scanner.nextLine();  
-        System.out.println("Ievadiet savu uzvardu:");
+        System.out.print("Ievadiet savu uzvardu:");
         String treneraUzvards = scanner.nextLine();
-        System.out.println("Ievadiet savu e-pastu:");
+        System.out.print("Ievadiet savu e-pastu:");
         String treneraEpasts = scanner.nextLine();
-        System.out.println("Ievadiet savu telefona numuru:");
+        System.out.print("Ievadiet savu telefona numuru:");
         String treneraTelefons = scanner.nextLine();
-        System.out.println("Ievadiet savu personas kodu:");
+        System.out.print("Ievadiet savu personas kodu:");
         String treneraPkods = scanner.nextLine();
-        System.out.println("Ievadiet savu specializaciju:");
+        System.out.print("Ievadiet savu specializaciju:");
         String treneraSpecializacija = scanner.nextLine();
         int newID = getIDtreneri() + 1;
 
@@ -28,6 +28,7 @@ public class Treneri {
         treneruList.add(trenerData);
 
        updateFileTrener();
+
     }
 
     public static int getIDtreneri() {
@@ -36,8 +37,12 @@ public class Treneri {
         }
 
         String lastLine = treneruList.get(treneruList.size() - 1);
-        String[] parts = lastLine.split(",");
-        return Integer.parseInt(parts[0]);
+        String[] idPart = lastLine.split("\\. ");
+        return Integer.parseInt(idPart[0]);
+    }
+
+    public static ArrayList<String> getTreneruList() {
+        return treneruList;
     }
 
     private static void updateFileTrener(){
@@ -61,6 +66,14 @@ public class Treneri {
         }
     }
 
+    public static void izveletiesTreneri() {
+        System.out.println("Treneru saraksts:");
+        int index = 0;
+        for (String treneris : treneruList) {
+            System.out.println((index + 1) + ". " + treneris);
+            index++;
+        }
+    }
 
 
     
