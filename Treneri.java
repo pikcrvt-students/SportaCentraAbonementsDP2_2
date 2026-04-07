@@ -75,6 +75,38 @@ public class Treneri {
         }
     }
 
+    public static void redigetTerneraprofilaDatus() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Rediget profila datus");
+        System.out.println("Ievadiet savu e-pastu, lai redigetu datus:");
+        String ievaditaisEpasts = scanner.nextLine();
 
-    
+        for (int i = 0; i < treneruList.size(); i++) {
+            String[] trenerInfo = treneruList.get(i).split(",");
+            if (trenerInfo[2].equals(ievaditaisEpasts)) {
+                System.out.println("Ievadiet jaunu vardu:");
+                String jaunsVards = scanner.nextLine();
+                System.out.println("Ievadiet jaunu uzvardu:");
+                String jaunsUzvards = scanner.nextLine();
+                System.out.println("Ievadiet jaunu telefona numuru:");
+                String jaunsTelefons = scanner.nextLine();
+
+                trenerInfo[0] = jaunsVards;
+                trenerInfo[1] = jaunsUzvards;
+                trenerInfo[3] = jaunsTelefons;
+
+                treneruList.set(i, String.join(", ", trenerInfo));
+                updateFileTrener();
+                System.out.println("Profila dati veiksmigi atjauninati!");
+                return;
+            }
+        }
+    }
+    public static void treneruPieslegsana() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Treneru pieslegsana");
+        System.out.println("Ievadiet savu e-pastu:");
+        String ievaditaisEpasts = scanner.nextLine();
+    }
 }
+
