@@ -1,31 +1,38 @@
-
 import java.util.*;
 import java.io.*;
 
 public class Lietotaji {
 
     private static ArrayList<String> klientuList = new ArrayList<>();
-    
     private static final String filePathforKlienti = "csv/klientRegistration.csv";
 
     public static void klientuRegistresana() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Ievadiet savu vārdu:");
+        System.out.println("Ievadiet savu vardu:");
         String klientaVards = scanner.nextLine();  
-        System.out.println("Ievadiet savu uzvārdu:");
+        System.out.println("Ievadiet savu uzvardu:");
         String klientaUzvards = scanner.nextLine();
         System.out.println("Ievadiet savu e-pastu:");
         String klientaEpasts = scanner.nextLine();
         System.out.println("Ievadiet savu telefona numuru:");
         String klientaTelefons = scanner.nextLine();
 
+        // Check if the email already exists in the client list
+        for (String klients : klientuList) {
+            String[] klientInfo = klients.split(",");
+            if (klientInfo.length > 2 && klientInfo[2].trim().equals(klientaEpasts)) {
+                System.out.println("Sis e-pasts jau ir reģistrets. Ludzu, izmantojiet citu e-pastu.");
+                return;
+            }
+        }
+
+        // If the email is unique, proceed with registration
         int newID = getIDklients() + 1;
-        String klientData = newID + ". " + klientaVards + "," + klientaUzvards + "," + klientaEpasts + "," + klientaTelefons;
+        String klientData = newID + ". " + klientaVards + "," + klientaUzvards + "," + klientaEpasts + "," + klientaTelefons + ",abonements"; // Add default subscription
         klientuList.add(klientData);
 
         updateFileforklient();
     }
-
 
     public static int getIDklients() {
         if (klientuList.isEmpty()) {
@@ -33,57 +40,111 @@ public class Lietotaji {
         }
 
         String lastLine = klientuList.get(klientuList.size() - 1);
-        String[] parts = lastLine.split(",");
-        return Integer.parseInt(parts[0]);
+        String[] idPart = lastLine.split("\\. ");
+        return Integer.parseInt(idPart[0]);
     }
 
+    private static void updateFileKlietn() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePathforKlienti))) {
+            writer.write("id,vards,uzvards,epasts,telefons,abonements");
+            writer.newLine();
 
-
-    private static void updateFileKlietn(){
-        try (FileWriter writer = new FileWriter(filePathforKlienti, false)) {
             for (String klientData : klientuList) {
-                writer.append(klientData).append("\n");
+                writer.write(klientData);
+                writer.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Kļūda saglabājot datus: " + e.getMessage());
+            System.out.println("Kluda saglabajot datus: " + e.getMessage());
         }
     }
 
     private static void updateFileforklient() {
-        try {
-            BufferedWriter writer = new BufferedWriter(
-                    new FileWriter(filePathforKlienti));
+        updateFileKlietn();
+    }
 
-            writer.write("id,vards,uzvards,epasts,telefons");
-            writer.newLine();
+    public static void pieslegtiesKlientam() {
+        System.out.println("Pieslegties");
+        System.out.println("Ievadiet savu e-pastu:");
+        Scanner scanner = new Scanner(System.in);
+        String ievaditaisEpasts = scanner.nextLine();
 
-            for (String klients : klientuList) {
-                writer.write(klients);
-                writer.newLine();
+        boolean found = false;
+
+        for (String klients : klientuList) {
+            String[] klientInfo = klients.split(",");
+            if (klientInfo[2].equals(ievaditaisEpasts)) {
+                found = true;
+                System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + klientInfo[0] + "!");
+                break;
             }
+        }
 
-            writer.close();
-        } catch (IOException e) {
-            System.out.println(
-                "An error occurred while writing the file: "
-                + e.getMessage());
+        if (!found) {
+            System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
         }
     }
 
+    public static void mansKonts() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ievadiet savu e-pastu:");
+        String ievaditaisEpasts = scanner.nextLine();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        for (String klients : klientuList) {
+            String[] klientInfo = klients.split(",");
+            if (klientInfo[2].equals(ievaditaisEpasts)) {
+                System.out.println("Mans konts");
+                System.out.println("Mans vards: " + klientInfo[0]);
+                System.out.println("Mans uzvards: " + klientInfo[1]);
+                System.out.println("Mans e-pasts: " + klientInfo[2]);
+                System.out.println("Mans telefons: " + klientInfo[3]);
+                System.out.println("Abonements: " + klientInfo[4]);
+                return;
+            }
+        }
+        System.out.println("E-pasts nav atrasts. LLudzu, meginiet velreiz.");
     }
 
+    public static void redigetProfilaDatus() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Rediget profila datus");
+        System.out.println("Ievadiet savu e-pastu, lai redigetu datus:");
+        String ievaditaisEpasts = scanner.nextLine();
+
+        for (int i = 0; i < klientuList.size(); i++) {
+            String[] klientInfo = klientuList.get(i).split(",");
+            if (klientInfo[2].equals(ievaditaisEpasts)) {
+                System.out.println("Ievadiet jaunu vardu:");
+                String jaunsVards = scanner.nextLine();
+                System.out.println("Ievadiet jaunu uzvardu:");
+                String jaunsUzvards = scanner.nextLine();
+                System.out.println("Ievadiet jaunu telefona numuru:");
+                String jaunsTelefons = scanner.nextLine();
+
+                klientInfo[0] = jaunsVards;
+                klientInfo[1] = jaunsUzvards;
+                klientInfo[3] = jaunsTelefons;
+
+                klientuList.set(i, String.join(", ", klientInfo));
+                updateFileKlietn();
+                System.out.println("Profila dati veiksmigi atjauninati!");
+                return;
+            }
+        }
+
+        System.out.println("E-pasts nav atrasts. LLudzu, meginiet velreiz.");
+    }
+
+    public static void loadKlientiFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePathforKlienti))) {
+            String line;
+            // Skip header
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                klientuList.add(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Kudda ieladejot datus: " + e.getMessage());
+        }
+    }
+
+}
