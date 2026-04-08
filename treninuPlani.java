@@ -150,6 +150,21 @@ public class treninuPlani {
                         }
                 }
 
+                /*-------------------PĀRBAUDA PIETEIKUMU--------------------- */
+
+                public static boolean isUserPieteiciesTreninam(int treninaID) {
+                        for (String pieteikums : pieteikumi) {
+                                String[] parts = pieteikums.split(",");
+                                if (parts.length < 2) continue;
+
+                                int id = Integer.parseInt(parts[1].trim());
+                                if (id == treninaID) {
+                                        return true;
+                                }
+                        }
+                        return false;
+                }
+
                 /*---------------------PARĀDA TRENIŅUS, KUROS IR PIETEICIES---------------------- */
 
                 public static void paradaPieteikusosTreninus () {
@@ -160,7 +175,13 @@ public class treninuPlani {
 
                         for (String line : treninuList) {
                                 
-                                //*būs jāieraksta pārbaude, ka lietotajs ir pieteicies treninam */
+                               String[] parts = line.split(",");
+                               int treninaID = Integer.parseInt(parts[0].trim());
+
+                               if (isUserPieteiciesTreninam(treninaID)) {
+                                        System.out.println(line);
+                                        found = true;
+                                }
                         }
 
                         if (!found) {
