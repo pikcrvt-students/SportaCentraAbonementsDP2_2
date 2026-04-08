@@ -16,6 +16,7 @@ public class Main {
 
         switch (regIzvele) {
             case 1:
+
                 System.out.println("Ka jus gribat registreties?");
                 System.out.println("1. Klients");
                 System.out.println("2. Treneris");
@@ -32,6 +33,7 @@ public class Main {
                 }
                 break;
             case 2:
+                
                 System.out.println("Ka jus gribat pieslegties?");
                 System.out.println("1. Klients");
                 System.out.println("2. Treneris");
@@ -78,6 +80,7 @@ public class Main {
             int mainklientIzvele = scanner.nextInt();
 
             switch (mainklientIzvele) {
+
                 case 1:
                     Lietotaji.mansKonts();
                     
@@ -94,7 +97,9 @@ public class Main {
                                 break;
                         }
                     break;
+
                 case 2:
+
                     Treneri.izveletiesTreneri();
                     System.out.println("1. Jā");
                     System.out.println("2. Nē");
@@ -108,6 +113,7 @@ public class Main {
                                 break;
                         }
                     break;
+
                 case 3:
                     Abonements.abonementuIzvele();
                     System.out.println("Gribat atgriezties?");
@@ -124,6 +130,7 @@ public class Main {
                                 break;
                         }
                     break;
+
                 case 4:
                     Lietotaji.naudasIemaksa();
                     int atpakalIzvele5 = scanner.nextInt();
@@ -136,9 +143,11 @@ public class Main {
                                 break;
                         }
                     break;
+
                 case 5:
                     System.out.println("Uz redzesanos!");
                     break;
+
                 default:
                     System.out.println("Nederiga izvele.");
                     break;
@@ -158,7 +167,9 @@ public class Main {
             int maintrenIzvele = scanner.nextInt();
 
             switch (maintrenIzvele) {
+
                 case 1:
+
                     Lietotaji.mansKonts();
                      System.out.println("Atpakal?");
                         System.out.println("1. Ja");
@@ -173,15 +184,31 @@ public class Main {
                                 break;
                         }
                     break;
+
                 case 2:
                     treninuPlani.treninuPlanaIevade();
                     break;
+
                 case 3:
-                    // treninuPlani.apskatitTreneruSarakstu();
+                    treninuPlani.paradaTreninuPlanus();
+                     System.out.println("Atpakal?");
+                        System.out.println("1. Ja");
+                        System.out.println("2. Ne");
+                        int atpakalIzvele2 = scanner.nextInt();
+                        switch(atpakalIzvele2) {
+                            case 1:
+                                main(args); 
+                                break;
+                            case 2:
+                                System.out.println("Uz redzesanos!");
+                                break;
+                        }
                     break;
+
                 case 4:
                     Treneri.redigetTerneraprofilaDatus();
                     break;
+
                 case 5:
                     System.out.println("Uz redzesanos!");
                     break;
