@@ -281,6 +281,36 @@ public class treninuPlani {
                         } catch (IOException e) {
                                 System.out.println("Radās kļūda rakstot pieteikum failā: " + e.getMessage());
                 }
+        }
+
+                /*---------------------TRENINU PLĀNU DZĒŠANA---------------------- */
+
+                public static void dzestTrenanPlanu(int treninaID, boolean isTreneris) {
+
+                        if(!isTreneris) {
+
+                                System.out.println("Tikai treneri var dzēst treniņu plānus!.");
+                                return; 
+                        }
+
+                        boolean found = false;
+
+                        for (int i = 0; i < treninuList.size(); i++) {
+                                String[] parts = treninuList.get(i).split(",");
+                                int id = Integer.parseInt(parts[0].trim());
+
+                                if (id == treninaID) {
+                                        treninuList.remove(i);
+                                        updateFileTrenini();
+                                        System.out.println("Treniņu plāns ar ID " + treninaID + " ir dzēsts.");
+                                        found = true;
+                                        break;
+                                }
+                        }
+
+                        if (!found) {
+                                System.out.println("Treniņu plāns ar ID " + treninaID + " netika atrasts.");
+                }
 
         }
 
