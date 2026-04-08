@@ -5,6 +5,7 @@ public class Lietotaji {
 
     private static ArrayList<String> klientuList = new ArrayList<>();
     private static final String filePathforKlienti = "csv/klientRegistration.csv";
+    private static String currentUserEmail = null;
 
     public static void klientuRegistresana() {
         Scanner scanner = new Scanner(System.in);
@@ -28,9 +29,9 @@ public class Lietotaji {
 
         // If the email is unique, proceed with registration
         int newID = getIDklients() + 1;
-        String klientData = newID + ". " + klientaVards + "," + klientaUzvards + "," + klientaEpasts + "," + klientaTelefons + ",abonements"; // Add default subscription
+        String klientData = newID + ". " + klientaVards + "," + klientaUzvards + "," + klientaEpasts + "," + klientaTelefons + ",abonements,0.0";
         klientuList.add(klientData);
-
+        
         updateFileforklient();
     }
 
@@ -98,6 +99,25 @@ public class Lietotaji {
                 System.out.println("Mans e-pasts: " + klientInfo[2]);
                 System.out.println("Mans telefons: " + klientInfo[3]);
                 System.out.println("Abonements: " + klientInfo[4]);
+                
+                System.out.println();
+                System.out.println("Ko jus velaties darit?");
+                System.out.println("1. Rediget profila datus");
+                System.out.println("2. Apskatit jusu abonementu");
+                System.out.println("3. Dzest savu kontu");
+                int kontaIzvele = scanner.nextInt();
+                switch(kontaIzvele) {
+                    case 1:
+                        redigetProfilaDatus();
+                        break;
+                    case 2: 
+                        //Abonements.apskatitManuabonementu();
+                        break;
+                    case 3: 
+                        klientuList.remove(klients);
+                        updateFileKlietn();
+                        System.out.println("Jusu konts ir dzests. Uz redzesanos!");
+                }
                 return;
             }
         }
@@ -143,7 +163,7 @@ public class Lietotaji {
                 klientuList.add(line);
             }
         } catch (IOException e) {
-            System.out.println("Kudda ieladejot datus: " + e.getMessage());
+            System.out.println("Kluda ieladejot datus: " + e.getMessage());
         }
     }
 
@@ -156,13 +176,87 @@ public class Lietotaji {
             String[] klientInfo = klientuList.get(i).split(",");
             if (klientInfo[2].equals(ievaditaisEpasts)) {
                 System.out.println("Ievadiet iemaksa summu:");
-                double summa = scanner.nextDouble();
+                double depositAmount = scanner.nextDouble();
                 
-                System.out.println("Naudas iemaksa veiksmiga! Jusu summa: " + summa);
-                return;
+                
+                double currentBalance = Double.parseDouble(klientInfo[5]);
+                double newBalance = currentBalance + depositAmount;
+                
+                
+                klientInfo[5] = String.valueOf(newBalance);
+                klientuList.set(i, String.join(",", klientInfo));
+                
+                updateFileforklient();  // Save to CSV
+                
+                System.out.println("Naudas iemaksa veiksmiga! Jusu summa: " + newBalance);
+                return;}}
+            
+        }
+
+public static void klientuPieslegsanas() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Pieslegsanas");
+        System.out.println("Ievadiet savu e-pastu: ");
+        String ievaditaisEpasts = scanner.nextLine();
+        boolean found = false;
+
+        for (String klients : klientuList) {
+            String[] klientInfo = klients.split(",");
+            if (klientInfo[2].equals(ievaditaisEpasts)) { 
+                found = true;
+                System.out.println();
+                System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + klientInfo[1] + "!"); 
+                System.out.println();
+                break;
             }
         }
 
-        System.out.println("E-pasts nav atrasts. LLudzu, meginiet velreiz."); 
+            if (!found) {
+                System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
+                klientuPieslegsanas(); 
+            }
+        }
+    
+        public static double getCurrentUserBalance(){
+            if(currentUserEmail == null) {
+                System.out.println("Nav pieslegts neviens klients.");
+                return 0.0;
+            }
+            for (String klients : klientuList) {
+                String[] klientInfo = klients.split(",");
+                if (klientInfo[2].equals(currentUserEmail)) {
+                    return Double.parseDouble(klientInfo[5]);  // Balance at index 5
+                }
+            }
+            return 0.0;
+        }
 
-}}
+
+
+     public static void updateCurrentUserBalance(double newBalance) {
+        if (currentUserEmail == null) return;
+        for (int i = 0; i < klientuList.size(); i++) {
+            String[] klientInfo = klientuList.get(i).split(",");
+            if (klientInfo[2].equals(currentUserEmail)) {
+                klientInfo[5] = String.valueOf(newBalance);
+                klientuList.set(i, String.join(",", klientInfo));
+                updateFileforklient();  // Save to CSV
+                return;
+            }
+        }
+    }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
