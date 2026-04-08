@@ -186,7 +186,7 @@ public class Lietotaji {
                 klientInfo[5] = String.valueOf(newBalance);
                 klientuList.set(i, String.join(",", klientInfo));
                 
-                updateFileforklient();  // Save to CSV
+                updateFileforklient();  
                 
                 System.out.println("Naudas iemaksa veiksmiga! Jusu summa: " + newBalance);
                 return;}}
@@ -225,7 +225,7 @@ public static void klientuPieslegsanas() {
             for (String klients : klientuList) {
                 String[] klientInfo = klients.split(",");
                 if (klientInfo[2].equals(currentUserEmail)) {
-                    return Double.parseDouble(klientInfo[5]);  // Balance at index 5
+                    return Double.parseDouble(klientInfo[5]);  
                 }
             }
             return 0.0;
@@ -240,14 +240,21 @@ public static void klientuPieslegsanas() {
             if (klientInfo[2].equals(currentUserEmail)) {
                 klientInfo[5] = String.valueOf(newBalance);
                 klientuList.set(i, String.join(",", klientInfo));
-                updateFileforklient();  // Save to CSV
+                updateFileforklient();  
                 return;
             }
         }
     }
+
+    public static String getCurrentUserEmail() {
+        return currentUserEmail; 
     }
 
+    public static ArrayList<String> klientuList() {
+        return klientuList; 
+    }
 
+}
 
 
 
