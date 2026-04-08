@@ -47,7 +47,7 @@ public class Lietotaji {
 
     private static void updateFileKlietn() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePathforKlienti))) {
-            writer.write("id,vards,uzvards,epasts,telefons,abonements");
+            writer.write("id,vards,uzvards,epasts,telefons,abonements,balanse");
             writer.newLine();
 
             for (String klientData : klientuList) {
@@ -61,6 +61,65 @@ public class Lietotaji {
 
     private static void updateFileforklient() {
         updateFileKlietn();
+    }
+
+    private static String[] normalizeKlientInfo(String[] klientInfo) {
+        if (klientInfo == null) {
+            return new String[] {"", "", "", "", "abonements", "0.0"};
+        }
+
+        String[] trimmed = new String[klientInfo.length];
+        for (int i = 0; i < klientInfo.length; i++) {
+            trimmed[i] = klientInfo[i] == null ? "" : klientInfo[i].trim();
+        }
+
+        if (trimmed.length <= 4) {
+            return new String[] {
+                trimmed.length > 0 ? trimmed[0] : "",
+                trimmed.length > 1 ? trimmed[1] : "",
+                trimmed.length > 2 ? trimmed[2] : "",
+                trimmed.length > 3 ? trimmed[3] : "",
+                "abonements",
+                "0.0"
+            };
+        }
+
+        if (trimmed.length == 5) {
+            return new String[] {
+                trimmed[0],
+                trimmed[1],
+                trimmed[2],
+                trimmed[3],
+                trimmed[4].isEmpty() ? "abonements" : trimmed[4],
+                "0.0"
+            };
+        }
+
+        String[] result = new String[6];
+        System.arraycopy(trimmed, 0, result, 0, 6);
+        if (result[4].isEmpty()) {
+            result[4] = "abonements";
+        }
+        if (result[5].isEmpty()) {
+            result[5] = "0.0";
+        }
+        return result;
+    }
+
+    private static String normalizeKlientLine(String line) {
+        String[] parts = line.split(",");
+        return String.join(",", normalizeKlientInfo(parts));
+    }
+
+    private static double parseBalance(String[] klientInfo) {
+        if (klientInfo == null || klientInfo.length <= 5) {
+            return 0.0;
+        }
+        try {
+            return Double.parseDouble(klientInfo[5]);
+        } catch (NumberFormatException e) {
+            return 0.0;
+        }
     }
 
     public static void pieslegtiesKlientam() {
@@ -91,7 +150,7 @@ public class Lietotaji {
         String ievaditaisEpasts = scanner.nextLine();
 
         for (String klients : klientuList) {
-            String[] klientInfo = klients.split(",");
+            String[] klientInfo = normalizeKlientInfo(klients.split(","));
             if (klientInfo[2].equals(ievaditaisEpasts)) {
                 System.out.println("Mans konts");
                 System.out.println("Mans vards: " + klientInfo[0]);
@@ -131,7 +190,7 @@ public class Lietotaji {
         String ievaditaisEpasts = scanner.nextLine();
 
         for (int i = 0; i < klientuList.size(); i++) {
-            String[] klientInfo = klientuList.get(i).split(",");
+            String[] klientInfo = normalizeKlientInfo(klientuList.get(i).split(","));
             if (klientInfo[2].equals(ievaditaisEpasts)) {
                 System.out.println("Ievadiet jaunu vardu:");
                 String jaunsVards = scanner.nextLine();
@@ -144,7 +203,7 @@ public class Lietotaji {
                 klientInfo[1] = jaunsUzvards;
                 klientInfo[3] = jaunsTelefons;
 
-                klientuList.set(i, String.join(", ", klientInfo));
+                klientuList.set(i, String.join(",", klientInfo));
                 updateFileKlietn();
                 System.out.println("Profila dati veiksmigi atjauninati!");
                 return;
@@ -160,7 +219,7 @@ public class Lietotaji {
             // Skip header
             reader.readLine();
             while ((line = reader.readLine()) != null) {
-                klientuList.add(line);
+                klientuList.add(normalizeKlientLine(line));
             }
         } catch (IOException e) {
             System.out.println("Kluda ieladejot datus: " + e.getMessage());
@@ -173,25 +232,26 @@ public class Lietotaji {
         String ievaditaisEpasts = scanner.nextLine();
 
         for (int i = 0; i < klientuList.size(); i++) {
-            String[] klientInfo = klientuList.get(i).split(",");
+            String[] klientInfo = normalizeKlientInfo(klientuList.get(i).split(","));
             if (klientInfo[2].equals(ievaditaisEpasts)) {
                 System.out.println("Ievadiet iemaksa summu:");
                 double depositAmount = scanner.nextDouble();
-                
-                
-                double currentBalance = Double.parseDouble(klientInfo[5]);
+                scanner.nextLine();
+
+                double currentBalance = parseBalance(klientInfo);
                 double newBalance = currentBalance + depositAmount;
-                
-                
+
                 klientInfo[5] = String.valueOf(newBalance);
                 klientuList.set(i, String.join(",", klientInfo));
-                
                 updateFileforklient();  
-                
+
                 System.out.println("Naudas iemaksa veiksmiga! Jusu summa: " + newBalance);
-                return;}}
-            
+                return;
+            }
         }
+
+        System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
+    }
 
 public static void klientuPieslegsanas() {
         Scanner scanner = new Scanner(System.in);
@@ -223,9 +283,9 @@ public static void klientuPieslegsanas() {
                 return 0.0;
             }
             for (String klients : klientuList) {
-                String[] klientInfo = klients.split(",");
+                String[] klientInfo = normalizeKlientInfo(klients.split(","));
                 if (klientInfo[2].equals(currentUserEmail)) {
-                    return Double.parseDouble(klientInfo[5]);  
+                    return parseBalance(klientInfo);  
                 }
             }
             return 0.0;
@@ -236,10 +296,10 @@ public static void klientuPieslegsanas() {
      public static void updateCurrentUserBalance(double newBalance) {
         if (currentUserEmail == null) return;
         for (int i = 0; i < klientuList.size(); i++) {
-            String[] klientInfo = klientuList.get(i).split(",");
+            String[] klientInfo = normalizeKlientInfo(klientuList.get(i).split(","));
             if (klientInfo[2].equals(currentUserEmail)) {
                 klientInfo[5] = String.valueOf(newBalance);
-                klientuList.set(i, String.join(",", klientInfo));
+                klientuList.set(i, String.join(", ", klientInfo));
                 updateFileforklient();  
                 return;
             }
