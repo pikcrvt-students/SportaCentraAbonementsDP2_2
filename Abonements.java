@@ -166,8 +166,8 @@ public class Abonements {
             System.out.println();
 
             System.out.println("Velaties iegadaties abonementu?");
-            System.out.println("1. Jā");
-            System.out.println("2. Nē");
+            System.out.println("1. Ja");
+            System.out.println("2. Ne");
 
             int iegadatiesIzvele3 = scanner.nextInt();
 
