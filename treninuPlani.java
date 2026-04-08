@@ -310,8 +310,29 @@ public class treninuPlani {
 
                         if (!found) {
                                 System.out.println("Treniņu plāns ar ID " + treninaID + " netika atrasts.");
+
+                        }
                 }
 
+                /*------------------TRENIŅA PLĀNA VALIDĀCIJA (TUKŠU LAUKU PĀRBAUDE UN RAKSTZĪMJU IEROBEŽOJUMI)------------------------ */
+
+                        public static boolean validateAizpilditieLauki(String fields[]) {
+
+                                for (String field : fields) {
+                                        if (field == null || field.trim().isEmpty()) {
+                                                System.out.println("Visiem laukiem jābūt aizpildītiem!");
+                                                return false;
+                                        }
+                                }
+
+                                return true;
+
         }
+
+                        public static boolean validateRakstzimjuGarumu (String input, int minLenght) {
+
+                                if (input == null) return false;
+                                return input.trim().length() >= minLenght;
+                        }
 
                 }
