@@ -102,11 +102,40 @@ public class Treneri {
             }
         }
     }
-    public static void treneruPieslegsana() {
+    public static void treneruPieslegsanas() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Treneru pieslegsana");
-        System.out.println("Ievadiet savu e-pastu:");
+        System.out.println("Pieslegsanas");
+        System.out.println("Ievadiet savu e-pastu: ");
         String ievaditaisEpasts = scanner.nextLine();
-    }
+        boolean found = false;
+
+        for (String treneris : treneruList) {
+            String[] trenerInfo = treneris.split(",");
+            if (trenerInfo[2].equals(ievaditaisEpasts)) { 
+                found = true;
+                System.out.println();
+                System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + trenerInfo[1] + "!"); 
+                System.out.println();
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
+            treneruPieslegsanas();
+        }
 }
 
+public static void loadTreneriFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePathforTreneri))) {
+            String line;
+            
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                treneruList.add(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Kluda ieladejot datus: " + e.getMessage());
+        }
+    }
+}
