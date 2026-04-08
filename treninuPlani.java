@@ -11,7 +11,8 @@ public class treninuPlani {
 
         /*------------------TRENIŅA IZVEIDE-------------------------- */
 
-        public static void treninuPlanaIevade() {
+        public static void treninuPlanaIevade() {  /*funkcija treninuPlanaIevade pieņem string tipa vērtības treninaNosaukums, sportaVeids, grutibasPakape, muskuluGrupa, treninaDatums, treninaIlgums, treninaApraksts, brivoVietuSkaits un pieņem int tipa vērtības treninaID, un
+atgriež void */
                 Scanner scanner = new Scanner(System.in);
 
                 System.out.println("Ievadiet treniņa nosaukumu:");
@@ -43,7 +44,7 @@ public class treninuPlani {
 
         /*------------------TRENIŅA ID PIEŠĶIRŠANA-------------------------- */
 
-        public static int getIDtreninam() {
+        public static int getIDtreninam() {  /* Funkcija getIDtreninam atgriež int tipa vērtību idPart */
                 if (treninuList.isEmpty()) {
                         return 0;
                 }
@@ -63,7 +64,8 @@ public class treninuPlani {
 
         /*------------------TRENIŅA FAILA (CSV) SAGLABĀŠANA-------------------------- */
         
-        public static void updateFileTrenini() {
+        public static void updateFileTrenini() { /* funkcija updateFileTrenini pieņem string tipa vērtību id, treninaNosaukums, sportaVeids, grutibasPakape, muskuluGrupa, treninaDatums, treninaIlgums, treninaApraksts, brivoVietuSkaits un
+atgriež void */
                 
                 try {
                         BufferedWriter writer = new BufferedWriter(
@@ -88,7 +90,8 @@ public class treninuPlani {
 
         /*---------------------TRENIŅU FILTRĒŠANA---------------------- */
 
-        public static void searchByTypeandDifficulty() {
+        public static void searchByTypeandDifficulty() { /* funkcija searchByTypeandDifficulty pieņem string tipa vērtību Sport un Difficulty, un
+atgriež void */
 
                 Scanner scanner = new Scanner(System.in);
 
@@ -123,8 +126,7 @@ public class treninuPlani {
 
                 /*---------------------TRENIŅU PLĀNU IZVADE---------------------- */
 
-                public static void paradaTreninuPlanus() {  //*parāda visus treniņus */
-
+                public static void paradaTreninuPlanus() {  //*parāda visus treniņus *// 
                         System.out.println("-----PIEEJAMIE TRENIŅU PLĀNI-----");
 
                         if (treninuList.isEmpty()) {
