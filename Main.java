@@ -8,7 +8,7 @@ public class Main {
         System.out.println("SAKUMS");
         System.out.println();
         System.out.println("1. Registresana");
-        System.out.println("2. Pislegasanas");
+        System.out.println("2. Pieslegasanas");
         System.out.println("3. Iziet");
         System.out.println();
 
@@ -33,7 +33,7 @@ public class Main {
                 }
                 break;
             case 2:
-                
+
                 System.out.println("Ka jus gribat pieslegties?");
                 System.out.println("1. Klients");
                 System.out.println("2. Treneris");
@@ -212,6 +212,7 @@ public class Main {
                 case 5:
                     System.out.println("Uz redzesanos!");
                     break;
+                    
             }
         }
     }
