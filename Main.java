@@ -40,10 +40,12 @@ public class Main {
 
                 switch (pieslegIzvele) {
                     case 1:
-                        //Lietotaji.klientuPieslegsana();
+                        Lietotaji.loadKlientiFromFile();
+                        Lietotaji.klientuPieslegsanas();
                         break;
                     case 2:
-                        Treneri.treneruPieslegsana();
+                        Treneri.loadTreneriFromFile();
+                        Treneri.treneruPieslegsanas();
                         break;
                 }
                 break;
@@ -68,9 +70,8 @@ public class Main {
             System.out.println("1. Mans konts");
             System.out.println("2. Izveleties treneri");
             System.out.println("3. Izveleties abonementu");
-            System.out.println("4. Rediget savu profilu");
-            System.out.println("5. Iemaksat naudu konta");
-            System.out.println("6. Iziet");
+            System.out.println("4. Iemaksat naudu konta");
+            System.out.println("5. Iziet");
             System.out.println();
             System.out.println("Izveleties darbibu:");
 
@@ -81,15 +82,15 @@ public class Main {
                     Lietotaji.mansKonts();
                     
                     System.out.println("Atpakal?");
-                        System.out.println("1. Jā");
-                        System.out.println("2. Nē");
+                        System.out.println("1. Ja");
+                        System.out.println("2. Ne");
                         int atpakalIzvele = scanner.nextInt();
                         switch(atpakalIzvele) {
                             case 1:
                                 main(args); 
                                 break;
                             case 2:
-                                System.out.println("Uz redzēšanos!");
+                                System.out.println("Uz redzesanos!");
                                 break;
                         }
                     break;
@@ -103,35 +104,27 @@ public class Main {
                                 main(args); 
                                 break;
                             case 2:
-                                System.out.println("Uz redzēšanos!");
+                                System.out.println("Uz redzesanos!");
                                 break;
                         }
                     break;
                 case 3:
                     Abonements.abonementuIzvele();
+                    System.out.println("Gribat atgriezties?");
+                    System.out.println();
+                    System.out.println("1. Ja");
+                    System.out.println("2. Ne");
                     int atpakalIzvele3 = scanner.nextInt();
                     switch(atpakalIzvele3) {
                             case 1:
                                 main(args); 
                                 break;
                             case 2:
-                                System.out.println("Uz redzēšanos!");
+                                System.out.println("Uz redzesanos!");
                                 break;
                         }
                     break;
                 case 4:
-                    Lietotaji.redigetProfilaDatus();
-                    int atpakalIzvele4 = scanner.nextInt();
-                    switch(atpakalIzvele4) {
-                            case 1:
-                                main(args); 
-                                break;
-                            case 2:
-                                System.out.println("Uz redzēšanos!");
-                                break;
-                        }
-                    break;
-                case 5:
                     Lietotaji.naudasIemaksa();
                     int atpakalIzvele5 = scanner.nextInt();
                     switch(atpakalIzvele5) {
@@ -139,12 +132,12 @@ public class Main {
                                 main(args); 
                                 break;
                             case 2:
-                                System.out.println("Uz redzēšanos!");
+                                System.out.println("Uz redzesanos!");
                                 break;
                         }
                     break;
-                case 6:
-                    System.out.println("Uz redzēšanos!");
+                case 5:
+                    System.out.println("Uz redzesanos!");
                     break;
                 default:
                     System.out.println("Nederiga izvele.");
@@ -176,7 +169,7 @@ public class Main {
                                 main(args); 
                                 break;
                             case 2:
-                                System.out.println("Uz redzēšanos!");
+                                System.out.println("Uz redzesanos!");
                                 break;
                         }
                     break;
@@ -190,7 +183,7 @@ public class Main {
                     Treneri.redigetTerneraprofilaDatus();
                     break;
                 case 5:
-                    System.out.println("Uz redzēšanos!");
+                    System.out.println("Uz redzesanos!");
                     break;
             }
         }
