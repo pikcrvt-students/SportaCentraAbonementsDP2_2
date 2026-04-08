@@ -163,15 +163,15 @@ public class Abonements {
 }
 
 public static void apskatitManuabonementu() {
-    Lietotaji lietotaji = new Lietotaji();
-    Lietotaji.getCurrentUserEmail();  
+    String currentUserEmail = Lietotaji.getCurrentUserEmail();
 
     for(String klients : Lietotaji.klientuList()) {
         String[] klientInfo = klients.split(",");
-        if (klientInfo[2].equals(Lietotaji.getCurrentUserEmail())) {
+        if (klientInfo[2].equals(currentUserEmail)) {
             System.out.println("Jusu abonements: " + klientInfo[4]);
             return;
         }
     }
+    System.out.println("Abonements nav atrasts.");
 }
 }
