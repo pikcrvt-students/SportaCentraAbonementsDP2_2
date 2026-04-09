@@ -17,13 +17,13 @@ atgriež void */
 
                 System.out.println("Ievadiet trenina nosaukumu:");
                 String treninaNosaukums = scanner.nextLine();
-                System.out.println("Ievadiet sporta veidu(klinsu kapsana, kalistenika):");
+                System.out.println("Ievadiet sporta veidu (klinsu kapsana, kalistenika):");
                 String sportaVeids = scanner.nextLine();
-                System.out.println("Ievadiet grutibas pakapi(viegls, videjs, gruts):");
+                System.out.println("Ievadiet grutibas pakapi (viegls, videjs, gruts):");
                 String grutibasPakape = scanner.nextLine();
                 System.out.println("Ievadiet muskuļu grupu:");
                 String muskuluGrupa = scanner.nextLine();
-                System.out.println("Ievadiet treniņa datumu: ");
+                System.out.println("Ievadiet trenina datumu: ");
                 String treninaDatums = scanner.nextLine();
                 System.out.println("Ievadiet trenina ilgumu:");
                 String treninaIlgums = scanner.nextLine();
@@ -33,7 +33,7 @@ atgriež void */
                 String brivoVietuSkaits = scanner.nextLine();
                 int newID = getIDtreninam() + 1;
 
-                String treninaData = newID+ ". " + "Trenina nosaukums: "  + treninaNosaukums + "\n" + "Sporta veids: " + sportaVeids + "\n" + "Grūtības pakāpe: " + grutibasPakape + "\n" + "Muskulu grupa: " + muskuluGrupa + "\n" + "Trenina datums: " + treninaDatums + "\n" + "Trenina ilgums: " + treninaIlgums + "\n" + "Trenina apraksts: " + treninaApraksts + "\n" + "Brivas vietas: " + brivoVietuSkaits;
+                String treninaData = newID+ ". " + "Trenina nosaukums: "  + treninaNosaukums + "\n" + "Sporta veids: " + sportaVeids + "\n" + "Grutibas pakape: " + grutibasPakape + "\n" + "Muskulu grupa: " + muskuluGrupa + "\n" + "Trenina datums: " + treninaDatums + "\n" + "Trenina ilgums: " + treninaIlgums + "\n" + "Trenina apraksts: " + treninaApraksts + "\n" + "Brivas vietas: " + brivoVietuSkaits;
                 treninuList.add(treninaData);
 
                 updateFileTrenini();
@@ -82,7 +82,7 @@ atgriež void */
                 
                 } catch ( IOException e ) {
                         
-                        System.out.println( "Kļūda rakstot šo kodu: " + e.getMessage() );
+                        System.out.println( "Kluda rakstot šo kodu: " + e.getMessage() );
                 }
 
 
