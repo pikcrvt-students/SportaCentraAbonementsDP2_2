@@ -96,7 +96,7 @@ public class treninuPlani {
                 
                 } catch ( IOException e ) {
                         
-                        System.out.println( "An error occured while writing this file: " + e.getMessage() );
+                        System.out.println( "Kļūda rakstot šo kodu: " + e.getMessage() );
                 }
 
 
