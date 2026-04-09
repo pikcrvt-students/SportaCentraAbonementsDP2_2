@@ -33,7 +33,7 @@ atgriež void */
                 String brivoVietuSkaits = scanner.nextLine();
                 int newID = getIDtreninam() + 1;
 
-                String treninaData = newID + "Treniņa nosaukums: "  + treninaNosaukums + "\n" + "Sporta veids: " + sportaVeids + "\n" + "Grūtības pakāpe: " + grutibasPakape + "\n" + "Muskulu grupa: " + muskuluGrupa + "\n" + "Trenina datums: " + treninaDatums + "\n" + "Trenina ilgums: " + treninaIlgums + "\n" + "Trenina apraksts: " + treninaApraksts + "\n" + "Brivas vietas: " + brivoVietuSkaits;
+                String treninaData = newID+ ". " + "Treniņa nosaukums: "  + treninaNosaukums + "\n" + "Sporta veids: " + sportaVeids + "\n" + "Grūtības pakāpe: " + grutibasPakape + "\n" + "Muskulu grupa: " + muskuluGrupa + "\n" + "Trenina datums: " + treninaDatums + "\n" + "Trenina ilgums: " + treninaIlgums + "\n" + "Trenina apraksts: " + treninaApraksts + "\n" + "Brivas vietas: " + brivoVietuSkaits;
                 treninuList.add(treninaData);
 
                 updateFileTrenini();
@@ -250,7 +250,7 @@ atgriež void */
                 }
 
                         if (parbaudaVaiTreninsPilns(treninaData)) {
-                                System.out.println("'Sis trenins ir pilns. Izvelieties citu treniņu.");
+                                System.out.println("'Sis trenins ir pilns. Izvelieties citu treninu.");
                                 return;
                         }
 
