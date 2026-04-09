@@ -17,24 +17,23 @@ atgriež void */
 
                 System.out.println("Ievadiet treniņa nosaukumu:");
                 String treninaNosaukums = scanner.nextLine();
-                System.out.println("Ievadiet sporta veidu(klinšu kāpšana, kalistēnika):");
+                System.out.println("Ievadiet sporta veidu(klinsu kapsana, kalistenika):");
                 String sportaVeids = scanner.nextLine();
-                System.out.println("Ievadiet grūtības pakāpi(viegls, vidējs, grūts):");
+                System.out.println("Ievadiet grutibas pakapi(viegls, videjs, gruts):");
                 String grutibasPakape = scanner.nextLine();
                 System.out.println("Ievadiet muskuļu grupu:");
                 String muskuluGrupa = scanner.nextLine();
                 System.out.println("Ievadiet treniņa datumu: ");
                 String treninaDatums = scanner.nextLine();
-                System.out.println("Ievadiet treniņa ilgumu:");
+                System.out.println("Ievadiet trenina ilgumu:");
                 String treninaIlgums = scanner.nextLine();
-                System.out.println("Ievadiet treniņa aprakstu: ");
+                System.out.println("Ievadiet trenina aprakstu: ");
                 String treninaApraksts = scanner.nextLine();
-                System.out.println("Ievadiet brīvo vietu skaitu:");
+                System.out.println("Ievadiet brivo vietu skaitu:");
                 String brivoVietuSkaits = scanner.nextLine();
                 int newID = getIDtreninam() + 1;
 
-                String treninaData = newID + "," + treninaNosaukums + "," + sportaVeids + "," + grutibasPakape + "," + muskuluGrupa + "," + treninaDatums + "," + treninaIlgums + ","
-                                + treninaApraksts + "," + brivoVietuSkaits;
+                String treninaData = newID + "Treniņa nosaukums: "  + treninaNosaukums + "\n" + "Sporta veids: " + sportaVeids + "\n" + "Grūtības pakāpe: " + grutibasPakape + "\n" + "Muskulu grupa: " + muskuluGrupa + "\n" + "Trenina datums: " + treninaDatums + "\n" + "Trenina ilgums: " + treninaIlgums + "\n" + "Trenina apraksts: " + treninaApraksts + "\n" + "Brivas vietas: " + brivoVietuSkaits;
                 treninuList.add(treninaData);
 
                 updateFileTrenini();
@@ -98,12 +97,12 @@ atgriež void */
                 System.out.println("Ievadiet sporta veidu: ");
                 String Sport = scanner.nextLine(). trim(). toLowerCase();
 
-                System.out.println("Ievadiet grūtības pakāpi: ");
+                System.out.println("Ievadiet grutibas pakapi: ");
                 String Difficulty = scanner.nextLine(). trim(). toLowerCase();
 
                 boolean found = false;
 
-                        System.out.println("-----ATRASTIE TRENIŅI-----");
+                        System.out.println("-----ATRASTIE TRENINI-----");
 
                 for (String line: treninuList) {
                         
@@ -119,7 +118,7 @@ atgriež void */
                         }
                               }
                 if (!found) {
-                System.out.println("Treniņš un/vai grūtības pakāpe netika atrasta.");
+                System.out.println("Trenins un/vai grutibas pakape netika atrasta.");
                         }
                 scanner.close();
                 }
@@ -127,10 +126,10 @@ atgriež void */
                 /*---------------------TRENIŅU PLĀNU IZVADE---------------------- */
 
                 public static void paradaTreninuPlanus() {  //*parāda visus treniņus *// 
-                        System.out.println("-----PIEEJAMIE TRENIŅU PLĀNI-----");
+                        System.out.println("-----PIEEJAMIE TRENINU PLANI-----");
 
                         if (treninuList.isEmpty()) {
-                                System.out.println("Nav pievienots neviens treniņu plāns!");
+                                System.out.println("Nav pievienots neviens treninu plans!");
                                 return;
                         }
 
@@ -140,12 +139,12 @@ atgriež void */
                                 System.out.println("ID: " + parts[0]);
                                 System.out.println("Nosaukums: " + parts[1]);
                                 System.out.println("Sporta veids: " + parts[2]);
-                                System.out.println("Grūtības pakāpe: " + parts[3]);
-                                System.out.println("Muskuļu grupa: " + parts[4]);
+                                System.out.println("Grutibas pakape: " + parts[3]);
+                                System.out.println("Muskulu grupa: " + parts[4]);
                                 System.out.println("Datums: " + parts[5]);
                                 System.out.println("Ilgums: " + parts[6]);
                                 System.out.println("Apraksts: " + parts[7]);
-                                System.out.println("Brīvās vietas: " + parts[8]);
+                                System.out.println("Brivas vietas: " + parts[8]);
 
                         
                                 System.out.println("-----------------------------");
@@ -171,7 +170,7 @@ atgriež void */
 
                 public static void paradaPieteikusosTreninus () {
 
-                        System.out.println("-----TU ESI PIETEICIES ŠAJOS TRENIŅOS!-----");
+                        System.out.println("-----TU ESI PIETEICIES SAJOS TRENINOS!-----");
 
                         boolean found = false;
 
@@ -187,7 +186,7 @@ atgriež void */
                         }
 
                         if (!found) {
-                                System.out.println("Tu neesi pieteicies nevienam treniņam!"); }
+                                System.out.println("Tu neesi pieteicies nevienam treninam!"); }
                         }
 
 
@@ -228,7 +227,7 @@ atgriež void */
                 public static void pieteiktiesTreninam (String userID, int treninaID, boolean isTreneris) {
 
                         if (isTreneris) {
-                                System.out.println("Treneri nevar pieteikties treniņiem!");
+                                System.out.println("Treneri nevar pieteikties treniniem!");
                                 return;
                         }
 
@@ -251,7 +250,7 @@ atgriež void */
                 }
 
                         if (parbaudaVaiTreninsPilns(treninaData)) {
-                                System.out.println("Šis treniņš ir pilns. Izvēlieties citu treniņu.");
+                                System.out.println("'Sis trenins ir pilns. Izvelieties citu treniņu.");
                                 return;
                         }
 
@@ -260,7 +259,7 @@ atgriež void */
                         updatePieteikumiFailu();
 
                         updateBrivasVietas(treninaID);
-                        System.out.println("Tu esi veiksmīgi pieteicies treniņam ar ID " + treninaID + ".");
+                        System.out.println("Tu esi veiksmigi pieteicies treninam ar ID " + treninaID + ".");
                 }
 
                 /*---------------------PIETEIKUMU FAILA (CSV) SAGLABĀŠANA---------------------- */
@@ -281,7 +280,7 @@ atgriež void */
 
                                 writer.close();
                         } catch (IOException e) {
-                                System.out.println("Radās kļūda rakstot pieteikum failā: " + e.getMessage());
+                                System.out.println("Radas kluda rakstot pieteikum faila: " + e.getMessage());
                 }
         }
 
@@ -291,7 +290,7 @@ atgriež void */
 
                         if(!isTreneris) {
 
-                                System.out.println("Tikai treneri var dzēst treniņu plānus!.");
+                                System.out.println("Tikai treneri var dzest treninu planus!.");
                                 return; 
                         }
 
@@ -304,14 +303,14 @@ atgriež void */
                                 if (id == treninaID) {
                                         treninuList.remove(i);
                                         updateFileTrenini();
-                                        System.out.println("Treniņu plāns ar ID " + treninaID + " ir dzēsts.");
+                                        System.out.println("Treninu plans ar ID " + treninaID + " ir dzests.");
                                         found = true;
                                         break;
                                 }
                         }
 
                         if (!found) {
-                                System.out.println("Treniņu plāns ar ID " + treninaID + " netika atrasts.");
+                                System.out.println("Treninu plans ar ID " + treninaID + " netika atrasts.");
 
                         }
                 }
@@ -322,7 +321,7 @@ atgriež void */
 
                                 for (String field : fields) {
                                         if (field == null || field.trim().isEmpty()) {
-                                                System.out.println("Visiem laukiem jābūt aizpildītiem!");
+                                                System.out.println("Visiem laukiem jabut aizpilditiem!");
                                                 return false;
                                         }
                                 }
