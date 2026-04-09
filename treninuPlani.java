@@ -15,7 +15,7 @@ public class treninuPlani {
 atgriež void */
                 Scanner scanner = new Scanner(System.in);
 
-                System.out.println("Ievadiet treniņa nosaukumu:");
+                System.out.println("Ievadiet trenina nosaukumu:");
                 String treninaNosaukums = scanner.nextLine();
                 System.out.println("Ievadiet sporta veidu(klinsu kapsana, kalistenika):");
                 String sportaVeids = scanner.nextLine();
@@ -33,7 +33,7 @@ atgriež void */
                 String brivoVietuSkaits = scanner.nextLine();
                 int newID = getIDtreninam() + 1;
 
-                String treninaData = newID+ ". " + "Treniņa nosaukums: "  + treninaNosaukums + "\n" + "Sporta veids: " + sportaVeids + "\n" + "Grūtības pakāpe: " + grutibasPakape + "\n" + "Muskulu grupa: " + muskuluGrupa + "\n" + "Trenina datums: " + treninaDatums + "\n" + "Trenina ilgums: " + treninaIlgums + "\n" + "Trenina apraksts: " + treninaApraksts + "\n" + "Brivas vietas: " + brivoVietuSkaits;
+                String treninaData = newID+ ". " + "Trenina nosaukums: "  + treninaNosaukums + "\n" + "Sporta veids: " + sportaVeids + "\n" + "Grūtības pakāpe: " + grutibasPakape + "\n" + "Muskulu grupa: " + muskuluGrupa + "\n" + "Trenina datums: " + treninaDatums + "\n" + "Trenina ilgums: " + treninaIlgums + "\n" + "Trenina apraksts: " + treninaApraksts + "\n" + "Brivas vietas: " + brivoVietuSkaits;
                 treninuList.add(treninaData);
 
                 updateFileTrenini();
