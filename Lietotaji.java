@@ -43,10 +43,6 @@ public class Lietotaji {
         }
 
         String lastLine = klientuList.get(klientuList.size() - 1);
-<<<<<<< HEAD
-        String[] idPart = lastLine.split("\\. ");
-        return Integer.parseInt(idPart[0]);
-=======
         String[] parts = lastLine.split(",");
         String idPart = parts[0].split("\\.")[0].trim();
         try {
@@ -54,7 +50,6 @@ public class Lietotaji {
         } catch (NumberFormatException e) {
             return 0;
         }
->>>>>>> 71872e3 (Izveidotas 11 funkcijas)
     }
 
     private static void updateFileKlietn() {
@@ -92,18 +87,8 @@ public class Lietotaji {
             }
         }
 
-<<<<<<< HEAD
         if (!found) {
             System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
-=======
-            writer.close();
-        } catch (IOException e) {
-            System.out.println(
-                "An error occurred while writing the file: "
-                + e.getMessage());
-
-                updateFileKlietn();
->>>>>>> 71872e3 (Izveidotas 11 funkcijas)
         }
     }
 
@@ -224,20 +209,21 @@ public static void klientuPieslegsanas() {
 
         for (String klients : klientuList) {
             String[] klientInfo = klients.split(",");
-            if (klientInfo[2].equals(ievaditaisEpasts)) { 
+            if (klientInfo[2].equals(ievaditaisEpasts)) {
                 found = true;
+                currentUserEmail = ievaditaisEpasts;
                 System.out.println();
-                System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + klientInfo[1] + "!"); 
+                System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + klientInfo[1] + "!");
                 System.out.println();
                 break;
             }
         }
 
-            if (!found) {
-                System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
-                klientuPieslegsanas(); 
-            }
+        if (!found) {
+            System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
+            klientuPieslegsanas();
         }
+    }
     
         public static double getCurrentUserBalance(){
             if(currentUserEmail == null) {
@@ -267,7 +253,15 @@ public static void klientuPieslegsanas() {
             }
         }
     }
+
+    public static String getCurrentUserEmail() {
+        return currentUserEmail;
     }
+
+    public static ArrayList<String> klientuList() {
+        return klientuList;
+    }
+}
 
 
 
