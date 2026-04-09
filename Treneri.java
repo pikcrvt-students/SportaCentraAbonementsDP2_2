@@ -26,7 +26,7 @@ public class Treneri {
 
         int newID = getIDtreneri() + 1;
 
-        String trenerData = newID + "." + treneraVards + ", " + treneraUzvards + ", " + treneraEpasts + ", " + treneraTelefons + ", " + treneraPkods + ", " + treneraSpecializacija;
+        String trenerData = newID + ". " + treneraVards + ", " + treneraUzvards + ", " + treneraEpasts + ", " + treneraTelefons + ", " + treneraPkods + ", " + treneraSpecializacija;
         treneruList.add(trenerData);
 
        updateFileTrener();
