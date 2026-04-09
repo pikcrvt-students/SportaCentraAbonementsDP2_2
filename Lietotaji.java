@@ -41,18 +41,8 @@ public class Lietotaji {
         }
 
         String lastLine = klientuList.get(klientuList.size() - 1);
-<<<<<<< HEAD
-        String[] parts = lastLine.split(",");
-        String idPart = parts[0].split("\\.")[0].trim();
-        try {
-            return Integer.parseInt(idPart);
-        } catch (NumberFormatException e) {
-            return 0;
-        }
-=======
         String[] idPart = lastLine.split("\\. ");
         return Integer.parseInt(idPart[0]);
->>>>>>> fe6682f86e4fce9ea2f494e01818a12e472ad39c
     }
 
     private static void updateFileKlietn() {
@@ -272,25 +262,21 @@ public static void klientuPieslegsanas() {
 
         for (String klients : klientuList) {
             String[] klientInfo = klients.split(",");
-            if (klientInfo[2].equals(ievaditaisEpasts)) {
+            if (klientInfo[2].equals(ievaditaisEpasts)) { 
                 found = true;
-<<<<<<< HEAD
-                currentUserEmail = ievaditaisEpasts;
-=======
                 currentUserEmail = ievaditaisEpasts;  // Set the current user email
->>>>>>> fe6682f86e4fce9ea2f494e01818a12e472ad39c
                 System.out.println();
-                System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + klientInfo[1] + "!");
+                System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + klientInfo[1] + "!"); 
                 System.out.println();
                 break;
             }
         }
 
-        if (!found) {
-            System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
-            klientuPieslegsanas();
+            if (!found) {
+                System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
+                klientuPieslegsanas(); 
+            }
         }
-    }
     
         public static double getCurrentUserBalance(){
             if(currentUserEmail == null) {
@@ -322,17 +308,6 @@ public static void klientuPieslegsanas() {
     }
 
     public static String getCurrentUserEmail() {
-<<<<<<< HEAD
-        return currentUserEmail;
-    }
-
-    public static ArrayList<String> klientuList() {
-        return klientuList;
-    }
-}
-
-
-=======
         return currentUserEmail; 
     }
 
@@ -341,7 +316,6 @@ public static void klientuPieslegsanas() {
     }
 
 }
->>>>>>> fe6682f86e4fce9ea2f494e01818a12e472ad39c
 
 
 

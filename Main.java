@@ -13,10 +13,6 @@ public class Main {
         System.out.println("2. Pieslegasanas");
         System.out.println("3. Iziet");
         System.out.println();
-<<<<<<< HEAD
-        System.out.println("Izveleties darbibu:");
-=======
->>>>>>> fe6682f86e4fce9ea2f494e01818a12e472ad39c
 
         int regIzvele = scanner.nextInt();
 
@@ -28,6 +24,7 @@ public class Main {
                 System.out.println("2. Treneris");
 
                 int lietIzvele = scanner.nextInt();
+
                 switch (lietIzvele) {
                     case 1:
                         Lietotaji.klientuRegistresana();
@@ -35,9 +32,6 @@ public class Main {
                     case 2:
                         isTrainer = true;
                         Treneri.treneruRegistresana();
-                        break;
-                    default:
-                        System.out.println("Nepareiza izvele.");
                         break;
                 }
                 break;
@@ -48,6 +42,7 @@ public class Main {
                 System.out.println("2. Treneris");
 
                 int pieslegIzvele = scanner.nextInt();
+
                 switch (pieslegIzvele) {
                     case 1:
                         Lietotaji.loadKlientiFromFile();
@@ -58,24 +53,15 @@ public class Main {
                         Treneri.loadTreneriFromFile();
                         Treneri.treneruPieslegsanas();
                         break;
-                    default:
-                        System.out.println("Nepareiza izvele.");
-                        break;
                 }
                 break;
-<<<<<<< HEAD
-=======
 
->>>>>>> fe6682f86e4fce9ea2f494e01818a12e472ad39c
             case 3:
                 System.out.println("Uz redzēšanos!");
                 break;
-            default:
-                System.out.println("Nederiga izvele.");
-                break;
         }
 
-        return regIzvele;
+        return regIzvele; 
     }
 
     public static void klientaIzvelne(String[] args) {
@@ -299,141 +285,15 @@ public class Main {
     }
 
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
         int pieslegIzvele = Registresana();
 
-<<<<<<< HEAD
-        if (regIzvele == 1) {
-            System.out.println("IZVELNE:");
-            System.out.println("1. Mans konts");
-            System.out.println("2. Izveleties treneri");
-            System.out.println("3. Izveleties abonementu");
-            System.out.println("4. Iemaksat naudu konta");
-            System.out.println("5. Iziet");
-            System.out.println();
-            System.out.println("Izveleties darbibu:");
-
-            int mainklientIzvele = scanner.nextInt();
-
-            switch (mainklientIzvele) {
-                case 1:
-                    Lietotaji.mansKonts();
-                    System.out.println("Atpakal?");
-                    System.out.println("1. Ja");
-                    System.out.println("2. Ne");
-                    int atpakalIzvele = scanner.nextInt();
-                    switch (atpakalIzvele) {
-                        case 1:
-                            main(args);
-                            break;
-                        case 2:
-                            System.out.println("Uz redzesanos!");
-                            break;
-                    }
-                    break;
-                case 2:
-                    Treneri.izveletiesTreneri();
-                    System.out.println("1. Jā");
-                    System.out.println("2. Nē");
-                    int atpakalIzvele2 = scanner.nextInt();
-                    switch (atpakalIzvele2) {
-                        case 1:
-                            main(args);
-                            break;
-                        case 2:
-                            System.out.println("Uz redzesanos!");
-                            break;
-                    }
-                    break;
-                case 3:
-                    Abonements.abonementuIzvele();
-                    System.out.println("Gribat atgriezties?");
-                    System.out.println();
-                    System.out.println("1. Ja");
-                    System.out.println("2. Ne");
-                    int atpakalIzvele3 = scanner.nextInt();
-                    switch (atpakalIzvele3) {
-                        case 1:
-                            main(args);
-                            break;
-                        case 2:
-                            System.out.println("Uz redzesanos!");
-                            break;
-                    }
-                    break;
-                case 4:
-                    Lietotaji.naudasIemaksa();
-                    System.out.println("Atpakal?");
-                    System.out.println("1. Ja");
-                    System.out.println("2. Ne");
-                    int atpakalIzvele5 = scanner.nextInt();
-                    switch (atpakalIzvele5) {
-                        case 1:
-                            main(args);
-                            break;
-                        case 2:
-                            System.out.println("Uz redzesanos!");
-                            break;
-                    }
-                    break;
-                case 5:
-                    System.out.println("Uz redzesanos!");
-                    break;
-                default:
-                    System.out.println("Nederiga izvele.");
-                    break;
-            }
-        } else if (regIzvele == 2) {
-            System.out.println("IZVELNE:");
-            System.out.println("1. Mans konts");
-            System.out.println("2. Pievienot treninu planu");
-            System.out.println("3. Apskatit treneru sarakstu");
-            System.out.println("4. Rediget savu profilu");
-            System.out.println("5. Iziet");
-            System.out.println();
-            System.out.println("Izveleties darbibu:");
-
-            int maintrenIzvele = scanner.nextInt();
-
-            switch (maintrenIzvele) {
-                case 1:
-                    Lietotaji.mansKonts();
-                    System.out.println("Atpakal?");
-                    System.out.println("1. Ja");
-                    System.out.println("2. Ne");
-                    int atpakalIzvele = scanner.nextInt();
-                    switch (atpakalIzvele) {
-                        case 1:
-                            main(args);
-                            break;
-                        case 2:
-                            System.out.println("Uz redzesanos!");
-                            break;
-                    }
-                    break;
-                case 2:
-                    treninuPlani.treninuPlanaIevade();
-                    break;
-                case 3:
-                    // treninuPlani.apskatitTreneruSarakstu();
-                    break;
-                case 4:
-                    Treneri.redigetTerneraprofilaDatus();
-                    break;
-                case 5:
-                    System.out.println("Uz redzesanos!");
-                    break;
-                default:
-                    System.out.println("Nederiga izvele.");
-                    break;
-            }
-=======
         if (!isTrainer) {
             klientaIzvelne(args);
         } else {
             treneraIzvelne(args);
->>>>>>> fe6682f86e4fce9ea2f494e01818a12e472ad39c
         }
     }
 }
