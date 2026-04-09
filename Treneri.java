@@ -26,7 +26,7 @@ public class Treneri {
 
         int newID = getIDtreneri() + 1;
 
-        String trenerData = newID + ". " + treneraVards + ", " + treneraUzvards + ", " + treneraEpasts + ", " + treneraTelefons + ", " + treneraPkods + ", " + treneraSpecializacija;
+        String trenerData = newID + "." + treneraVards + ", " + treneraUzvards + ", " + treneraEpasts + ", " + treneraTelefons + ", " + treneraPkods + ", " + treneraSpecializacija;
         treneruList.add(trenerData);
 
        updateFileTrener();
@@ -34,16 +34,14 @@ public class Treneri {
     }
 
     public static int getIDtreneri() {
-
         if (treneruList.isEmpty()) {
             return 0;
         }
 
         String lastLine = treneruList.get(treneruList.size() - 1);
-
         String[] idPart = lastLine.split("\\. ");
-
         return Integer.parseInt(idPart[0]);
+    
     }
 
     public static ArrayList<String> getTreneruList() {
@@ -100,12 +98,21 @@ public class Treneri {
                 String jaunsVards = scanner.nextLine();
                 System.out.println("Ievadiet jaunu uzvardu:");
                 String jaunsUzvards = scanner.nextLine();
+                System.out.println("Ievadiet jaunu e-pastu:");
+                String jaunsEpasts = scanner.nextLine();
                 System.out.println("Ievadiet jaunu telefona numuru:");
                 String jaunsTelefons = scanner.nextLine();
+                System.out.println("Ievadiet jaunu personas kodu:");
+                String jaunsPkods = scanner.nextLine();
+                System.out.println("Ievadiet jaunu specializaciju:");
+                String jaunsSpecializacija = scanner.nextLine();
 
                 trenerInfo[0] = jaunsVards;
                 trenerInfo[1] = jaunsUzvards;
+                trenerInfo[2] = jaunsEpasts;
                 trenerInfo[3] = jaunsTelefons;
+                trenerInfo[4] = jaunsPkods;
+                trenerInfo[5] = jaunsSpecializacija; 
 
                 treneruList.set(i, String.join(", ", trenerInfo));
 
@@ -135,7 +142,7 @@ public class Treneri {
                 found = true;
 
                 System.out.println();
-                System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + trenerInfo[1] + "!"); 
+                System.out.println("Pieslegsanas veiksmiga! Laipni ludzam," + trenerInfo[1] + "!"); 
                 System.out.println();
 
                 break;
@@ -150,7 +157,7 @@ public class Treneri {
 }
 
 public static void loadTreneriFromFile() {
-    
+
         try (BufferedReader reader = new BufferedReader(new FileReader(filePathforTreneri))) {
             String line;
             
