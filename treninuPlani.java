@@ -228,7 +228,7 @@ public class treninuPlani {
                         }
 
                         if (!found) {
-                                System.out.println("Tu neesi pieteicies nevienam treniņam!"); }
+                                System.out.println("Tu neesi pieteicies nevienam treniņam!"); } }
                         }
 
 
@@ -297,8 +297,6 @@ public class treninuPlani {
                                         break;
                                 }
                         }
-                        
-                }
 
                 if ( treninaData == null ) {
 
@@ -318,9 +316,11 @@ public class treninuPlani {
                 
                 updatePieteikumiFailu();
 
-                        updateBrivasVietas(treninaID);
-                        System.out.println("Tu esi veiksmīgi pieteicies treniņam ar ID " + treninaID + ".");
-                }
+                updateBrivasVietas(treninaID);
+
+                System.out.println("Tu esi veiksmīgi pieteicies treniņam ar ID " + treninaID + ".");
+                
+        }
 
                 /*---------------------PIETEIKUMU FAILA (CSV) SAGLABĀŠANA---------------------- */
 
@@ -381,8 +381,10 @@ public class treninuPlani {
                         if (!found) {
                                 System.out.println("Treniņu plāns ar ID " + treninaID + " netika atrasts.");
 
-                        }
+                        } 
                 }
+                
+        }
 
                 /*------------------TRENIŅA PLĀNA VALIDĀCIJA (TUKŠU LAUKU PĀRBAUDE UN RAKSTZĪMJU IEROBEŽOJUMI)------------------------ */
 
