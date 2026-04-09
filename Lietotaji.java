@@ -98,7 +98,7 @@ public class Lietotaji {
         String[] result = new String[6];
         System.arraycopy(trimmed, 0, result, 0, 6);
         if (result[4].isEmpty()) {
-            result[4] = "abonements";
+            result[4] = "abonementa nav";
         }
         if (result[5].isEmpty()) {
             result[5] = "0.0";
@@ -264,6 +264,7 @@ public static void klientuPieslegsanas() {
             String[] klientInfo = klients.split(",");
             if (klientInfo[2].equals(ievaditaisEpasts)) { 
                 found = true;
+                currentUserEmail = ievaditaisEpasts;  // Set the current user email
                 System.out.println();
                 System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + klientInfo[1] + "!"); 
                 System.out.println();
