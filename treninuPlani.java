@@ -58,20 +58,20 @@ public class treninuPlani {
                         return 0;
                 }
 
-                String lastLine = treninuList.get( treninuList.size() - 1 );
+                String lastLine = treninuList.get( treninuList.size() - 1 );  /* no treninuList iegūst pēdējo elementu */
 
                 String[] parts = lastLine.split( ", " );
 
                 String idPart = parts[0].trim();
 
-                if ( idPart.endsWith( ". " )) {
+                if ( idPart.endsWith( ". " )) { /* pārbauda vai idPart beidzas ar punktu un atstarpēm */
 
-                        idPart = idPart.substring( 0, idPart.length() - 1 ).trim();
+                        idPart = idPart.substring( 0, idPart.length() - 1 ).trim(); /* ja beidzas, tad noņem punktu un atstarpes */
                 }
 
                 try {
 
-                        return Integer.parseInt( idPart );
+                        return Integer.parseInt( idPart ); /* pārvērš idPart par int un atgriež to */
 
                 } catch ( NumberFormatException e ) {
 
@@ -84,15 +84,15 @@ public class treninuPlani {
         public static void updateFileTrenini() { /* funkcija updateFileTrenini pieņem string tipa vērtību id, treninaNosaukums, sportaVeids, grutibasPakape, muskuluGrupa, treninaDatums, treninaIlgums, treninaApraksts, brivoVietuSkaits un atgriež void */
                 
                 try {
-                        BufferedWriter writer = new BufferedWriter( new FileWriter ( filepathforTrenini ) );
+                        BufferedWriter writer = new BufferedWriter( new FileWriter ( filepathforTrenini ) ); /* Izveido bufferēto rakstītāju */
 
-                        writer.write( "id, treninaNosaukums, sportaVeids, grutibasPakape, muskuluGrupa, treninaDatums, treninaIlgums, treninaApraksts, brivoVietuSkaits" );
+                        writer.write( "id, treninaNosaukums, sportaVeids, grutibasPakape, muskuluGrupa, treninaDatums, treninaIlgums, treninaApraksts, brivoVietuSkaits" ); /* ieraksta kolonu nosaukumus CSV failā */
                         
-                        writer.newLine();
+                        writer.newLine(); /* pāriet jaunā rindā */
 
-                        for ( String trenina : treninuList ) {
+                        for ( String trenina : treninuList ) { /* Sākas cikls, kas iet caur visiem treniņu ierakstiem */
                                 
-                                writer.write( trenina );
+                                writer.write( trenina ); /* ieraksta katra treniņa datus CSV failā */
                                 
                                 writer.newLine();
                         }
@@ -114,7 +114,7 @@ public class treninuPlani {
                 Scanner scanner = new Scanner( System.in );
 
                 System.out.println( "Ievadiet sporta veidu: " );
-                String Sport = scanner.nextLine(). trim(). toLowerCase();
+                String Sport = scanner.nextLine(). trim(). toLowerCase(); /* nolasa ievadīto sporta veidu un noņem atstarpes un lielos burtus, lai precīzāk salīdzinātu */
 
                 System.out.println( "Ievadiet grūtības pakāpi: " );
                 String Difficulty = scanner.nextLine(). trim(). toLowerCase();
@@ -123,19 +123,19 @@ public class treninuPlani {
 
                 System.out.println( "-----ATRASTIE TRENIŅI-----" );
 
-                for ( String line: treninuList ) {
+                for ( String line: treninuList ) { /* iet cauri katrai treniņu rindai sarakstā */
                         
                         String[] parts = line.split( ", " );
 
-                        if  (parts.length < 9 ) continue;
+                        if  (parts.length < 9 ) continue; /* drošības pārbaude - pārbauda, vai rinda satur visus nepieciešamos laukus */
 
-                        String sportaVeids = parts[2].trim().toLowerCase();
+                        String sportaVeids = parts[2].trim().toLowerCase(); /* no rindas paņem sporta veidu un noņem atstarpes un lielos burtus */
 
-                        String grutibasPakape = parts[3].trim().toLowerCase();
+                        String grutibasPakape = parts[3].trim().toLowerCase(); /* no rindas paņem grūtības pakāpi un noņem atstarpes un lielos burtus */
 
-                        if ( sportaVeids.equals( Sport ) && grutibasPakape.equals( Difficulty ) ) {
+                        if ( sportaVeids.equals( Sport ) && grutibasPakape.equals( Difficulty ) ) { /* pārbauda vai lauki sakrīt ar lietotāja ievadi */
                                 
-                                System.out.println( line );
+                                System.out.println( line ); /* ja sakrīt izvada visu treniņa rindu */
                                 
                                 found = true;
 
@@ -202,10 +202,10 @@ public class treninuPlani {
                                 
                         String[] parts = pieteikums.split( ", " );
                                 
-                        if ( parts.length < 2 ) continue;
+                        if ( parts.length < 2 ) continue; /* drošības pārbaude - pārbauda, vai rinda satur visus nepieciešamos laukus */
 
                                 
-                        int id = Integer.parseInt( parts[1].trim() );
+                        int id = Integer.parseInt( parts[1].trim() ); /* no pieteikuma rindas paņem treninaID un pārvērš to par int */
                                 
                         if ( id == treninaID ) {
                                         
@@ -230,10 +230,16 @@ public class treninuPlani {
                 for ( String line : treninuList ) {
                                 
                         String[] parts = line.split( ", " );
-                
-                        int treninaID = Integer.parseInt( parts[0].trim() );
 
-                        if ( isUserPieteiciesTreninam( treninaID ) ) {
+                        int brivasVietas = Integer.parseInt( parts[8].trim() ); /* no rindas paņem brīvo vietu skaitu un pārvērš to par int */
+
+                        System.out.println( line );
+
+                        System.out.println( "Brīvās vietas: " + brivasVietas ); /* parāda brīvo vietu skaitu  lietotājam */
+                
+                        int treninaID = Integer.parseInt( parts[0].trim() ); /* no rindas paņem treninaID un pārvērš to par int */
+
+                        if ( isUserPieteiciesTreninam( treninaID ) ) { /* pārbauda, vai lietotājs ir pieteicies treniņam */
                                         
                                 System.out.println( line );
                                         
@@ -255,11 +261,11 @@ public class treninuPlani {
 
         public static boolean parbaudaVaiTreninsPilns( String treninaData ) { /* funkcija parbaudaVaiTreninsPilns pieņem string tipa vērtību treninaData un atgriež boolean */
                                 
-                String[] parts = treninaData.split( ", " );
+                String[] parts = treninaData.split( ", " ); /* sadala treniņu masīvos un atdala katru elementu ar komatu */
                                 
-                int brivasVietas = Integer.parseInt( parts[8].trim() );
+                int brivasVietas = Integer.parseInt( parts[8].trim() ); /* no masīva paņem brīvo vietu skaitu un pārvērš to par int */
                                 
-                return brivasVietas <= 0;
+                return brivasVietas <= 0;  /* pārbauda vai brīvo vietu skaits ir mazāks vai vienāds ar 0, ja jā, tad treniņš ir pilns */
                         
         }
 
@@ -271,20 +277,19 @@ public class treninuPlani {
                                         
                         String[] parts = treninuList.get(i).split( ", " );
                                         
-                        int id = Integer.parseInt( parts[0].trim() );
+                        int id = Integer.parseInt( parts[0].trim() ); /* no rindas paņem treninaID un pārvērš to par int */
 
-                if (id == treninaID) {
+                if (id == treninaID) { /* pārbauda vai šis ir pareizais treniņš, kuram jasamazina  brīvās vietas */
 
-                        int brivasVietas = Integer.parseInt( parts[8].trim() );
+                        int brivasVietas = Integer.parseInt( parts[8].trim() ); /* no masīva paņem brīvo vietu skaitu un pārvērš to par int */
                                                 
-                        brivasVietas--;
+                        brivasVietas--; /* samazina brīvās vietas par 1 */
                                                 
-                        parts[8] = String.valueOf( brivasVietas );
-
+                        parts[8] = String.valueOf( brivasVietas ); /* atjauno brīvo vietu skaitu */
+                 
+                        String updatedTreninaData = String.join( ", ", parts ); /* savieno kopā ar csv failu */
                                                 
-                        String updatedTreninaData = String.join( ", ", parts );
-                                                
-                        treninuList.set( i, updatedTreninaData );
+                        treninuList.set( i, updatedTreninaData ); /* aizstāv vecos treniņa datus ar jaunajiem */
                                                 
                         updateFileTrenini();
                                                 
@@ -308,15 +313,15 @@ public class treninuPlani {
                         
                 }
 
-                String treninaData = null;
+                String treninaData = null; /* Izveido mainīgo, kurā saglabās atrastos treniņa datus */
 
-                for ( String line : treninuList ) {
+                for ( String line : treninuList ) { /* pārbauda katru treniņa rindu */
                                 
                         String[] parts = line.split( ", " );
                                 
-                        int id = Integer.parseInt( parts[0].trim() );
+                        int id = Integer.parseInt( parts[0].trim() ); /* no rindas paņem treninaID un pārvērš to par int */
 
-                if ( id == treninaID ) {
+                if ( id == treninaID ) { /* pārbauda vai šis ir pareizais treniņš, kuru izvēlējās lietotājs */
                                         
                         treninaData = line;
                                         
@@ -333,7 +338,7 @@ public class treninuPlani {
                         return;
                 }
 
-                if ( parbaudaVaiTreninsPilns( treninaData ) ) {
+                if ( parbaudaVaiTreninsPilns( treninaData ) ) { /* pārbauda vai treniņš ir pilns, ja jā, tad neļauj lietotājam pieteikties un izvada paziņojumu */
                                 
                         System.out.println( "Šis treniņš ir pilns. Izvēlieties citu treniņu." );
                                 
@@ -341,13 +346,13 @@ public class treninuPlani {
                         
                 }
 
-                String pieteikums = userID + "," + treninaID;
+                String pieteikums = userID + "," + treninaID; /* izveido pieteikuma rindu csv failā */
                 
                 pieteikumi.add( pieteikums );
                 
                 updatePieteikumiFailu();
 
-                updateBrivasVietas( treninaID );
+                updateBrivasVietas( treninaID ); /* atjauno brīvo vietu skaitu treniņā */
                         
                 System.out.println( "Tu esi veiksmīgi pieteicies treniņam ar ID " + treninaID + "." );
                 
@@ -355,7 +360,7 @@ public class treninuPlani {
 
                 /*---------------------PIETEIKUMU FAILA (CSV) SAGLABĀŠANA---------------------- */
 
-        public static void updatePieteikumiFailu() { /* funkcija updatePieteikumiFailu atgriež void */
+        public static void updatePieteikumiFailu() { /* funkcija updatePieteikumiFailu atgriež void */ /* pārraksta pieteikumu failu ar jaunāko informāciju */
 
                 try {
 
