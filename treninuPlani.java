@@ -17,11 +17,9 @@ public class treninuPlani {
 
                 System.out.println( "Ievadiet treniņa nosaukumu: " );
                 String treninaNosaukums = scanner.nextLine();
-
-                System.out.println( "Ievadiet sporta veidu(klinšu kāpšana, kalistēnika):"  );
+                System.out.println("Ievadiet sporta veidu(klinšu kāpšana, kalistēnika):");
                 String sportaVeids = scanner.nextLine();
-
-                System.out.println( "Ievadiet grūtības pakāpi(viegls, vidējs, grūts): " );
+                System.out.println("Ievadiet grūtības pakāpi(viegls, vidējs, grūts):");
                 String grutibasPakape = scanner.nextLine();
 
                 System.out.println( "Ievadiet muskuļu grupu: " );
@@ -29,21 +27,18 @@ public class treninuPlani {
 
                 System.out.println( "Ievadiet treniņa datumu: " );
                 String treninaDatums = scanner.nextLine();
-
-                System.out.println( "Ievadiet treniņa ilgumu: " );
+                System.out.println("Ievadiet treniņa ilgumu:");
                 String treninaIlgums = scanner.nextLine();
-
-                System.out.println( "Ievadiet treniņa aprakstu: " );
+                System.out.println("Ievadiet treniņa aprakstu: ");
                 String treninaApraksts = scanner.nextLine();
-
-                System.out.println( "Ievadiet brīvo vietu skaitu: " );
+                System.out.println("Ievadiet brīvo vietu skaitu:");
                 String brivoVietuSkaits = scanner.nextLine();
                 
                 int newID = getIDtreninam() + 1;
 
-                String treninaData = newID + ", " + treninaNosaukums + ", " + sportaVeids + ", " + grutibasPakape + ", " + muskuluGrupa + ", " + treninaDatums + ", " + treninaIlgums + ", " + treninaApraksts + ", " + brivoVietuSkaits;
-                
-                treninuList.add( treninaData );
+                String treninaData = newID + "," + treninaNosaukums + "," + sportaVeids + "," + grutibasPakape + "," + muskuluGrupa + "," + treninaDatums + "," + treninaIlgums + ","
+                                + treninaApraksts + "," + brivoVietuSkaits;
+                treninuList.add(treninaData);
 
                 updateFileTrenini();
 
@@ -116,12 +111,12 @@ public class treninuPlani {
                 System.out.println( "Ievadiet sporta veidu: " );
                 String Sport = scanner.nextLine(). trim(). toLowerCase(); /* nolasa ievadīto sporta veidu un noņem atstarpes un lielos burtus, lai precīzāk salīdzinātu */
 
-                System.out.println( "Ievadiet grūtības pakāpi: " );
+                System.out.println("Ievadiet grūtības pakāpi: ");
                 String Difficulty = scanner.nextLine(). trim(). toLowerCase();
 
                 boolean found = false;
 
-                System.out.println( "-----ATRASTIE TRENIŅI-----" );
+                        System.out.println("-----ATRASTIE TRENIŅI-----");
 
                 for ( String line: treninuList ) { /* iet cauri katrai treniņu rindai sarakstā */
                         
@@ -140,52 +135,37 @@ public class treninuPlani {
                                 found = true;
 
                         }
-                }
-
-                if ( !found ) {
-
-                        System.out.println( "Treniņš un/vai grūtības pakāpe netika atrasta." );
-                }
-
+                              }
+                if (!found) {
+                System.out.println("Treniņš un/vai grūtības pakāpe netika atrasta.");
+                        }
                 scanner.close();
 
         }
 
                 /*---------------------TRENIŅU PLĀNU IZVADE---------------------- */
 
-        public static void paradaTreninuPlanus() {  //*parāda visus treniņus *// funkcija paradaTreninuPlanus atgriež void */
-                        
-                System.out.println( "-----PIEEJAMIE TRENIŅU PLĀNI-----" );
+                public static void paradaTreninuPlanus() {  //*parāda visus treniņus *// 
+                        System.out.println("-----PIEEJAMIE TRENIŅU PLĀNI-----");
 
-                if ( treninuList.isEmpty() ) {
-                                
-                        System.out.println( "Nav pievienots neviens treniņu plāns!" );
-                        
-                        return;
-                        
-                }
+                        if (treninuList.isEmpty()) {
+                                System.out.println("Nav pievienots neviens treniņu plāns!");
+                                return;
+                        }
 
                 for (String line : treninuList) {
 
                         String[] parts = line.split( ", " );
 
-                        System.out.println( "ID: " + parts[0] );
-
-                        System.out.println( "Nosaukums: " + parts[1] );
-
-                        System.out.println( "Sporta veids: " + parts[2] );
-
-                        System.out.println( "Grūtības pakāpe: " + parts[3] );
-
-                        System.out.println( "Muskuļu grupa: " + parts[4] );
-
-                        System.out.println( "Datums: " + parts[5] );
-
-                        System.out.println( "Ilgums: " + parts[6] );
-
-                        System.out.println( "Apraksts: " + parts[7] );
-
-                        System.out.println( "Brīvās vietas: " + parts[8] );
+                                System.out.println("ID: " + parts[0]);
+                                System.out.println("Nosaukums: " + parts[1]);
+                                System.out.println("Sporta veids: " + parts[2]);
+                                System.out.println("Grūtības pakāpe: " + parts[3]);
+                                System.out.println("Muskuļu grupa: " + parts[4]);
+                                System.out.println("Datums: " + parts[5]);
+                                System.out.println("Ilgums: " + parts[6]);
+                                System.out.println("Apraksts: " + parts[7]);
+                                System.out.println("Brīvās vietas: " + parts[8]);
 
                         
                         System.out.println( "-----------------------------" );
@@ -223,7 +203,7 @@ public class treninuPlani {
 
         public static void paradaPieteikusosTreninus() {  /* funkcija paradaPieteikusosTreninus atgriež void */
 
-                System.out.println( "-----TU ESI PIETEICIES ŠAJOS TRENIŅOS!-----" );
+                        System.out.println("-----TU ESI PIETEICIES ŠAJOS TRENIŅOS!-----");
 
                 boolean found = false;
 
@@ -246,14 +226,10 @@ public class treninuPlani {
                                 found = true;
                                 
                         }
-                        
-                }
 
-                if ( !found ) {
-                                
-                        System.out.println( "Tu neesi pieteicies nevienam treniņam!" ); }
-                        
-        }
+                        if (!found) {
+                                System.out.println("Tu neesi pieteicies nevienam treniņam!"); }
+                        }
 
 
 
@@ -303,30 +279,23 @@ public class treninuPlani {
 
                  /*---------------------PIETEIKŠANĀS TRENIŅAM---------------------- */
 
-        public static void pieteiktiesTreninam ( String userID, int treninaID, boolean isTreneris ) {  /* funkcija pieteiktiesTreninam pieņem string tipa vērtību userID, int tipa vērtību treninaID un boolean tipa vērtību isTreneris un atgriež void */
+                public static void pieteiktiesTreninam (String userID, int treninaID, boolean isTreneris) {
 
-                if ( isTreneris ) {
-                                
-                        System.out.println( "Treneri nevar pieteikties treniņiem!" );
-                                
-                        return;
-                        
-                }
+                        if (isTreneris) {
+                                System.out.println("Treneri nevar pieteikties treniņiem!");
+                                return;
+                        }
 
-                String treninaData = null; /* Izveido mainīgo, kurā saglabās atrastos treniņa datus */
+                        String treninaData = null;
 
-                for ( String line : treninuList ) { /* pārbauda katru treniņa rindu */
-                                
-                        String[] parts = line.split( ", " );
-                                
-                        int id = Integer.parseInt( parts[0].trim() ); /* no rindas paņem treninaID un pārvērš to par int */
+                        for (String line : treninuList) {
+                                String[] parts = line.split(", ");
+                                int id = Integer.parseInt(parts[0].trim());
 
-                if ( id == treninaID ) { /* pārbauda vai šis ir pareizais treniņš, kuru izvēlējās lietotājs */
-                                        
-                        treninaData = line;
-                                        
-                        break;
-                                
+                                if (id == treninaID) {
+                                        treninaData = line;
+                                        break;
+                                }
                         }
                         
                 }
@@ -338,13 +307,10 @@ public class treninuPlani {
                         return;
                 }
 
-                if ( parbaudaVaiTreninsPilns( treninaData ) ) { /* pārbauda vai treniņš ir pilns, ja jā, tad neļauj lietotājam pieteikties un izvada paziņojumu */
-                                
-                        System.out.println( "Šis treniņš ir pilns. Izvēlieties citu treniņu." );
-                                
-                        return;
-                        
-                }
+                        if (parbaudaVaiTreninsPilns(treninaData)) {
+                                System.out.println("Šis treniņš ir pilns. Izvēlieties citu treniņu.");
+                                return;
+                        }
 
                 String pieteikums = userID + "," + treninaID; /* izveido pieteikuma rindu csv failā */
                 
@@ -352,11 +318,9 @@ public class treninuPlani {
                 
                 updatePieteikumiFailu();
 
-                updateBrivasVietas( treninaID ); /* atjauno brīvo vietu skaitu treniņā */
-                        
-                System.out.println( "Tu esi veiksmīgi pieteicies treniņam ar ID " + treninaID + "." );
-                
-        }
+                        updateBrivasVietas(treninaID);
+                        System.out.println("Tu esi veiksmīgi pieteicies treniņam ar ID " + treninaID + ".");
+                }
 
                 /*---------------------PIETEIKUMU FAILA (CSV) SAGLABĀŠANA---------------------- */
 
@@ -378,12 +342,9 @@ public class treninuPlani {
                                 
                         }
 
-                writer.close();
-                
-                } catch ( IOException e ) {
-                                
-                        System.out.println( "Radās kļūda rakstot pieteikum failā: " + e.getMessage() );
-                
+                                writer.close();
+                        } catch (IOException e) {
+                                System.out.println("Radās kļūda rakstot pieteikum failā: " + e.getMessage());
                 }
 
         }
@@ -394,11 +355,11 @@ public class treninuPlani {
 
                 if( !isTreneris ) {
 
-                        System.out.println( "Tikai treneri var dzēst treniņu plānus!." );
-                        
-                        return;
+                        if(!isTreneris) {
 
-                }
+                                System.out.println("Tikai treneri var dzēst treniņu plānus!.");
+                                return; 
+                        }
 
                 boolean found = false;
 
@@ -408,45 +369,31 @@ public class treninuPlani {
                                 
                         int id = Integer.parseInt( parts[0].trim() );
 
-                if ( id == treninaID ) {
-                        
-                        treninuList.remove(i);
-                                        
-                        updateFileTrenini();
-                                        
-                        System.out.println( "Treniņu plāns ar ID " + treninaID + " ir dzēsts." );
-                                        
-                        found = true;
-                                        
-                        break;
-                                
+                                if (id == treninaID) {
+                                        treninuList.remove(i);
+                                        updateFileTrenini();
+                                        System.out.println("Treniņu plāns ar ID " + treninaID + " ir dzēsts.");
+                                        found = true;
+                                        break;
+                                }
                         }
-                        
-                }
 
-                if ( !found ) {
-                                
-                        System.out.println( "Treniņu plāns ar ID " + treninaID + " netika atrasts." );
+                        if (!found) {
+                                System.out.println("Treniņu plāns ar ID " + treninaID + " netika atrasts.");
 
+                        }
                 }
-                
-        }
 
                 /*------------------TRENIŅA PLĀNA VALIDĀCIJA (TUKŠU LAUKU PĀRBAUDE UN RAKSTZĪMJU IEROBEŽOJUMI)------------------------ */
 
-        public static boolean validateAizpilditieLauki( String fields[] ) { /* funkcija validateAizpilditieLauki pieņem string tipa vērtību fields un atgriež boolean */
+                        public static boolean validateAizpilditieLauki(String fields[]) {
 
-                for ( String field : fields ) {
-                                        
-                        if ( field == null || field.trim().isEmpty() ) {
-                                                
-                                System.out.println( "Visiem laukiem jābūt aizpildītiem!" );
-                                                
-                                return false;
-                                        
-                        }
-                                
-                }
+                                for (String field : fields) {
+                                        if (field == null || field.trim().isEmpty()) {
+                                                System.out.println("Visiem laukiem jābūt aizpildītiem!");
+                                                return false;
+                                        }
+                                }
 
                 return true;
 

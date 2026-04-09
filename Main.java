@@ -2,6 +2,8 @@ import java.util.*;
 
 public class Main {
 
+    private static boolean isTrainer = false;
+
     public static int Registresana() {
         Scanner scanner = new Scanner(System.in);
 
@@ -11,12 +13,16 @@ public class Main {
         System.out.println("2. Pieslegasanas");
         System.out.println("3. Iziet");
         System.out.println();
+<<<<<<< HEAD
         System.out.println("Izveleties darbibu:");
+=======
+>>>>>>> fe6682f86e4fce9ea2f494e01818a12e472ad39c
 
         int regIzvele = scanner.nextInt();
 
         switch (regIzvele) {
             case 1:
+
                 System.out.println("Ka jus gribat registreties?");
                 System.out.println("1. Klients");
                 System.out.println("2. Treneris");
@@ -27,6 +33,7 @@ public class Main {
                         Lietotaji.klientuRegistresana();
                         break;
                     case 2:
+                        isTrainer = true;
                         Treneri.treneruRegistresana();
                         break;
                     default:
@@ -35,6 +42,7 @@ public class Main {
                 }
                 break;
             case 2:
+
                 System.out.println("Ka jus gribat pieslegties?");
                 System.out.println("1. Klients");
                 System.out.println("2. Treneris");
@@ -46,6 +54,7 @@ public class Main {
                         Lietotaji.klientuPieslegsanas();
                         break;
                     case 2:
+                        isTrainer = true;
                         Treneri.loadTreneriFromFile();
                         Treneri.treneruPieslegsanas();
                         break;
@@ -54,6 +63,10 @@ public class Main {
                         break;
                 }
                 break;
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe6682f86e4fce9ea2f494e01818a12e472ad39c
             case 3:
                 System.out.println("Uz redzēšanos!");
                 break;
@@ -65,11 +78,232 @@ public class Main {
         return regIzvele;
     }
 
+    public static void klientaIzvelne(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("IZVELNE:");
+
+        System.out.println();
+
+        System.out.println("1. Mans konts");
+        System.out.println("2. Izveleties treneri");
+        System.out.println("3. Izveleties abonementu");
+        System.out.println("4. Apskatit abonementu");
+        System.out.println("5. Iemaksat naudu konta");
+        System.out.println("6. Iziet");
+        System.out.println();
+        System.out.println("Izveleties darbibu:");
+
+        int mainklientIzvele = scanner.nextInt();
+
+        switch (mainklientIzvele) {
+
+            case 1:
+                System.out.println("MANS KONTS");
+
+                System.out.println();
+
+                Lietotaji.mansKonts();
+                
+                System.out.println("Atpakal?");
+                    System.out.println("1. Ja");
+                    System.out.println("2. Ne");
+                    int atpakalIzvele = scanner.nextInt();
+                    switch(atpakalIzvele) {
+                        case 1:
+                            klientaIzvelne(args);
+                            break;
+                        case 2:
+                            System.out.println("Uz redzesanos!");
+                            break;
+                    }
+                break;
+
+            case 2:
+                System.out.println("IZVELETIES TRENERI");
+
+                System.out.println();
+
+                Treneri.izveletiesTreneri();
+                System.out.println("1. Jā");
+                System.out.println("2. Nē");
+                int atpakalIzvele2 = scanner.nextInt();
+                switch(atpakalIzvele2) {
+                        case 1:
+                            klientaIzvelne(args);
+                            break;
+                        case 2:
+                            System.out.println("Uz redzesanos!");
+                            break;
+                    }
+                break;
+
+            case 3:
+                System.out.println("IZVELETIES ABONEMENTU");
+
+                System.out.println();
+
+                Abonements.abonementuIzvele();
+                System.out.println("Gribat atgriezties?");
+                System.out.println();
+                System.out.println("1. Ja");
+                System.out.println("2. Ne");
+                int atpakalIzvele3 = scanner.nextInt();
+                switch(atpakalIzvele3) {
+                        case 1:
+                            klientaIzvelne(args); 
+                            break;
+                        case 2:
+                            System.out.println("Uz redzesanos!");
+                            break;
+                    }
+                break;
+
+            case 4:
+                System.out.println("NAUDAS IEMAKSA");
+
+                System.out.println();
+
+                Lietotaji.naudasIemaksa();
+                System.out.println();
+                System.out.println("Gribat atgriezties?");
+                System.out.println();
+                System.out.println("1. Ja");
+                System.out.println("2. Ne");
+                int atpakalIzvele5 = scanner.nextInt();
+                switch(atpakalIzvele5) {
+                        case 1:
+                            klientaIzvelne(args); 
+                            break;
+                        case 2:
+                            System.out.println("Uz redzesanos!");
+                            break;
+                    }
+                break;
+
+            case 5:
+                System.out.println("IEMAKSAT NAUDU KONTA");
+
+                System.out.println();
+
+                Lietotaji.naudasIemaksa();
+
+                System.out.println();
+                
+                System.out.println("Gribat atgriezties?");
+                System.out.println();
+                System.out.println("1. Ja");
+                System.out.println("2. Ne");
+                int atpakalIzvele4 = scanner.nextInt();
+                switch(atpakalIzvele4) {
+                        case 1:
+                            klientaIzvelne(args); 
+                            break;
+                        case 2:
+                            System.out.println("Uz redzesanos!");
+                            break;
+                    }
+                break;
+
+            case 6:
+                System.out.println("Uz redzesanos!");
+                break;
+
+            default:
+                System.out.println("Nederiga izvele.");
+                break;
+        }
+    }
+
+    public static void treneraIzvelne(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("IZVELNE:");
+
+        System.out.println();
+
+        System.out.println("1. Mans konts");
+        System.out.println("2. Pievienot treninu planu");
+        System.out.println("3. Apskatit treneru sarakstu");
+        System.out.println("4. Rediget savu profilu");
+        System.out.println("5. Iziet");
+
+        System.out.println();
+
+        System.out.println("Izveleties darbibu:");
+
+        int maintrenIzvele = scanner.nextInt();
+
+        switch (maintrenIzvele) {
+
+            case 1:
+                System.out.println("MANS KONTS");
+
+                System.out.println();
+
+                Lietotaji.mansKonts();
+                 System.out.println("Atpakal?");
+                 System.out.println();
+                    System.out.println("1. Ja");
+                    System.out.println("2. Ne");
+                    int atpakalIzvele = scanner.nextInt();
+                    switch(atpakalIzvele) {
+                        case 1:
+                            treneraIzvelne(args);
+                            break;
+                        case 2:
+                            System.out.println("Uz redzesanos!");
+                            break;
+                    }
+                break;
+
+            case 2:
+                System.out.println("PIEVIENOT TRENINU PLANU");
+
+                System.out.println();
+
+                treninuPlani.treninuPlanaIevade();
+                break;
+
+            case 3:
+                System.out.println("APSKATIT TRENINU PLANUS");
+
+                System.out.println();
+
+                treninuPlani.paradaTreninuPlanus();
+                 System.out.println("Atpakal?");
+                    System.out.println("1. Ja");
+                    System.out.println("2. Ne");
+                    int atpakalIzvele2 = scanner.nextInt();
+                    switch(atpakalIzvele2) {
+                        case 1:
+                            treneraIzvelne(args);
+                            break;
+                        case 2:
+                            System.out.println("Uz redzesanos!");
+                            break;
+                    }
+                break;
+
+            case 4:
+                System.out.println("REDIGET PROFILA DATUS");
+                System.out.println();
+                Treneri.redigetTerneraprofilaDatus();
+                break;
+
+            case 5:
+                System.out.println("Uz redzesanos!");
+                break;
+
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        int regIzvele = Registresana();
+        int pieslegIzvele = Registresana();
 
+<<<<<<< HEAD
         if (regIzvele == 1) {
             System.out.println("IZVELNE:");
             System.out.println("1. Mans konts");
@@ -194,6 +428,12 @@ public class Main {
                     System.out.println("Nederiga izvele.");
                     break;
             }
+=======
+        if (!isTrainer) {
+            klientaIzvelne(args);
+        } else {
+            treneraIzvelne(args);
+>>>>>>> fe6682f86e4fce9ea2f494e01818a12e472ad39c
         }
     }
 }
