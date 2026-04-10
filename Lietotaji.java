@@ -13,10 +13,32 @@ public class Lietotaji {
         String klientaVards = scanner.nextLine();  
         System.out.println("Ievadiet savu uzvardu:");
         String klientaUzvards = scanner.nextLine();
+
         System.out.println("Ievadiet savu e-pastu:");
-        String klientaEpasts = scanner.nextLine();
-        System.out.println("Ievadiet savu telefona numuru:");
-        String klientaTelefons = scanner.nextLine();
+        String klientaEpasts;
+        while (true) {
+            System.out.println("Ievadiet e-pastu:");
+            String klientaPastaievade = scanner.nextLine();
+
+            if (klientaPastaievade.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
+            klientaEpasts = klientaPastaievade;
+            break;
+         } else {
+            System.out.println("Nepareizi ievadits e-pasts. Meginiet velreiz.");
+        }}
+
+        String klientaTelefons;
+        while (true) {
+            System.out.println("Ievadiet telefona numuru:");
+            String ievadeKlientatelefons = scanner.nextLine();
+
+            if (ievadeKlientatelefons.matches("\\d{8}")) {
+             klientaTelefons = "371" + ievadeKlientatelefons;
+            break;
+         } else {
+            System.out.println("Nepareizi ievadits telefona numurs. Meginiet velreiz.");
+        }
+    }
 
         // Check if the email already exists in the client list
         for (String klients : klientuList) {
@@ -47,7 +69,7 @@ public class Lietotaji {
 
     private static void updateFileKlietn() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePathforKlienti))) {
-            writer.write("id,vards,uzvards,epasts,telefons,abonements,balanse");
+            writer.write("id, vards, uzvards, epasts, telefons, abonements, balanse");
             writer.newLine();
 
             for (String klientData : klientuList) {
