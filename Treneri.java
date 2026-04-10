@@ -15,12 +15,43 @@ public class Treneri {
         String treneraVards = scanner.nextLine();  
         System.out.print("Ievadiet savu uzvardu:");
         String treneraUzvards = scanner.nextLine();
-        System.out.print("Ievadiet savu e-pastu:");
-        String treneraEpasts = scanner.nextLine();
-        System.out.print("Ievadiet savu telefona numuru:");
-        String treneraTelefons = scanner.nextLine();
-        System.out.print("Ievadiet savu personas kodu:");
-        String treneraPkods = scanner.nextLine();
+
+        String treneraEpasts;
+        while (true) {
+            System.out.println("Ievadiet e-pastu:");
+            String treneraPastaievade = scanner.nextLine();
+
+            if (treneraPastaievade.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
+            treneraEpasts = treneraPastaievade;
+            break;
+         } else {
+            System.out.println("Nepareizi ievadits e-pasts. Meginiet velreiz.");
+        }}
+
+        String treneraTelefons;
+        while (true) {
+            System.out.println("Ievadiet telefona numuru:");
+            String ievadeTreneratelefons = scanner.nextLine();
+
+            if (ievadeTreneratelefons.matches("\\d{8}")) {
+            treneraTelefons = "371" + ievadeTreneratelefons;
+            break;
+         } else {
+            System.out.println("Nepareizi ievadits telefona numurs. Meginiet velreiz.");
+        }}
+
+        String treneraPkods;
+        while (true) {
+            System.out.println("Ievadiet personas kodu:");
+            String input = scanner.nextLine();
+
+            if (input.matches("^.{5}-.{5}$")) {
+            treneraPkods = input;
+            break;
+         } else {
+            System.out.println("Nepareizi ievadits personas kods. Meginiet velreiz.");
+        }}
+
         System.out.print("Ievadiet savu specializaciju:");
         String treneraSpecializacija = scanner.nextLine();
 
@@ -53,7 +84,7 @@ public class Treneri {
             BufferedWriter writer = new BufferedWriter(
                     new FileWriter(filePathforTreneri));
 
-            writer.write("id,vards,uzvards,epasts,telefons,pkods,specializacija");
+            writer.write("id, vards, uzvards, epasts, telefons, pkods, specializacija");
             writer.newLine();
 
             for (String treneris : treneruList) {
