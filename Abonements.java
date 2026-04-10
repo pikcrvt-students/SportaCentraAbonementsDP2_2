@@ -246,6 +246,8 @@ public static void apskatitManuabonementu() {
         }
     }
 
+    // public static void Studentaatlaide(){}
+
     
 }
 }
