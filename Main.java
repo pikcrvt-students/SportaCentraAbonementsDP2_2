@@ -314,6 +314,105 @@ public class Main {
         }
     }
 
+    public static void administratoraIzvelne(String[] args){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("IZVELNE:");
+
+        System.out.println();
+
+        System.out.println("1. Dzest trenera kontu");
+        System.out.println("2. Dzest klienta kontu");
+        System.out.println("3. Apskatit treneru sarakstu");
+        System.out.println("4. Apskatit klientu sarakstu");
+        System.out.println("5. Iziet");
+
+        System.out.println();
+
+        System.out.println("Izveleties darbibu:");
+
+        int maintrenIzvele = scanner.nextInt();
+
+        switch (maintrenIzvele) {
+
+            case 1:
+                System.out.println("DZEST TRENERA KONTU");
+
+                System.out.println();
+
+                //Administratoir.dzestTreneraKontu();
+                 System.out.println("Atpakal?");
+                 System.out.println();
+                    System.out.println("1. Ja");
+                    System.out.println("2. Ne");
+                    int atpakalIzvele = scanner.nextInt();
+                    switch(atpakalIzvele) {
+                        case 1:
+                            treneraIzvelne(args);
+                            break;
+                        case 2:
+                            System.out.println("Uz redzesanos!");
+                            break;
+                    }
+                break;
+
+            case 2:
+                System.out.println("DZEST KLIENTA KONTU");
+
+                System.out.println();
+
+                //Administratori.dzestKlientaKontu();
+                break;
+
+            case 3:
+                System.out.println("APSKATIT TRENERU SARAKSTU");
+
+                System.out.println();
+
+                //Administratori.paradaTrenerusarakstu();
+                 System.out.println("Atpakal?");
+                    System.out.println("1. Ja");
+                    System.out.println("2. Ne");
+                    int atpakalIzvele2 = scanner.nextInt();
+                    switch(atpakalIzvele2) {
+                        case 1:
+                            treneraIzvelne(args);
+                            break;
+                        case 2:
+                            System.out.println("Uz redzesanos!");
+                            break;
+                    }
+                break;
+
+            case 4:
+                System.out.println("APSKATIT KLIENTU SARAKSTU");
+                System.out.println();
+                //Administratori.paradaKlientusarakstu();
+                System.out.println("Atpakal?");
+                    System.out.println("1. Ja");
+                    System.out.println("2. Ne");
+                    int atpakalIzvele3 = scanner.nextInt();
+                    switch(atpakalIzvele3) {
+                        case 1:
+                            treneraIzvelne(args);
+                            break;
+                        case 2:
+                            System.out.println("Uz redzesanos!");
+                            break;
+                    }
+                break;
+
+            case 5:
+                System.out.println("Uz redzesanos!");
+                break;
+
+            default:
+                System.out.println("Nederiga izvele! Meginiet veilreiz.");
+
+        }
+
+    }
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
