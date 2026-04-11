@@ -38,8 +38,11 @@ public class Main {
                         break;
                     case 3:
                         isAdmin = true;
-                        //Administratori.administratoruRegistresana();
+                        Administratori.administratoruRegistresana();
                         break;
+
+                    default:
+                        System.out.println("Nederiga izvele! Meginiet velreiz.");
                 }
                 break;
             case 2:
@@ -62,11 +65,11 @@ public class Main {
                         Treneri.loadTreneriFromFile();
                         Treneri.treneruPieslegsanas();
                         break;
-                    case 3: 
+                    case 3:
                         isAdmin = true;
-                        //Administratori.loadAdministatoriFromfile();
-                        //Administratori.administratoruPieslegsanas();
+                        Administratori.administratoruPieslegsanas();
                         break;
+            
                     default:
                         System.out.println("Nederiga izvele! Meginiet velreiz.");
                 }
@@ -105,18 +108,7 @@ public class Main {
 
                 Lietotaji.mansKonts();
                 
-                System.out.println("Atpakal?");
-                    System.out.println("1. Ja");
-                    System.out.println("2. Ne");
-                    int atpakalIzvele = scanner.nextInt();
-                    switch(atpakalIzvele) {
-                        case 1:
-                            klientaIzvelne(args);
-                            break;
-                        case 2:
-                            System.out.println("Uz redzesanos!");
-                            break;
-                    }
+
                 break;
 
             case 2:
@@ -137,6 +129,7 @@ public class Main {
                             break;
                         default:
                             System.out.println("Nederiga izvele! Meginiet velreiz.");
+                            Main.klientaIzvelne(new String[0]);
                     }
                 break;
 
@@ -158,15 +151,18 @@ public class Main {
                         case 2:
                             System.out.println("Uz redzesanos!");
                             break;
+                        default:
+                            System.out.println("Nederiga izvele! Meginiet velreiz.");
+                            Main.klientaIzvelne(new String[0]);
                     }
                 break;
 
             case 4:
-                System.out.println("NAUDAS IEMAKSA");
+                System.out.println("APSKATIT ABONEMENTU");
 
                 System.out.println();
 
-                Lietotaji.naudasIemaksa();
+                Abonements.apskatitManuabonementu();
                 System.out.println();
                 System.out.println("Gribat atgriezties?");
                 System.out.println();
@@ -180,6 +176,9 @@ public class Main {
                         case 2:
                             System.out.println("Uz redzesanos!");
                             break;
+                        default:
+                            System.out.println("Nederiga izvele! Meginiet velreiz.");
+                            Main.klientaIzvelne(new String[0]);
                     }
                 break;
 
@@ -340,7 +339,7 @@ public class Main {
 
                 System.out.println();
 
-                //Administratoir.dzestTreneraKontu();
+                //Administratori.dzestTreneraKontu();
                  System.out.println("Atpakal?");
                  System.out.println();
                     System.out.println("1. Ja");
@@ -422,7 +421,7 @@ public class Main {
         if (!isTrainer) {
             klientaIzvelne(args);
         } else if (!isAdmin && !isKlietns) {
-            // treneraIzvelne(args);
+            treneraIzvelne(args);
         } else {
             treneraIzvelne(args);}
     }}
