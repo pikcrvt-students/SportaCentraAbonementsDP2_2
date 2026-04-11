@@ -3,6 +3,8 @@ import java.util.*;
 public class Main {
 
     private static boolean isTrainer = false;
+    private static boolean isAdmin = false;
+    private static boolean isKlietns = false;
 
     public static int Registresana() {
         Scanner scanner = new Scanner(System.in);
@@ -22,6 +24,7 @@ public class Main {
                 System.out.println("Ka jus gribat registreties?");
                 System.out.println("1. Klients");
                 System.out.println("2. Treneris");
+                System.out.println("3. Administrators");
 
                 int lietIzvele = scanner.nextInt();
 
@@ -33,6 +36,10 @@ public class Main {
                         isTrainer = true;
                         Treneri.treneruRegistresana();
                         break;
+                    case 3:
+                        isAdmin = true;
+                        //Administratori.administratoruRegistresana();
+                        break;
                 }
                 break;
             case 2:
@@ -40,11 +47,13 @@ public class Main {
                 System.out.println("Ka jus gribat pieslegties?");
                 System.out.println("1. Klients");
                 System.out.println("2. Treneris");
+                System.out.println("3. Administrators");
 
                 int pieslegIzvele = scanner.nextInt();
 
                 switch (pieslegIzvele) {
                     case 1:
+                        isKlietns = true;
                         Lietotaji.loadKlientiFromFile();
                         Lietotaji.klientuPieslegsanas();
                         break;
@@ -53,12 +62,17 @@ public class Main {
                         Treneri.loadTreneriFromFile();
                         Treneri.treneruPieslegsanas();
                         break;
+                    case 3: 
+                        isAdmin = true;
+                        //Administratori.loadAdministatoriFromfile();
+                        //Administratori.administratoruPieslegsanas();
+                        break;
+                    default:
+                        System.out.println("Nederiga izvele! Meginiet velreiz.");
                 }
                 break;
 
-            case 3:
-                System.out.println("Uz redzēšanos!");
-                break;
+            
         }
 
         return regIzvele; 
@@ -121,6 +135,8 @@ public class Main {
                         case 2:
                             System.out.println("Uz redzesanos!");
                             break;
+                        default:
+                            System.out.println("Nederiga izvele! Meginiet velreiz.");
                     }
                 break;
 
@@ -196,8 +212,7 @@ public class Main {
                 break;
 
             default:
-                System.out.println("Nederiga izvele.");
-                break;
+                System.out.println("Nederiga izvele! Meginiet velreiz.");
         }
     }
 
@@ -275,11 +290,26 @@ public class Main {
                 System.out.println("REDIGET PROFILA DATUS");
                 System.out.println();
                 Treneri.redigetTerneraprofilaDatus();
+                System.out.println("Atpakal?");
+                    System.out.println("1. Ja");
+                    System.out.println("2. Ne");
+                    int atpakalIzvele3 = scanner.nextInt();
+                    switch(atpakalIzvele3) {
+                        case 1:
+                            treneraIzvelne(args);
+                            break;
+                        case 2:
+                            System.out.println("Uz redzesanos!");
+                            break;
+                    }
                 break;
 
             case 5:
                 System.out.println("Uz redzesanos!");
                 break;
+
+            default:
+                System.out.println("Nederiga izvele! Meginiet veilreiz.");
 
         }
     }
@@ -292,8 +322,8 @@ public class Main {
 
         if (!isTrainer) {
             klientaIzvelne(args);
+        } else if (!isAdmin && !isKlietns) {
+            // treneraIzvelne(args);
         } else {
-            treneraIzvelne(args);
-        }
-    }
-}
+            treneraIzvelne(args);}
+    }}
