@@ -102,6 +102,7 @@ public class Treneri {
     }
 
     public static void izveletiesTreneri() {
+        Scanner scanner = new Scanner(System.in);
 
         System.out.println("Treneru saraksts:");
 
@@ -111,6 +112,13 @@ public class Treneri {
             System.out.println((index + 1) + ". " + treneris);
             index++;
         }
+        System.out.println("Ievadiet trenera numuru, kuru velaties izveleties:");
+        int treneruIzvele = scanner.nextInt();
+        if (treneruIzvele < 1 || treneruIzvele > treneruList.size()) {
+            System.out.println("Nepareiza izvele. Meginiet velreiz.");
+            return;
+        }
+
     }
 
     public static void redigetTerneraprofilaDatus() {
@@ -123,6 +131,7 @@ public class Treneri {
         String ievaditaisEpasts = scanner.nextLine();
 
         for (int i = 0; i < treneruList.size(); i++) {
+            Main main = new Main();
             String[] trenerInfo = treneruList.get(i).split(",");
             if (trenerInfo[2].equals(ievaditaisEpasts)) {
                 System.out.println("Ievadiet jaunu vardu:");
@@ -150,7 +159,7 @@ public class Treneri {
                 updateFileTrener();
 
                 System.out.println("Profila dati veiksmigi atjauninati!");
-                return;
+                Main.treneraIzvelne(new String[0]);
             }
         }
     }
