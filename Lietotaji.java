@@ -144,6 +144,38 @@ public class Lietotaji {
         }
     }
 
+    private static int findCurrentUserIndex() {
+        if (currentUserEmail == null) {
+            return -1;
+        }
+
+        for (int i = 0; i < klientuList.size(); i++) {
+            String[] klientInfo = normalizeKlientInfo(klientuList.get(i).split(","));
+            if (klientInfo[2].equals(currentUserEmail)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private static boolean setCurrentUserByEmail(String email) {
+        if (email == null) {
+            return false;
+        }
+
+        String normalizedEmail = email.trim();
+        for (String klients : klientuList) {
+            String[] klientInfo = normalizeKlientInfo(klients.split(","));
+            if (klientInfo[2].equals(normalizedEmail)) {
+                currentUserEmail = normalizedEmail;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static void pieslegtiesKlientam() {
         System.out.println("Pieslegties");
         System.out.println("Ievadiet savu e-pastu:");
@@ -168,36 +200,53 @@ public class Lietotaji {
 
     public static void mansKonts() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Ievadiet savu e-pastu:");
-        String ievaditaisEpasts = scanner.nextLine();
+        if (currentUserEmail == null) {
+            System.out.println("Ievadiet savu e-pastu:");
+            String ievaditaisEpasts = scanner.nextLine();
+
+            if (!setCurrentUserByEmail(ievaditaisEpasts)) {
+                System.out.println("E-pasts nav atrasts. LLudzu, meginiet velreiz.");
+                return;
+            }
+        }
 
         for (String klients : klientuList) {
             String[] klientInfo = normalizeKlientInfo(klients.split(","));
-            if (klientInfo[2].equals(ievaditaisEpasts)) {
+            if (klientInfo[2].equals(currentUserEmail)) {
                 System.out.println("Mans konts");
                 System.out.println("Mans vards: " + klientInfo[0]);
                 System.out.println("Mans uzvards: " + klientInfo[1]);
                 System.out.println("Mans e-pasts: " + klientInfo[2]);
                 System.out.println("Mans telefons: " + klientInfo[3]);
-                System.out.println("Abonements: " + klientInfo[4]);
+                System.out.println("Jusu abonements: " + klientInfo[4]);
                 
                 System.out.println();
                 System.out.println("Ko jus velaties darit?");
                 System.out.println("1. Rediget profila datus");
                 System.out.println("2. Apskatit jusu abonementu");
                 System.out.println("3. Dzest savu kontu");
+                System.out.println("4. Atgriezties izvelne");
                 int kontaIzvele = scanner.nextInt();
                 switch(kontaIzvele) {
                     case 1:
                         redigetProfilaDatus();
+                        Main.klientaIzvelne(new String[0]); 
                         break;
                     case 2: 
-                        //Abonements.apskatitManuabonementu();
+                        Abonements.apskatitManuabonementu();
+                        Main.klientaIzvelne(new String[0]);
                         break;
                     case 3: 
                         klientuList.remove(klients);
                         updateFileKlietn();
                         System.out.println("Jusu konts ir dzests. Uz redzesanos!");
+                        Main.Registresana();
+                    case 4:
+                        Main.klientaIzvelne(new String[0]);
+                        break;
+                    default:
+                        System.out.println("Nepareiza izvele.");
+                        Main.klientaIzvelne(new String[0]);
                 }
                 return;
             }
@@ -228,6 +277,7 @@ public class Lietotaji {
                 klientuList.set(i, String.join(",", klientInfo));
                 updateFileKlietn();
                 System.out.println("Profila dati veiksmigi atjauninati!");
+                Main.klientaIzvelne(new String[0]);
                 return;
             }
         }
@@ -237,6 +287,7 @@ public class Lietotaji {
 
     public static void loadKlientiFromFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePathforKlienti))) {
+            klientuList.clear();
             String line;
             // Skip header
             reader.readLine();
@@ -250,83 +301,86 @@ public class Lietotaji {
 
     public static void naudasIemaksa() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Ievadiet savu e-pastu:");
-        String ievaditaisEpasts = scanner.nextLine();
+        if (currentUserEmail == null) {
+            System.out.println("Ievadiet savu e-pastu:");
+            String ievaditaisEpasts = scanner.nextLine();
 
-        for (int i = 0; i < klientuList.size(); i++) {
-            String[] klientInfo = normalizeKlientInfo(klientuList.get(i).split(","));
-            if (klientInfo[2].equals(ievaditaisEpasts)) {
-                System.out.println("Ievadiet iemaksa summu:");
-                double depositAmount = scanner.nextDouble();
-                scanner.nextLine();
-
-                double currentBalance = parseBalance(klientInfo);
-                double newBalance = currentBalance + depositAmount;
-
-                klientInfo[5] = String.valueOf(newBalance);
-                klientuList.set(i, String.join(",", klientInfo));
-                updateFileforklient();  
-
-                System.out.println("Naudas iemaksa veiksmiga! Jusu summa: " + newBalance);
+            if (!setCurrentUserByEmail(ievaditaisEpasts)) {
+                System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
                 return;
             }
         }
 
-        System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
+        int userIndex = findCurrentUserIndex();
+        if (userIndex == -1) {
+            System.out.println("Klienta konts nav atrasts.");
+            return;
+        }
+
+        String[] klientInfo = normalizeKlientInfo(klientuList.get(userIndex).split(","));
+        System.out.println("Ievadiet iemaksa summu:");
+        double depositAmount = scanner.nextDouble();
+        scanner.nextLine();
+
+        double currentBalance = parseBalance(klientInfo);
+        double newBalance = currentBalance + depositAmount;
+
+        klientInfo[5] = String.valueOf(newBalance);
+        klientuList.set(userIndex, String.join(",", klientInfo));
+        updateFileforklient();
+
+        System.out.println("Naudas iemaksa veiksmiga! Jusu summa: " + newBalance);
     }
 
-public static void klientuPieslegsanas() {
+    public static void klientuPieslegsanas() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Pieslegsanas");
         System.out.println("Ievadiet savu e-pastu: ");
         String ievaditaisEpasts = scanner.nextLine();
-        boolean found = false;
+        boolean found = setCurrentUserByEmail(ievaditaisEpasts);
 
-        for (String klients : klientuList) {
-            String[] klientInfo = klients.split(",");
-            if (klientInfo[2].equals(ievaditaisEpasts)) { 
-                found = true;
-                currentUserEmail = ievaditaisEpasts;  // Set the current user email
-                System.out.println();
-                System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + klientInfo[1] + "!"); 
-                System.out.println();
-                break;
-            }
+        if (found) {
+            int userIndex = findCurrentUserIndex();
+            String[] klientInfo = normalizeKlientInfo(klientuList.get(userIndex).split(","));
+            System.out.println();
+            System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + klientInfo[1] + "!");
+            System.out.println();
+        } else {
+            System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
+            klientuPieslegsanas();
         }
-
-            if (!found) {
-                System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
-                klientuPieslegsanas(); 
-            }
         }
     
         public static double getCurrentUserBalance(){
-            if(currentUserEmail == null) {
+            int userIndex = findCurrentUserIndex();
+            if(userIndex == -1) {
                 System.out.println("Nav pieslegts neviens klients.");
                 return 0.0;
             }
-            for (String klients : klientuList) {
-                String[] klientInfo = normalizeKlientInfo(klients.split(","));
-                if (klientInfo[2].equals(currentUserEmail)) {
-                    return parseBalance(klientInfo);  
-                }
-            }
-            return 0.0;
+            String[] klientInfo = normalizeKlientInfo(klientuList.get(userIndex).split(","));
+            return parseBalance(klientInfo);
         }
 
 
 
      public static void updateCurrentUserBalance(double newBalance) {
-        if (currentUserEmail == null) return;
-        for (int i = 0; i < klientuList.size(); i++) {
-            String[] klientInfo = normalizeKlientInfo(klientuList.get(i).split(","));
-            if (klientInfo[2].equals(currentUserEmail)) {
-                klientInfo[5] = String.valueOf(newBalance);
-                klientuList.set(i, String.join(", ", klientInfo));
-                updateFileforklient();  
-                return;
-            }
-        }
+        int userIndex = findCurrentUserIndex();
+        if (userIndex == -1) return;
+
+        String[] klientInfo = normalizeKlientInfo(klientuList.get(userIndex).split(","));
+        klientInfo[5] = String.valueOf(newBalance);
+        klientuList.set(userIndex, String.join(",", klientInfo));
+        updateFileforklient();
+    }
+
+    public static void updateCurrentUserAbonements(String abonements) {
+        int userIndex = findCurrentUserIndex();
+        if (userIndex == -1) return;
+
+        String[] klientInfo = normalizeKlientInfo(klientuList.get(userIndex).split(","));
+        klientInfo[4] = abonements;
+        klientuList.set(userIndex, String.join(",", klientInfo));
+        updateFileforklient();
     }
 
     public static String getCurrentUserEmail() {
