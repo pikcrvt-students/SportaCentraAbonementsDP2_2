@@ -170,6 +170,7 @@ atgriež void */
                 /*---------------------PARĀDA TRENIŅUS, KUROS IR PIETEICIES---------------------- */
 
                 public static void paradaPieteikusosTreninus () {
+                        Scanner scanner = new Scanner(System.in);
 
                         System.out.println("-----TU ESI PIETEICIES SAJOS TRENINOS!-----");
 
@@ -187,8 +188,28 @@ atgriež void */
                         }
 
                         if (!found) {
-                                System.out.println("Tu neesi pieteicies nevienam treninam!"); }
+                                System.out.println("Tu neesi pieteicies nevienam treninam!");
                         }
+
+                        System.out.println("Atpakal?");
+                        System.out.println("1. Ja");
+                        System.out.println("2. Ne");
+
+                        String izvele = scanner.nextLine();
+                        switch (izvele) {
+                                case "1":
+                                        Main.klientaIzvelne(new String[0]);
+                                        break;
+                                case "2":
+                                        break;
+                                default:
+                                        System.out.println("Nepareiza izvele.");
+                        }
+                }
+
+
+                        
+
 
 
 
