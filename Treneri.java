@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Treneri {
-    private static ArrayList<String> treneruList = new ArrayList<>();
+    public static ArrayList<String> treneruList = new ArrayList<>();
     private static final String filePathforTreneri = "csv/trenerRegistration.csv";
 
 
@@ -79,6 +79,24 @@ public class Treneri {
         return treneruList;
     }
 
+    public static int atrastTreneriPecEpasta(String epasts) {
+        for (int i = 0; i < treneruList.size(); i++) {
+            String[] trenerInfo = treneruList.get(i).split(",");
+            if (trenerInfo.length > 2 && trenerInfo[2].trim().equalsIgnoreCase(epasts.trim())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static String[] dabutTreneraInfoPecEpasta(String epasts) {
+        int index = atrastTreneriPecEpasta(epasts);
+        if (index == -1) {
+            return null;
+        }
+        return treneruList.get(index).split(",");
+    }
+
     private static void updateFileTrener(){
          try {
             BufferedWriter writer = new BufferedWriter(
@@ -133,7 +151,7 @@ public class Treneri {
         for (int i = 0; i < treneruList.size(); i++) {
             Main main = new Main();
             String[] trenerInfo = treneruList.get(i).split(",");
-            if (trenerInfo[2].equals(ievaditaisEpasts)) {
+            if (trenerInfo[2].trim().equalsIgnoreCase(ievaditaisEpasts.trim())) {
                 System.out.println("Ievadiet jaunu vardu:");
                 String jaunsVards = scanner.nextLine();
                 System.out.println("Ievadiet jaunu uzvardu:");
@@ -175,14 +193,13 @@ public class Treneri {
         boolean found = false;
 
         for (String treneris : treneruList) {
-
             String[] trenerInfo = treneris.split(",");
-            if (trenerInfo[2].equals(ievaditaisEpasts)) { 
+            if (trenerInfo[2].trim().equalsIgnoreCase(ievaditaisEpasts.trim())) { 
 
                 found = true;
 
                 System.out.println();
-                System.out.println("Pieslegsanas veiksmiga! Laipni ludzam," + trenerInfo[1] + "!"); 
+                System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + trenerInfo[1].trim() + "!"); 
                 System.out.println();
 
                 break;
