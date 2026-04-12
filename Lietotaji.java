@@ -7,7 +7,14 @@ public class Lietotaji {
     private static final String filePathforKlienti = "csv/klientRegistration.csv";
     private static String currentUserEmail = null;
 
+    private static void nodrosinaKlientaSaglabasanu() {
+        if (klientuList.isEmpty()) {
+            loadKlientiFromFile();
+        }
+    }
+
     public static void klientuRegistresana() {
+        nodrosinaKlientaSaglabasanu();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ievadiet savu vardu:");
         String klientaVards = scanner.nextLine();  
@@ -58,13 +65,20 @@ public class Lietotaji {
     }
 
     public static int getIDklients() {
+        nodrosinaKlientaSaglabasanu();
         if (klientuList.isEmpty()) {
             return 0;
         }
 
         String lastLine = klientuList.get(klientuList.size() - 1);
-        String[] idPart = lastLine.split("\\. ");
-        return Integer.parseInt(idPart[0]);
+        String[] parts = lastLine.split(",", -1);
+        String idPart = parts[0].trim().replace(".", "");
+
+        try {
+            return Integer.parseInt(idPart);
+        } catch (NumberFormatException e) {
+            return klientuList.size();
+        }
     }
 
     private static void updateFileKlietn() {
@@ -286,7 +300,12 @@ public class Lietotaji {
     }
 
     public static void loadKlientiFromFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePathforKlienti))) {
+        File file = new File(filePathforKlienti);
+        if (!file.exists()) {
+            return;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             klientuList.clear();
             String line;
             // Skip header
