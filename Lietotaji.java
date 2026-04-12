@@ -3,7 +3,7 @@ import java.io.*;
 
 public class Lietotaji {
 
-    private static ArrayList<String> klientuList = new ArrayList<>();
+    public static ArrayList<String> klientuList = new ArrayList<>();
     private static final String filePathforKlienti = "csv/klientRegistration.csv";
     private static String currentUserEmail = null;
 
@@ -389,6 +389,24 @@ public class Lietotaji {
 
     public static ArrayList<String> klientuList() {
         return klientuList; 
+    }
+
+     public static int atrastKlientuPecEpasta(String epasts) {
+        for (int i = 0; i < klientuList.size(); i++) {
+            String[] klientInfo = klientuList.get(i).split(",");
+            if (klientInfo.length > 2 && klientInfo[2].trim().equalsIgnoreCase(epasts.trim())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static String[] dabutLietotajaInfoPecEpasta(String epasts) {
+        int index = atrastKlientuPecEpasta(epasts);
+        if (index == -1) {
+            return null;
+        }
+        return klientuList.get(index).split(",");
     }
 
 }
