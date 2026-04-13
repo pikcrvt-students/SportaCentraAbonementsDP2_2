@@ -43,27 +43,21 @@ public class Abonements {
                 paraditAbonementu(
                     scanner,
                     "GET FIT",
-                    20.0,
-                    "Pieejams sporta zales aprikojums",
-                    "Nav pieejama sauna"
+                    20.0
                 );
                 break;
             case 2:
                 paraditAbonementu(
                     scanner,
                     "GET CORE",
-                    32.0,
-                    "Pieejams sporta zales aprikojums un sauna",
-                    null
+                    32.0
                 );
                 break;
             case 3:
                 paraditAbonementu(
                     scanner,
                     "GET CORE ULTRA",
-                    50.0,
-                    "Pieejams sporta zales aprikojums, sauna un masaza",
-                    null
+                    50.0
                 );
                 break;
             default:
@@ -72,18 +66,32 @@ public class Abonements {
         }
     }
 
-    private static void paraditAbonementu(Scanner scanner, String nosaukums, double maksa, String plusi, String minusi) {
-        if (!irDerigsAbonements(nosaukums, maksa, plusi, minusi)) {
-            System.out.println("Abonementa dati nav derigi.");
-            return;
-        }
-
+    private static void paraditAbonementu(Scanner scanner, String nosaukums, double maksa) {
         System.out.println(nosaukums);
         System.out.println();
-        System.out.println(formatPrice(maksa) + " eiro/menesi");
-        System.out.println("+ " + plusi);
-        if (minusi != null && !minusi.isEmpty()) {
-            System.out.println("- " + minusi);
+
+        switch (nosaukums) {
+            case "GET FIT":
+                System.out.println("20 eiro/menesi");
+                System.out.println("+ Zema maksa");
+                System.out.println("+ Pieejams sporta zales aprikojums");
+                System.out.println("- Nav pieejama sauna");
+                break;
+            case "GET CORE":
+                System.out.println("+ Izdevigaka vertiba");
+                System.out.println("+ 32 eiro menesi");
+                System.out.println("+ Grupu/Individualie trenini - kalistenika vai klinsu kapsana");
+                System.out.println("+ Pieejams viss aprikojums");
+                System.out.println("+ Pieejama sauna");
+                break;
+            case "GET CORE ULTRA":
+                System.out.println("+ Grupu/Individualie trenini - GAN kalistenika, GAN klinsu kapsana");
+                System.out.println("+ Pieejams viss aprikojums");
+                System.out.println("+ Pieejama sauna");
+                break;
+            default:
+                System.out.println(formatPrice(maksa) + " eiro/menesi");
+                break;
         }
 
         System.out.println();
