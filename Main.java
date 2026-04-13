@@ -6,88 +6,106 @@ public class Main {
     private static boolean isAdmin = false;
     private static boolean isKlietns = false;
 
+    public static int readInt(Scanner scanner) {
+        while (!scanner.hasNextInt()) {
+            System.out.println("Nepareiza ievade! Lūdzu ievadiet veselu skaitli.");
+            scanner.nextLine();
+        }
+        return scanner.nextInt();
+    }
+
+    public static double readDouble(Scanner scanner) {
+        while (!scanner.hasNextDouble()) {
+            System.out.println("Nepareiza ievade! Lūdzu ievadiet skaitli.");
+            scanner.nextLine();
+        }
+        return scanner.nextDouble();
+    }
+
     public static int Registresana() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("SAKUMS");
-        System.out.println();
-        System.out.println("1. Registresana");
-        System.out.println("2. Pieslegasanas");
-        System.out.println("3. Iziet");
-        System.out.println();
+        while (true) {
+            System.out.println("SAKUMS");
+            System.out.println();
+            System.out.println("1. Registresana");
+            System.out.println("2. Pieslegasanas");
+            System.out.println("3. Iziet");
+            System.out.println();
 
-        int regIzvele = scanner.nextInt();
+            int regIzvele = readInt(scanner);
+            scanner.nextLine();
 
-        switch (regIzvele) {
-            case 1:
-                System.out.println("Ka jus gribat registreties?");
-                System.out.println("1. Klients");
-                System.out.println("2. Treneris");
-                System.out.println("3. Administrators");
+            switch (regIzvele) {
+                case 1:
+                    System.out.println("Ka jus gribat registreties?");
+                    System.out.println("1. Klients");
+                    System.out.println("2. Treneris");
+                    System.out.println("3. Administrators");
 
-                int lietIzvele = scanner.nextInt();
-                scanner.nextLine();
+                    int lietIzvele = readInt(scanner);
+                    scanner.nextLine();
 
-                switch (lietIzvele) {
-                    case 1:
-                        Lietotaji.klientuRegistresana();
-                        klientaIzvelne(new String[0]);
-                        break;
-                    case 2:
-                        isTrainer = true;
-                        Treneri.treneruRegistresana();
-                        treneraIzvelne(new String[0]);
-                        break;
-                    case 3:
-                        isAdmin = true;
-                        Administratori.administratoruRegistresana();
-                        administratoraIzvelne(new String[0]);
-                        break;
+                    switch (lietIzvele) {
+                        case 1:
+                            Lietotaji.klientuRegistresana();
+                            klientaIzvelne(new String[0]);
+                            break;
+                        case 2:
+                            isTrainer = true;
+                            Treneri.treneruRegistresana();
+                            treneraIzvelne(new String[0]);
+                            break;
+                        case 3:
+                            isAdmin = true;
+                            Administratori.administratoruRegistresana();
+                            administratoraIzvelne(new String[0]);
+                            break;
+                        default:
+                            System.out.println("Nederiga izvele! Meginiet velreiz.");
+                            break;
+                    }
+                    break;
+                case 2:
+                    System.out.println("Ka jus gribat pieslegties?");
+                    System.out.println("1. Klients");
+                    System.out.println("2. Treneris");
+                    System.out.println("3. Administrators");
 
-                    default:
-                        System.out.println("Nederiga izvele! Meginiet velreiz.");
-                }
-                break;
-            case 2:
-                System.out.println("Ka jus gribat pieslegties?");
-                System.out.println("1. Klients");
-                System.out.println("2. Treneris");
-                System.out.println("3. Administrators");
+                    int pieslegIzvele = readInt(scanner);
+                    scanner.nextLine();
 
-                int pieslegIzvele = scanner.nextInt();
-                scanner.nextLine();
-
-                switch (pieslegIzvele) {
-                    case 1:
-                        isKlietns = true;
-                        Lietotaji.loadKlientiFromFile();
-                        Lietotaji.klientuPieslegsanas();
-                        klientaIzvelne(new String[0]);
-                        break;
-                    case 2:
-                        isTrainer = true;
-                        Treneri.loadTreneriFromFile();
-                        Treneri.treneruPieslegsanas();
-                        treneraIzvelne(new String[0]);
-                        break;
-                    case 3:
-                        isAdmin = true;
-                        Administratori.administratoruPieslegsanas();
-                        administratoraIzvelne(new String[0]);
-                        break;
-
-                    default:
-                        System.out.println("Nederiga izvele! Meginiet velreiz.");
-                }
-                break;
-            case 3:
-                System.out.println("Iziet no programmas.");
-                break; // Added to handle exit option
-            default:
-                System.out.println("Nederiga izvele! Meginiet velreiz.");
+                    switch (pieslegIzvele) {
+                        case 1:
+                            isKlietns = true;
+                            Lietotaji.loadKlientiFromFile();
+                            Lietotaji.klientuPieslegsanas();
+                            klientaIzvelne(new String[0]);
+                            break;
+                        case 2:
+                            isTrainer = true;
+                            Treneri.loadTreneriFromFile();
+                            Treneri.treneruPieslegsanas();
+                            treneraIzvelne(new String[0]);
+                            break;
+                        case 3:
+                            isAdmin = true;
+                            Administratori.administratoruPieslegsanas();
+                            administratoraIzvelne(new String[0]);
+                            break;
+                        default:
+                            System.out.println("Nederiga izvele! Meginiet velreiz.");
+                            break;
+                    }
+                    break;
+                case 3:
+                    System.out.println("Iziet no programmas.");
+                    return regIzvele;
+                default:
+                    System.out.println("Nederiga izvele! Meginiet velreiz.");
+                    break;
+            }
         }
-
-        return regIzvele; 
     }
 
     public static void klientaIzvelne(String[] args) {
@@ -104,11 +122,12 @@ public class Main {
         System.out.println("5. Iemaksat naudu konta");
         System.out.println("6. Apskatit treninu planus");
         System.out.println("7. Pieteikties treninu planam");
-        System.out.println("8. Iziet");
+        System.out.println("8. Meklet treninu planus");
+        System.out.println("9. Iziet");
         System.out.println();
         System.out.println("Izveleties darbibu:");
 
-        int mainklientIzvele = scanner.nextInt();
+        int mainklientIzvele = readInt(scanner);
 
         switch (mainklientIzvele) {
             case 1:
@@ -128,7 +147,7 @@ public class Main {
                 System.out.println("Atpakal?");
                 System.out.println("1. Ja");
                 System.out.println("2. Ne");
-                int atpakalIzvele2 = scanner.nextInt();
+                int atpakalIzvele2 = readInt(scanner);
                 switch(atpakalIzvele2) {
                     case 1:
                         klientaIzvelne(args);
@@ -150,7 +169,7 @@ public class Main {
                 System.out.println();
                 System.out.println("1. Ja");
                 System.out.println("2. Ne");
-                int atpakalIzvele3 = scanner.nextInt();
+                int atpakalIzvele3 = readInt(scanner);
                 switch(atpakalIzvele3) {
                     case 1:
                         klientaIzvelne(args); 
@@ -176,7 +195,7 @@ public class Main {
 
                 System.out.println("1. Ja");
                 System.out.println("2. Ne");
-                int atpakalIzvele5 = scanner.nextInt();
+                int atpakalIzvele5 = readInt(scanner);
                 switch(atpakalIzvele5) {
                     case 1:
                         klientaIzvelne(args); 
@@ -202,7 +221,7 @@ public class Main {
 
                 System.out.println("1. Ja");
                 System.out.println("2. Ne");
-                int atpakalIzvele4 = scanner.nextInt();
+                int atpakalIzvele4 = readInt(scanner);
                 switch(atpakalIzvele4) {
                     case 1:
                         klientaIzvelne(args); 
@@ -221,7 +240,7 @@ public class Main {
                 System.out.println();
                 System.out.println("1. Ja");
                 System.out.println("2. Ne");
-                int atpakalIzvele6 = scanner.nextInt();
+                int atpakalIzvele6 = readInt(scanner);
                 switch(atpakalIzvele6) {
                     case 1:
                         klientaIzvelne(args);
@@ -245,7 +264,7 @@ public class Main {
 
                 System.out.println("1. Ja");
                 System.out.println("2. Ne");
-                int atpakalIzvele7 = scanner.nextInt();
+                int atpakalIzvele7 = readInt(scanner);
                 switch(atpakalIzvele7) {
                     case 1:
                         klientaIzvelne(args);
@@ -260,6 +279,28 @@ public class Main {
                 break;
 
             case 8:
+                System.out.println("MEKLET TRENINU PLANUS");
+                System.out.println();
+                treninuPlani.searchByTypeandDifficulty();
+                System.out.println("Gribat atgriezties?");
+                System.out.println();
+                System.out.println("1. Ja");
+                System.out.println("2. Ne");
+                int atpakalIzvele8 = readInt(scanner);
+                switch(atpakalIzvele8) {
+                    case 1:
+                        klientaIzvelne(args);
+                        break;
+                    case 2:
+                        System.out.println("Uz redzesanos!");
+                        break;
+                    default:
+                        System.out.println("Nederiga izvele! Meginiet velreiz.");
+                        Main.klientaIzvelne(new String[0]);
+                }
+                break;
+
+            case 9:
                 System.out.println("Uz redzesanos!");
                 break;
 
@@ -281,7 +322,7 @@ public class Main {
         System.out.println();
         System.out.println("Izveleties darbibu:");
 
-        int maintrenIzvele = scanner.nextInt();
+        int maintrenIzvele = readInt(scanner);
 
         switch (maintrenIzvele) {
             case 1:
@@ -295,7 +336,7 @@ public class Main {
 
                 System.out.println("1. Ja");
                 System.out.println("2. Ne");
-                int atpakalIzvele = scanner.nextInt();
+                int atpakalIzvele = readInt(scanner);
                 switch(atpakalIzvele) {
                     case 1:
                         treneraIzvelne(args);
@@ -313,7 +354,7 @@ public class Main {
                 System.out.println("Atpakal?");
                 System.out.println("1. Ja");
                 System.out.println("2. Ne");
-                int atpakalIzvele2 = scanner.nextInt();
+                int atpakalIzvele2 = readInt(scanner);
                 switch(atpakalIzvele2) {
                     case 1:
                         treneraIzvelne(args);
@@ -331,7 +372,7 @@ public class Main {
                 System.out.println("Atpakal?");
                 System.out.println("1. Ja");
                 System.out.println("2. Ne");
-                int atpakalIzvele3 = scanner.nextInt();
+                int atpakalIzvele3 = readInt(scanner);
                 switch(atpakalIzvele3) {
                     case 1:
                         treneraIzvelne(args);
@@ -366,7 +407,7 @@ public class Main {
         System.out.println();
         System.out.println("Izveleties darbibu:");
 
-        int maintrenIzvele = scanner.nextInt();
+        int maintrenIzvele = readInt(scanner);
 
         switch (maintrenIzvele) {
             case 1:
@@ -377,7 +418,7 @@ public class Main {
                 System.out.println();
                 System.out.println("1. Ja");
                 System.out.println("2. Ne");
-                int atpakalIzvele = scanner.nextInt();
+                int atpakalIzvele = readInt(scanner);
                 switch(atpakalIzvele) {
                     case 1:
                         administratoraIzvelne(args);
@@ -395,7 +436,7 @@ public class Main {
                 System.out.println("Atpakal?");
                 System.out.println("1. Ja");
                 System.out.println("2. Ne");
-                int atpakalIzvele2 = scanner.nextInt();
+                int atpakalIzvele2 = readInt(scanner);
                 switch(atpakalIzvele2) {
                     case 1:
                         administratoraIzvelne(args);
@@ -413,7 +454,7 @@ public class Main {
                 System.out.println("Atpakal?");
                 System.out.println("1. Ja");
                 System.out.println("2. Ne");
-                int atpakalIzvele3 = scanner.nextInt();
+                int atpakalIzvele3 = readInt(scanner);
                 switch(atpakalIzvele3) {
                     case 1:
                         administratoraIzvelne(args);
@@ -431,7 +472,7 @@ public class Main {
                 System.out.println("Atpakal?");
                 System.out.println("1. Ja");
                 System.out.println("2. Ne");
-                int atpakalIzvele4 = scanner.nextInt();
+                int atpakalIzvele4 = readInt(scanner);
                 switch(atpakalIzvele4) {
                     case 1:
                         administratoraIzvelne(args);
