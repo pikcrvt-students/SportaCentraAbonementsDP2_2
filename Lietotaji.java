@@ -76,7 +76,6 @@ public class Lietotaji {
             System.out.println("Nepareizi ievadits uzvards. Garums lidz 100 simboliem.");
         }
 
-        System.out.println("Ievadiet savu e-pastu:");
         String klientaEpasts;
         while (true) {
             System.out.println("Ievadiet e-pastu:");
