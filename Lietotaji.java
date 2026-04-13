@@ -6,6 +6,10 @@ public class Lietotaji {
     public static ArrayList<String> klientuList = new ArrayList<>();
     private static final String filePathforKlienti = "csv/klientRegistration.csv";
     private static String currentUserEmail = null;
+    private static final String VARDA_REGEX = "^[A-Za-zĀČĒĢĪĶĻŅŠŪŽāčēģīķļņšūž\\s-]{1,60}$";
+    private static final String UZVARDA_REGEX = "^[A-Za-zĀČĒĢĪĶĻŅŠŪŽāčēģīķļņšūž\\s-]{1,100}$";
+    private static final String EPASTA_REGEX = "^[A-Za-z0-9+_.-]{1,64}@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    private static final String TELEFONA_REGEX = "^\\d{8}$";
 
     private static void nodrosinaKlientaSaglabasanu() {
         if (klientuList.isEmpty()) {
@@ -13,13 +17,64 @@ public class Lietotaji {
         }
     }
 
+    public static boolean vaiKlientaEpastsEksiste(String epasts) {
+        nodrosinaKlientaSaglabasanu();
+
+        for (String klients : klientuList) {
+            String[] klientInfo = normalizeKlientInfo(klients.split(","));
+            if (klientInfo[2].equalsIgnoreCase(epasts.trim())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean irDerigsVards(String vards) {
+        return vards != null && vards.trim().matches(VARDA_REGEX);
+    }
+
+    private static boolean irDerigsUzvards(String uzvards) {
+        return uzvards != null && uzvards.trim().matches(UZVARDA_REGEX);
+    }
+
+    private static boolean irDerigsEpasts(String epasts) {
+        return epasts != null && epasts.trim().length() <= 150 && epasts.trim().matches(EPASTA_REGEX);
+    }
+
+    private static boolean irDerigsTelefons(String telefons) {
+        return telefons != null && telefons.trim().matches(TELEFONA_REGEX);
+    }
+
     public static void klientuRegistresana() {
         nodrosinaKlientaSaglabasanu();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Ievadiet savu vardu:");
-        String klientaVards = scanner.nextLine();  
-        System.out.println("Ievadiet savu uzvardu:");
-        String klientaUzvards = scanner.nextLine();
+
+        String klientaVards;
+        while (true) {
+            System.out.println("Ievadiet savu vardu:");
+            klientaVards = scanner.nextLine();
+
+            if (irDerigsVards(klientaVards)) {
+                klientaVards = klientaVards.trim();
+                break;
+            }
+
+            System.out.println("Nepareizi ievadits vards. Garums lidz 60 simboliem.");
+        }
+
+        String klientaUzvards;
+        while (true) {
+            System.out.println("Ievadiet savu uzvardu:");
+            klientaUzvards = scanner.nextLine();
+
+            if (irDerigsUzvards(klientaUzvards)) {
+                klientaUzvards = klientaUzvards.trim();
+                break;
+            }
+
+            System.out.println("Nepareizi ievadits uzvards. Garums lidz 100 simboliem.");
+        }
 
         System.out.println("Ievadiet savu e-pastu:");
         String klientaEpasts;
@@ -27,8 +82,8 @@ public class Lietotaji {
             System.out.println("Ievadiet e-pastu:");
             String klientaPastaievade = scanner.nextLine();
 
-            if (klientaPastaievade.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
-            klientaEpasts = klientaPastaievade;
+            if (irDerigsEpasts(klientaPastaievade)) {
+            klientaEpasts = klientaPastaievade.trim();
             break;
          } else {
             System.out.println("Nepareizi ievadits e-pasts. Meginiet velreiz.");
@@ -39,24 +94,19 @@ public class Lietotaji {
             System.out.println("Ievadiet telefona numuru:");
             String ievadeKlientatelefons = scanner.nextLine();
 
-            if (ievadeKlientatelefons.matches("\\d{8}")) {
-             klientaTelefons = "371" + ievadeKlientatelefons;
+            if (irDerigsTelefons(ievadeKlientatelefons)) {
+             klientaTelefons = ievadeKlientatelefons.trim();
             break;
          } else {
             System.out.println("Nepareizi ievadits telefona numurs. Meginiet velreiz.");
         }
     }
 
-        // Check if the email already exists in the client list
-        for (String klients : klientuList) {
-            String[] klientInfo = klients.split(",");
-            if (klientInfo.length > 2 && klientInfo[2].trim().equals(klientaEpasts)) {
-                System.out.println("Sis e-pasts jau ir reģistrets. Ludzu, izmantojiet citu e-pastu.");
-                return;
-            }
+        if (vaiKlientaEpastsEksiste(klientaEpasts) || Treneri.vaiTreneraEpastsEksiste(klientaEpasts)) {
+            System.out.println("Sis e-pasts jau ir registrets. Ludzu, izmantojiet citu e-pastu.");
+            return;
         }
 
-        // If the email is unique, proceed with registration
         int newID = getIDklients() + 1;
         String klientData = newID + ". " + klientaVards + "," + klientaUzvards + "," + klientaEpasts + "," + klientaTelefons + ",abonements,0.0";
         klientuList.add(klientData);
@@ -194,33 +244,41 @@ public class Lietotaji {
         System.out.println("Pieslegties");
         System.out.println("Ievadiet savu e-pastu:");
         Scanner scanner = new Scanner(System.in);
-        String ievaditaisEpasts = scanner.nextLine();
+        String ievaditaisEpasts;
 
-        boolean found = false;
+        while (true) {
+            ievaditaisEpasts = scanner.nextLine().trim();
+            boolean found = false;
 
-        for (String klients : klientuList) {
-            String[] klientInfo = klients.split(",");
-            if (klientInfo[2].equals(ievaditaisEpasts)) {
-                found = true;
-                System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + klientInfo[0] + "!");
+            for (String klients : klientuList) {
+                String[] klientInfo = klients.split(",");
+                if (klientInfo[2].equalsIgnoreCase(ievaditaisEpasts)) {
+                    found = true;
+                    System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + klientInfo[0] + "!");
+                    break;
+                }
+            }
+
+            if (found) {
                 break;
             }
-        }
 
-        if (!found) {
-            System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
+            System.out.println("E-pasts nav atrasts. Ievadiet velreiz:");
         }
     }
 
     public static void mansKonts() {
         Scanner scanner = new Scanner(System.in);
         if (currentUserEmail == null) {
-            System.out.println("Ievadiet savu e-pastu:");
-            String ievaditaisEpasts = scanner.nextLine();
+            while (true) {
+                System.out.println("Ievadiet savu e-pastu:");
+                String ievaditaisEpasts = scanner.nextLine().trim();
 
-            if (!setCurrentUserByEmail(ievaditaisEpasts)) {
-                System.out.println("E-pasts nav atrasts. LLudzu, meginiet velreiz.");
-                return;
+                if (setCurrentUserByEmail(ievaditaisEpasts)) {
+                    break;
+                }
+
+                System.out.println("E-pasts nav atrasts. Ievadiet velreiz.");
             }
         }
 
@@ -240,17 +298,51 @@ public class Lietotaji {
                 System.out.println("2. Apskatit jusu abonementu");
                 System.out.println("3. Dzest savu kontu");
                 System.out.println("4. Atgriezties izvelne");
-                int kontaIzvele = scanner.nextInt();
+                int kontaIzvele = Main.readInt(scanner);
+                scanner.nextLine();
                 switch(kontaIzvele) {
                     case 1:
+                        while (true) {
+                            System.out.println("Ievadiet savu e-pastu:");
+                            String ievaditaisEpasts = scanner.nextLine().trim();
+
+                            if (currentUserEmail != null && !ievaditaisEpasts.equalsIgnoreCase(currentUserEmail)) {
+                                System.out.println("Sis nav jusu e-pasts. Ievadiet savu e-pastu velreiz.");
+                                continue;
+                            }
+
+                            break;
+                        }
                         redigetProfilaDatus();
                         Main.klientaIzvelne(new String[0]); 
                         break;
                     case 2: 
+                        while (true) {
+                            System.out.println("Ievadiet savu e-pastu:");
+                            String ievaditaisEpasts = scanner.nextLine().trim();
+
+                            if (currentUserEmail != null && !ievaditaisEpasts.equalsIgnoreCase(currentUserEmail)) {
+                                System.out.println("Sis nav jusu e-pasts. Ievadiet savu e-pastu velreiz.");
+                                continue;
+                            }
+
+                            break;
+                        }
                         Abonements.apskatitManuabonementu();
                         Main.klientaIzvelne(new String[0]);
                         break;
                     case 3: 
+                        while (true) {
+                            System.out.println("Ievadiet savu e-pastu:");
+                            String ievaditaisEpasts = scanner.nextLine().trim();
+
+                            if (currentUserEmail != null && !ievaditaisEpasts.equalsIgnoreCase(currentUserEmail)) {
+                                System.out.println("Sis nav jusu e-pasts. Ievadiet savu e-pastu velreiz.");
+                                continue;
+                            }
+
+                            break;
+                        }
                         klientuList.remove(klients);
                         updateFileKlietn();
                         System.out.println("Jusu konts ir dzests. Uz redzesanos!");
@@ -271,18 +363,60 @@ public class Lietotaji {
     public static void redigetProfilaDatus() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Rediget profila datus");
-        System.out.println("Ievadiet savu e-pastu, lai redigetu datus:");
-        String ievaditaisEpasts = scanner.nextLine();
+        String ievaditaisEpasts;
+        while (true) {
+            System.out.println("Ievadiet savu e-pastu, lai redigetu datus:");
+            ievaditaisEpasts = scanner.nextLine().trim();
+
+            if (currentUserEmail != null && !ievaditaisEpasts.equalsIgnoreCase(currentUserEmail)) {
+                System.out.println("Sis nav jusu e-pasts. Ievadiet savu e-pastu velreiz.");
+                continue;
+            }
+
+            break;
+        }
 
         for (int i = 0; i < klientuList.size(); i++) {
             String[] klientInfo = normalizeKlientInfo(klientuList.get(i).split(","));
-            if (klientInfo[2].equals(ievaditaisEpasts)) {
-                System.out.println("Ievadiet jaunu vardu:");
-                String jaunsVards = scanner.nextLine();
-                System.out.println("Ievadiet jaunu uzvardu:");
-                String jaunsUzvards = scanner.nextLine();
-                System.out.println("Ievadiet jaunu telefona numuru:");
-                String jaunsTelefons = scanner.nextLine();
+            if (klientInfo[2].equalsIgnoreCase(ievaditaisEpasts)) {
+                String jaunsVards;
+                while (true) {
+                    System.out.println("Ievadiet jaunu vardu:");
+                    jaunsVards = scanner.nextLine();
+
+                    if (irDerigsVards(jaunsVards)) {
+                        jaunsVards = jaunsVards.trim();
+                        break;
+                    }
+
+                    System.out.println("Nepareizi ievadits vards.");
+                }
+
+                String jaunsUzvards;
+                while (true) {
+                    System.out.println("Ievadiet jaunu uzvardu:");
+                    jaunsUzvards = scanner.nextLine();
+
+                    if (irDerigsUzvards(jaunsUzvards)) {
+                        jaunsUzvards = jaunsUzvards.trim();
+                        break;
+                    }
+
+                    System.out.println("Nepareizi ievadits uzvards.");
+                }
+
+                String jaunsTelefons;
+                while (true) {
+                    System.out.println("Ievadiet jaunu telefona numuru:");
+                    jaunsTelefons = scanner.nextLine();
+
+                    if (irDerigsTelefons(jaunsTelefons)) {
+                        jaunsTelefons = jaunsTelefons.trim();
+                        break;
+                    }
+
+                    System.out.println("Nepareizi ievadits telefona numurs.");
+                }
 
                 klientInfo[0] = jaunsVards;
                 klientInfo[1] = jaunsUzvards;
@@ -338,7 +472,7 @@ public class Lietotaji {
 
         String[] klientInfo = normalizeKlientInfo(klientuList.get(userIndex).split(","));
         System.out.println("Ievadiet iemaksa summu:");
-        double depositAmount = scanner.nextDouble();
+        double depositAmount = Main.readDouble(scanner);
         scanner.nextLine();
 
         double currentBalance = parseBalance(klientInfo);
@@ -355,19 +489,22 @@ public class Lietotaji {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Pieslegsanas");
         System.out.println("Ievadiet savu e-pastu: ");
-        String ievaditaisEpasts = scanner.nextLine();
-        boolean found = setCurrentUserByEmail(ievaditaisEpasts);
+        boolean found;
 
-        if (found) {
-            int userIndex = findCurrentUserIndex();
-            String[] klientInfo = normalizeKlientInfo(klientuList.get(userIndex).split(","));
-            System.out.println();
-            System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + klientInfo[1] + "!");
-            System.out.println();
-        } else {
-            System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
-            klientuPieslegsanas();
-        }
+        do {
+            String ievaditaisEpasts = scanner.nextLine().trim();
+            found = setCurrentUserByEmail(ievaditaisEpasts);
+
+            if (!found) {
+                System.out.println("E-pasts nav atrasts. Ievadiet velreiz:");
+            }
+        } while (!found);
+
+        int userIndex = findCurrentUserIndex();
+        String[] klientInfo = normalizeKlientInfo(klientuList.get(userIndex).split(","));
+        System.out.println();
+        System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + klientInfo[1] + "!");
+        System.out.println();
         }
     
         public static double getCurrentUserBalance(){
