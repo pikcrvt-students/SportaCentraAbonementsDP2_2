@@ -26,18 +26,22 @@ public class Main {
                 System.out.println("3. Administrators");
 
                 int lietIzvele = scanner.nextInt();
+                scanner.nextLine();
 
                 switch (lietIzvele) {
                     case 1:
                         Lietotaji.klientuRegistresana();
+                        klientaIzvelne(new String[0]);
                         break;
                     case 2:
                         isTrainer = true;
                         Treneri.treneruRegistresana();
+                        treneraIzvelne(new String[0]);
                         break;
                     case 3:
                         isAdmin = true;
                         Administratori.administratoruRegistresana();
+                        administratoraIzvelne(new String[0]);
                         break;
 
                     default:
@@ -51,21 +55,25 @@ public class Main {
                 System.out.println("3. Administrators");
 
                 int pieslegIzvele = scanner.nextInt();
+                scanner.nextLine();
 
                 switch (pieslegIzvele) {
                     case 1:
                         isKlietns = true;
                         Lietotaji.loadKlientiFromFile();
                         Lietotaji.klientuPieslegsanas();
+                        klientaIzvelne(new String[0]);
                         break;
                     case 2:
                         isTrainer = true;
                         Treneri.loadTreneriFromFile();
                         Treneri.treneruPieslegsanas();
+                        treneraIzvelne(new String[0]);
                         break;
                     case 3:
                         isAdmin = true;
                         Administratori.administratoruPieslegsanas();
+                        administratoraIzvelne(new String[0]);
                         break;
 
                     default:
@@ -445,19 +453,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         Lietotaji.loadKlientiFromFile();
         Treneri.loadTreneriFromFile();
         treninuPlani.loadTreniniFromFile();
         treninuPlani.loadPieteikumiFromFile();
-        int pieslegIzvele = Registresana();
-
-        if (!isTrainer && !isAdmin) {
-            klientaIzvelne(args);
-        } else if (!isAdmin && !isKlietns) {
-            treneraIzvelne(args);
-        } else {
-            administratoraIzvelne(args); 
-        }
+        Registresana();
     }
 }
