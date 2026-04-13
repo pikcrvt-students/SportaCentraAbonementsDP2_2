@@ -5,6 +5,12 @@ public class Treneri {
     public static ArrayList<String> treneruList = new ArrayList<>();
     private static final String filePathforTreneri = "csv/trenerRegistration.csv";
     private static String currentTrainerEmail = null;
+    private static final String VARDA_REGEX = "^[A-Za-zĀČĒĢĪĶĻŅŠŪŽāčēģīķļņšūž\\s-]{1,60}$";
+    private static final String UZVARDA_REGEX = "^[A-Za-zĀČĒĢĪĶĻŅŠŪŽāčēģīķļņšūž\\s-]{1,100}$";
+    private static final String PKODA_REGEX = "^\\d{6}-\\d{5}$";
+    private static final String EPASTA_REGEX = "^[A-Za-z0-9+_.-]{1,64}@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+    private static final String TELEFONA_REGEX = "^\\d{8}$";
+    private static final String SPECIALIZACIJAS_REGEX = "^[A-Za-zĀČĒĢĪĶĻŅŠŪŽāčēģīķļņšūž\\s-]{1,100}$";
 
     private static void nodrosinaTreneraSaglabasanu() {
         if (treneruList.isEmpty()) {
@@ -12,22 +18,81 @@ public class Treneri {
         }
     }
 
+    public static boolean vaiTreneraEpastsEksiste(String epasts) {
+        nodrosinaTreneraSaglabasanu();
+
+        for (String treneris : treneruList) {
+            String[] trenerInfo = normalizeTrenerInfo(treneris.split(","));
+            if (trenerInfo[2].equalsIgnoreCase(epasts.trim())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean irDerigsVards(String vards) {
+        return vards != null && vards.trim().matches(VARDA_REGEX);
+    }
+
+    private static boolean irDerigsUzvards(String uzvards) {
+        return uzvards != null && uzvards.trim().matches(UZVARDA_REGEX);
+    }
+
+    private static boolean irDerigsEpasts(String epasts) {
+        return epasts != null && epasts.trim().length() <= 150 && epasts.trim().matches(EPASTA_REGEX);
+    }
+
+    private static boolean irDerigsTelefons(String telefons) {
+        return telefons != null && telefons.trim().matches(TELEFONA_REGEX);
+    }
+
+    private static boolean irDerigsPkods(String pkods) {
+        return pkods != null && pkods.trim().length() <= 12 && pkods.trim().matches(PKODA_REGEX);
+    }
+
+    private static boolean irDerigaSpecializacija(String specializacija) {
+        return specializacija != null && specializacija.trim().matches(SPECIALIZACIJAS_REGEX);
+    }
+
     public static void treneruRegistresana() {
         nodrosinaTreneraSaglabasanu();
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Ievadiet savu vardu:");
-        String treneraVards = scanner.nextLine();
-        System.out.print("Ievadiet savu uzvardu:");
-        String treneraUzvards = scanner.nextLine();
+
+        String treneraVards;
+        while (true) {
+            System.out.print("Ievadiet savu vardu:");
+            treneraVards = scanner.nextLine();
+
+            if (irDerigsVards(treneraVards)) {
+                treneraVards = treneraVards.trim();
+                break;
+            }
+
+            System.out.println("Nepareizi ievadits vards. Garums lidz 60 simboliem.");
+        }
+
+        String treneraUzvards;
+        while (true) {
+            System.out.print("Ievadiet savu uzvardu:");
+            treneraUzvards = scanner.nextLine();
+
+            if (irDerigsUzvards(treneraUzvards)) {
+                treneraUzvards = treneraUzvards.trim();
+                break;
+            }
+
+            System.out.println("Nepareizi ievadits uzvards. Garums lidz 100 simboliem.");
+        }
 
         String treneraEpasts;
         while (true) {
             System.out.println("Ievadiet e-pastu:");
             String treneraPastaievade = scanner.nextLine();
 
-            if (treneraPastaievade.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")) {
-                treneraEpasts = treneraPastaievade;
+            if (irDerigsEpasts(treneraPastaievade)) {
+                treneraEpasts = treneraPastaievade.trim();
                 break;
             } else {
                 System.out.println("Nepareizi ievadits e-pasts. Meginiet velreiz.");
@@ -39,8 +104,8 @@ public class Treneri {
             System.out.println("Ievadiet telefona numuru:");
             String ievadeTreneratelefons = scanner.nextLine();
 
-            if (ievadeTreneratelefons.matches("\\d{8}")) {
-                treneraTelefons = "371" + ievadeTreneratelefons;
+            if (irDerigsTelefons(ievadeTreneratelefons)) {
+                treneraTelefons = ievadeTreneratelefons.trim();
                 break;
             } else {
                 System.out.println("Nepareizi ievadits telefona numurs. Meginiet velreiz.");
@@ -52,23 +117,30 @@ public class Treneri {
             System.out.println("Ievadiet personas kodu:");
             String input = scanner.nextLine();
 
-            if (input.matches("^\\d{6}-\\d{5}$")) {
-                treneraPkods = input;
+            if (irDerigsPkods(input)) {
+                treneraPkods = input.trim();
                 break;
             } else {
                 System.out.println("Nepareizi ievadits personas kods. Meginiet velreiz.");
             }
         }
 
-        System.out.print("Ievadiet savu specializaciju:");
-        String treneraSpecializacija = scanner.nextLine();
+        String treneraSpecializacija;
+        while (true) {
+            System.out.print("Ievadiet savu specializaciju:");
+            treneraSpecializacija = scanner.nextLine();
 
-        for (String treneris : treneruList) {
-            String[] trenerInfo = normalizeTrenerInfo(treneris.split(","));
-            if (trenerInfo[2].equalsIgnoreCase(treneraEpasts.trim())) {
-                System.out.println("Sis e-pasts jau ir registrets.");
-                return;
+            if (irDerigaSpecializacija(treneraSpecializacija)) {
+                treneraSpecializacija = treneraSpecializacija.trim();
+                break;
             }
+
+            System.out.println("Nepareizi ievadita specializacija.");
+        }
+
+        if (vaiTreneraEpastsEksiste(treneraEpasts) || Lietotaji.vaiKlientaEpastsEksiste(treneraEpasts)) {
+            System.out.println("Sis e-pasts jau ir registrets.");
+            return;
         }
 
         int newID = getIDtreneri() + 1;
@@ -163,12 +235,15 @@ public class Treneri {
         Scanner scanner = new Scanner(System.in);
 
         if (currentTrainerEmail == null) {
-            System.out.println("Ievadiet savu e-pastu:");
-            String ievaditaisEpasts = scanner.nextLine();
+            while (true) {
+                System.out.println("Ievadiet savu e-pastu:");
+                String ievaditaisEpasts = scanner.nextLine().trim();
 
-            if (!setCurrentTrenerByEmail(ievaditaisEpasts)) {
-                System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
-                return;
+                if (setCurrentTrenerByEmail(ievaditaisEpasts)) {
+                    break;
+                }
+
+                System.out.println("E-pasts nav atrasts. Ievadiet velreiz.");
             }
         }
 
@@ -188,7 +263,7 @@ public class Treneri {
                 System.out.println("1. Rediget profila datus");
                 System.out.println("2. Dzest savu kontu");
                 System.out.println("3. Atgriezties izvelne");
-                int kontaIzvele = scanner.nextInt();
+                int kontaIzvele = Main.readInt(scanner);
                 scanner.nextLine();
 
                 switch (kontaIzvele) {
@@ -276,7 +351,7 @@ public class Treneri {
         }
 
         System.out.println("Ievadiet trenera numuru, kuru velaties izveleties:");
-        int treneruIzvele = scanner.nextInt();
+        int treneruIzvele = Main.readInt(scanner);
         if (treneruIzvele < 1 || treneruIzvele > treneruList.size()) {
             System.out.println("Nepareiza izvele. Meginiet velreiz.");
             return;
@@ -287,28 +362,109 @@ public class Treneri {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Rediget profila datus");
-        System.out.println("Ievadiet savu e-pastu, lai redigetu datus:");
-        String ievaditaisEpasts = scanner.nextLine();
+        String ievaditaisEpasts;
+        while (true) {
+            System.out.println("Ievadiet savu e-pastu, lai redigetu datus:");
+            ievaditaisEpasts = scanner.nextLine().trim();
+
+            if (currentTrainerEmail != null && !ievaditaisEpasts.equalsIgnoreCase(currentTrainerEmail)) {
+                System.out.println("Sis nav jusu e-pasts. Ievadiet savu e-pastu velreiz.");
+                continue;
+            }
+
+            break;
+        }
 
         for (int i = 0; i < treneruList.size(); i++) {
             String[] trenerInfo = normalizeTrenerInfo(treneruList.get(i).split(","));
 
             if (trenerInfo[2].equalsIgnoreCase(ievaditaisEpasts.trim())) {
                 String idPart = trenerInfo[0];
-                String vecaisVards = idPart.replaceFirst("^\\d+\\.\\s*", "");
 
-                System.out.println("Ievadiet jaunu vardu:");
-                String jaunsVards = scanner.nextLine();
-                System.out.println("Ievadiet jaunu uzvardu:");
-                String jaunsUzvards = scanner.nextLine();
-                System.out.println("Ievadiet jaunu e-pastu:");
-                String jaunsEpasts = scanner.nextLine();
-                System.out.println("Ievadiet jaunu telefona numuru:");
-                String jaunsTelefons = scanner.nextLine();
-                System.out.println("Ievadiet jaunu personas kodu:");
-                String jaunsPkods = scanner.nextLine();
-                System.out.println("Ievadiet jaunu specializaciju:");
-                String jaunsSpecializacija = scanner.nextLine();
+                String jaunsVards;
+                while (true) {
+                    System.out.println("Ievadiet jaunu vardu:");
+                    jaunsVards = scanner.nextLine();
+
+                    if (irDerigsVards(jaunsVards)) {
+                        jaunsVards = jaunsVards.trim();
+                        break;
+                    }
+
+                    System.out.println("Nepareizi ievadits vards.");
+                }
+
+                String jaunsUzvards;
+                while (true) {
+                    System.out.println("Ievadiet jaunu uzvardu:");
+                    jaunsUzvards = scanner.nextLine();
+
+                    if (irDerigsUzvards(jaunsUzvards)) {
+                        jaunsUzvards = jaunsUzvards.trim();
+                        break;
+                    }
+
+                    System.out.println("Nepareizi ievadits uzvards.");
+                }
+
+                String jaunsEpasts;
+                while (true) {
+                    System.out.println("Ievadiet jaunu e-pastu:");
+                    jaunsEpasts = scanner.nextLine();
+
+                    if (!irDerigsEpasts(jaunsEpasts)) {
+                        System.out.println("Nepareizi ievadits e-pasts.");
+                        continue;
+                    }
+
+                    if (!jaunsEpasts.trim().equalsIgnoreCase(ievaditaisEpasts.trim()) &&
+                        (vaiTreneraEpastsEksiste(jaunsEpasts) || Lietotaji.vaiKlientaEpastsEksiste(jaunsEpasts))) {
+                        System.out.println("Sis e-pasts jau ir registrets.");
+                        continue;
+                    }
+
+                    jaunsEpasts = jaunsEpasts.trim();
+                    break;
+                }
+
+                String jaunsTelefons;
+                while (true) {
+                    System.out.println("Ievadiet jaunu telefona numuru:");
+                    jaunsTelefons = scanner.nextLine();
+
+                    if (irDerigsTelefons(jaunsTelefons)) {
+                        jaunsTelefons = jaunsTelefons.trim();
+                        break;
+                    }
+
+                    System.out.println("Nepareizi ievadits telefona numurs.");
+                }
+
+                String jaunsPkods;
+                while (true) {
+                    System.out.println("Ievadiet jaunu personas kodu:");
+                    jaunsPkods = scanner.nextLine();
+
+                    if (irDerigsPkods(jaunsPkods)) {
+                        jaunsPkods = jaunsPkods.trim();
+                        break;
+                    }
+
+                    System.out.println("Nepareizi ievadits personas kods.");
+                }
+
+                String jaunsSpecializacija;
+                while (true) {
+                    System.out.println("Ievadiet jaunu specializaciju:");
+                    jaunsSpecializacija = scanner.nextLine();
+
+                    if (irDerigaSpecializacija(jaunsSpecializacija)) {
+                        jaunsSpecializacija = jaunsSpecializacija.trim();
+                        break;
+                    }
+
+                    System.out.println("Nepareizi ievadita specializacija.");
+                }
 
                 String idPrefix = "";
                 if (idPart.contains(". ")) {
@@ -340,20 +496,22 @@ public class Treneri {
 
         System.out.println("Pieslegsanas");
         System.out.println("Ievadiet savu e-pastu: ");
-        String ievaditaisEpasts = scanner.nextLine();
+        boolean found;
 
-        boolean found = setCurrentTrenerByEmail(ievaditaisEpasts);
+        do {
+            String ievaditaisEpasts = scanner.nextLine().trim();
+            found = setCurrentTrenerByEmail(ievaditaisEpasts);
 
-        if (found) {
-            String[] trenerInfo = dabutTreneraInfoPecEpasta(currentTrainerEmail);
+            if (!found) {
+                System.out.println("E-pasts nav atrasts. Ievadiet velreiz.");
+            }
+        } while (!found);
 
-            System.out.println();
-            System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + trenerInfo[1] + "!");
-            System.out.println();
-        } else {
-            System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
-            treneruPieslegsanas();
-        }
+        String[] trenerInfo = dabutTreneraInfoPecEpasta(currentTrainerEmail);
+
+        System.out.println();
+        System.out.println("Pieslegsanas veiksmiga! Laipni ludzam, " + trenerInfo[1] + "!");
+        System.out.println();
     }
 
     public static void loadTreneriFromFile() {
