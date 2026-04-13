@@ -9,11 +9,14 @@ public class Administratori {
 
         while (true) {
             System.out.println("Ievadiet slepkodu:");
-            int slepkods = scanner.nextInt();
+            String slepkods = scanner.nextLine();
 
-            if (slepkods == 67) {
+            if (slepkods.equals("67")) {
                 System.out.println("Laipni lugti, administrators!");
                 break;
+            } else if (slepkods.isEmpty()) {
+                System.out.println("Lauks ir tukss! Meginiet velreiz.");
+                
             } else {
                 System.out.println("Nepareizs slepkods! Meginiet velreiz.");
             }
@@ -27,14 +30,14 @@ public class Administratori {
 
         while (true) {
             System.out.println("Ievadiet slepkodu:");
-            int slepkods = scanner.nextInt();
+            int slepkods = Main.readInt(scanner);
+            scanner.nextLine();
 
             if (slepkods == 67) {
                 System.out.println("Laipni lugti, administrators!");
                 break;
             } else {
                 System.out.println("Nepareizs slepkods! Meginiet velreiz.");
-                administratoruPieslegsanas();
             }
         }
     }
