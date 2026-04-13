@@ -8,6 +8,13 @@ public class treninuPlani {
 
         private static ArrayList<String> pieteikumi = new ArrayList<>();
         private static final String filepathforPieteikumi = "csv/pieteikumi.csv";
+        private static final String NOSAUKUMA_REGEX = "^.{1,50}$";
+        private static final String SPORTA_VEIDA_REGEX = "^.{1,40}$";
+        private static final String MUSKULU_GRUPAS_REGEX = "^.{1,20}$";
+        private static final String DATUMA_REGEX = "^\\d{2}\\.\\d{2}\\.\\d{4}\\s\\d{2}:\\d{2}$";
+        private static final String ILGUMA_REGEX = "^.{1,20}$";
+        private static final String APRAKSTA_REGEX = "^.{1,300}$";
+        private static final String BRIVO_VIETU_REGEX = "^\\d{1,3}$";
 
         private static void ensureTreniniLoaded() {
                 if (treninuList.isEmpty()) {
@@ -37,17 +44,62 @@ public class treninuPlani {
                 return result;
         }
 
+        private static boolean irDerigsTeksts(String teksts, String regex) {
+                return teksts != null && teksts.trim().matches(regex);
+        }
+
         public static void treninuPlanaIevade() {
                 ensureTreniniLoaded();
                 Scanner scanner = new Scanner(System.in);
 
                 String treneris = Treneri.getCurrentTrainerVardsUzvards();
 
-                System.out.println("Ievadiet trenina nosaukumu:");
-                String treninaNosaukums = scanner.nextLine();
+                String treninaNosaukums;
+                while (true) {
+                        System.out.println("Ievadiet trenina nosaukumu:");
+                        treninaNosaukums = scanner.nextLine();
 
-                System.out.println("Ievadiet sporta veidu:");
-                String sportaVeids = scanner.nextLine();
+                        if (irDerigsTeksts(treninaNosaukums, NOSAUKUMA_REGEX)) {
+                                treninaNosaukums = treninaNosaukums.trim();
+                                break;
+                        }
+
+                        System.out.println("Nepareizs trenina nosaukums.");
+                }
+
+                String sportaVeids;
+                while (true) {
+                        System.out.println("Izvelieties sporta veidu:");
+                        System.out.println("1. Kalistenika");
+                        System.out.println("2. Klinsu kapsana");
+                        System.out.println("3. Smaga atletika");
+                        System.out.println("4. Fitness");
+                        System.out.println("5. Crossfit");
+                        String sportaVeidaIzvele = scanner.nextLine().trim();
+
+                        if (sportaVeidaIzvele.equals("1")) {
+                                sportaVeids = "Kalistenika";
+                                break;
+                        }
+                        if (sportaVeidaIzvele.equals("2")) {
+                                sportaVeids = "Klinsu kapsana";
+                                break;
+                        }
+                        if (sportaVeidaIzvele.equals("3")) {
+                                sportaVeids = "Smaga atletika";
+                                break;
+                        }
+                        if (sportaVeidaIzvele.equals("4")) {
+                                sportaVeids = "Fitness";
+                                break;
+                        }
+                        if (sportaVeidaIzvele.equals("5")) {
+                                sportaVeids = "Crossfit";
+                                break;
+                        }
+
+                        System.out.println("Nepareiza izvele! Meginiet velreiz.");
+                }
 
                 String grutibasPakape;
                 while (true) {
@@ -62,20 +114,70 @@ public class treninuPlani {
                 }
                 
 
-                System.out.println("Ievadiet muskulu grupu:");
-                String muskuluGrupa = scanner.nextLine();
+                String muskuluGrupa;
+                while (true) {
+                        System.out.println("Ievadiet muskulu grupu:");
+                        muskuluGrupa = scanner.nextLine();
 
-                System.out.println("Ievadiet trenina datumu:");
-                String treninaDatums = scanner.nextLine();
+                        if (irDerigsTeksts(muskuluGrupa, MUSKULU_GRUPAS_REGEX)) {
+                                muskuluGrupa = muskuluGrupa.trim();
+                                break;
+                        }
 
-                System.out.println("Ievadiet trenina ilgumu:");
-                String treninaIlgums = scanner.nextLine();
+                        System.out.println("Nepareizi ievadita muskulu grupa. Garums lidz 20 simboliem.");
+                }
 
-                System.out.println("Ievadiet trenina aprakstu:");
-                String treninaApraksts = scanner.nextLine();
+                String treninaDatums;
+                while (true) {
+                        System.out.println("Ievadiet trenina datumu:");
+                        treninaDatums = scanner.nextLine();
 
-                System.out.println("Ievadiet brivo vietu skaitu:");
-                String brivoVietuSkaits = scanner.nextLine();
+                        if (irDerigsTeksts(treninaDatums, DATUMA_REGEX)) {
+                                treninaDatums = treninaDatums.trim();
+                                break;
+                        }
+
+                        System.out.println("Nepareizs datums. Lietojiet formatu dd.MM.yyyy HH:mm");
+                }
+
+                String treninaIlgums;
+                while (true) {
+                        System.out.println("Ievadiet trenina ilgumu:");
+                        treninaIlgums = scanner.nextLine();
+
+                        if (irDerigsTeksts(treninaIlgums, ILGUMA_REGEX)) {
+                                treninaIlgums = treninaIlgums.trim();
+                                break;
+                        }
+
+                        System.out.println("Nepareizi ievadits trenina ilgums.");
+                }
+
+                String treninaApraksts;
+                while (true) {
+                        System.out.println("Ievadiet trenina aprakstu:");
+                        treninaApraksts = scanner.nextLine();
+
+                        if (irDerigsTeksts(treninaApraksts, APRAKSTA_REGEX)) {
+                                treninaApraksts = treninaApraksts.trim();
+                                break;
+                        }
+
+                        System.out.println("Nepareizs trenina apraksts. Garums lidz 300 simboliem.");
+                }
+
+                String brivoVietuSkaits;
+                while (true) {
+                        System.out.println("Ievadiet brivo vietu skaitu:");
+                        brivoVietuSkaits = scanner.nextLine();
+
+                        if (irDerigsTeksts(brivoVietuSkaits, BRIVO_VIETU_REGEX) && Integer.parseInt(brivoVietuSkaits.trim()) > 0) {
+                                brivoVietuSkaits = brivoVietuSkaits.trim();
+                                break;
+                        }
+
+                        System.out.println("Nepareizs brivo vietu skaits.");
+                }
 
                 String[] fields = {treninaNosaukums, sportaVeids, grutibasPakape, muskuluGrupa, treninaDatums, treninaIlgums, treninaApraksts, brivoVietuSkaits};
                 if (!validateAizpilditieLauki(fields)) {
@@ -183,26 +285,99 @@ public class treninuPlani {
                 ensureTreniniLoaded();
                 Scanner scanner = new Scanner(System.in);
 
-                System.out.println("Ievadiet sporta veidu:");
-                String sport = scanner.nextLine().trim().toLowerCase();
-
-                System.out.println("Ievadiet grutibas pakapi:");
-                String difficulty = scanner.nextLine().trim().toLowerCase();
+                System.out.println("Filtret pec:");
+                System.out.println("1. Sporta veida");
+                System.out.println("2. Grutibas pakapes");
+                String filtraIzvele = scanner.nextLine().trim();
 
                 boolean found = false;
                 System.out.println("-----ATRASTIE TRENINI-----");
 
-                for (String line : treninuList) {
-                        String[] parts = getPlanParts(line);
+                if (filtraIzvele.equals("1")) {
+                        String sport = "";
 
-                        if (parts[3].toLowerCase().equals(sport) && parts[4].toLowerCase().equals(difficulty)) {
-                                printPlan(parts);
-                                found = true;
+                        while (true) {
+                                System.out.println("Izvelieties sporta veidu:");
+                                System.out.println("1. Kalistenika");
+                                System.out.println("2. Klinsu kapsana");
+                                System.out.println("3. Smaga atletika");
+                                System.out.println("4. Fitness");
+                                System.out.println("5. Crossfit");
+                                String sportaIzvele = scanner.nextLine().trim();
+
+                                if (sportaIzvele.equals("1")) {
+                                        sport = "kalistenika";
+                                        break;
+                                }
+                                if (sportaIzvele.equals("2")) {
+                                        sport = "klinsu kapsana";
+                                        break;
+                                }
+                                if (sportaIzvele.equals("3")) {
+                                        sport = "smaga atletika";
+                                        break;
+                                }
+                                if (sportaIzvele.equals("4")) {
+                                        sport = "fitness";
+                                        break;
+                                }
+                                if (sportaIzvele.equals("5")) {
+                                        sport = "crossfit";
+                                        break;
+                                }
+
+                                System.out.println("Nepareiza izvele! Meginiet velreiz.");
                         }
+
+                        for (String line : treninuList) {
+                                String[] parts = getPlanParts(line);
+
+                                if (parts[3].toLowerCase().contains(sport)) {
+                                        printPlan(parts);
+                                        found = true;
+                                }
+                        }
+                } else if (filtraIzvele.equals("2")) {
+                        String difficulty = "";
+
+                        while (true) {
+                                System.out.println("Izvelieties grutibas pakapi:");
+                                System.out.println("1. Viegli");
+                                System.out.println("2. Videji");
+                                System.out.println("3. Gruti");
+                                String grutibasIzvele = scanner.nextLine().trim();
+
+                                if (grutibasIzvele.equals("1")) {
+                                        difficulty = "viegli";
+                                        break;
+                                }
+                                if (grutibasIzvele.equals("2")) {
+                                        difficulty = "videji";
+                                        break;
+                                }
+                                if (grutibasIzvele.equals("3")) {
+                                        difficulty = "gruti";
+                                        break;
+                                }
+
+                                System.out.println("Nepareiza izvele! Meginiet velreiz.");
+                        }
+
+                        for (String line : treninuList) {
+                                String[] parts = getPlanParts(line);
+
+                                if (parts[4].toLowerCase().contains(difficulty)) {
+                                        printPlan(parts);
+                                        found = true;
+                                }
+                        }
+                } else {
+                        System.out.println("Nepareiza izvele.");
+                        return;
                 }
 
                 if (!found) {
-                        System.out.println("Trenins un/vai grutibas pakape netika atrasta.");
+                        System.out.println("Neviens treninu plans netika atrasts.");
                 }
         }
 
