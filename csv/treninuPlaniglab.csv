@@ -1,9 +1,2 @@
-id, treninaNosaukums, sportaVeids, grutibasPakape, muskuluGrupa, treninaDatums, treninaIlgums, treninaApraksts, brivoVietuSkaits
-1Treniņa nosaukums: Zaudejiet svaru 24h laika
-Sporta veids: Kalistenika
-Grūtības pakāpe: viegls
-Muskulu grupa: visas
-Trenina datums: 04.09.2026
-Trenina ilgums: 2 stundas
-Trenina apraksts: Zaudejiet lidz 10kg tauku 24 stundu laika!
-Brivas vietas: 30
+id,treneris,treninaNosaukums,sportaVeids,grutibasPakape,muskuluGrupa,treninaDatums,treninaIlgums,treninaApraksts,brivoVietuSkaits
+1,Dominik Sportiskais,GET SLIM IN 24H,CrossFit,viegli,Visas,05.05.2026,3 stundas,Zaudejiet lidz 10kg 24 stundu laika!,20
