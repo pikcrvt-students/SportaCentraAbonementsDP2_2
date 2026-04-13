@@ -2,6 +2,29 @@ import java.util.*;
 
 public class Abonements {
 
+    private static final String NOSAUKUMA_REGEX = "^.{1,15}$";
+    private static final String PLANA_REGEX = "^.{1,600}$";
+
+    private static boolean irDerigsAbonements(String nosaukums, double maksa, String plusi, String minusi) {
+        if (nosaukums == null || !nosaukums.trim().matches(NOSAUKUMA_REGEX)) {
+            return false;
+        }
+
+        if (maksa < 0) {
+            return false;
+        }
+
+        if (plusi == null || !plusi.trim().matches(PLANA_REGEX)) {
+            return false;
+        }
+
+        if (minusi != null && !minusi.trim().isEmpty() && !minusi.trim().matches(PLANA_REGEX)) {
+            return false;
+        }
+
+        return true;
+    }
+
     public static void abonementuIzvele() {
         Scanner scanner = new Scanner(System.in);
 
@@ -13,7 +36,7 @@ public class Abonements {
         System.out.println("2. GET CORE");
         System.out.println("3. GET CORE ULTRA");
 
-        int abonementaIzvele = scanner.nextInt();
+        int abonementaIzvele = Main.readInt(scanner);
 
         switch (abonementaIzvele) {
             case 1:
@@ -50,6 +73,11 @@ public class Abonements {
     }
 
     private static void paraditAbonementu(Scanner scanner, String nosaukums, double maksa, String plusi, String minusi) {
+        if (!irDerigsAbonements(nosaukums, maksa, plusi, minusi)) {
+            System.out.println("Abonementa dati nav derigi.");
+            return;
+        }
+
         System.out.println(nosaukums);
         System.out.println();
         System.out.println(formatPrice(maksa) + " eiro/menesi");
@@ -63,7 +91,7 @@ public class Abonements {
         System.out.println("1. Ja");
         System.out.println("2. Ne");
 
-        int iegadatiesIzvele = scanner.nextInt();
+        int iegadatiesIzvele = Main.readInt(scanner);
         if (iegadatiesIzvele == 1) {
             apstradatMaksajumu(scanner, nosaukums, maksa);
         }
@@ -77,7 +105,7 @@ public class Abonements {
         System.out.println("3. MAKSAT GADU (" + formatPrice(maksa * 12) + " eiro / gads)");
         System.out.println("4. Atpakal");
 
-        int apmaksasVeids = scanner.nextInt();
+        int apmaksasVeids = Main.readInt(scanner);
         double paymentAmount;
         String periods;
 
