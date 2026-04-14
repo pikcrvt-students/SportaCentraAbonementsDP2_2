@@ -29,7 +29,7 @@ public class Main {
             System.out.println("SAKUMS");
             System.out.println();
             System.out.println("1. Registresana");
-            System.out.println("2. Pieslegasanas");
+            System.out.println("2. Pieslegsanas");
             System.out.println("3. Iziet");
             System.out.println();
 
