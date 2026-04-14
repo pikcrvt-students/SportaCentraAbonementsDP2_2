@@ -12,13 +12,13 @@ public class Treneri {
     private static final String TELEFONA_REGEX = "^\\d{8}$";
     private static final String SPECIALIZACIJAS_REGEX = "^[A-Za-zĀČĒĢĪĶĻŅŠŪŽāčēģīķļņšūž\\s-]{1,100}$";
 
-    private static void nodrosinaTreneraSaglabasanu() {
+    private static void nodrosinaTreneraSaglabasanu() { // funkcija <nodrosinaTreneraSaglabasanu> neko nepieņem un atgriež <void> tipa vērtību <void>
         if (treneruList.isEmpty()) {
             loadTreneriFromFile();
         }
     }
 
-    public static boolean vaiTreneraEpastsEksiste(String epasts) {
+    public static boolean vaiTreneraEpastsEksiste(String epasts) { // funkcija <vaiTreneraEpastsEksiste> pieņem <String> tipa vērtību <epasts> un atgriež <boolean> tipa vērtību <true> vai <false>
         nodrosinaTreneraSaglabasanu();
 
         for (String treneris : treneruList) {
@@ -55,7 +55,7 @@ public class Treneri {
         return specializacija != null && specializacija.trim().matches(SPECIALIZACIJAS_REGEX);
     }
 
-    public static void treneruRegistresana() {
+    public static void treneruRegistresana() { // funkcija <treneruRegistresana> pieņem <String> tipa vērtību <treneraVards>, <treneraUzvards>, <treneraEpasts>, <treneraTelefons>, <treneraPkods>, <treneraSpecializacija> un atgriež <void> tipa vērtību <void>
         nodrosinaTreneraSaglabasanu();
 
         Scanner scanner = new Scanner(System.in);
@@ -152,7 +152,7 @@ public class Treneri {
         updateFileTrener();
     }
 
-    public static int getIDtreneri() {
+    public static int getIDtreneri() { // funkcija <getIDtreneri> neko nepieņem un atgriež <int> tipa vērtību <id>
         nodrosinaTreneraSaglabasanu();
         if (treneruList.isEmpty()) {
             return 0;
@@ -169,11 +169,12 @@ public class Treneri {
         }
     }
 
-    public static ArrayList<String> getTreneruList() {
+    public static ArrayList<String> getTreneruList() { // funkcija <getTreneruList> neko nepieņem un atgriež <ArrayList<String>> tipa vērtību <treneruList>
+         nodrosinaTreneraSaglabasanu();
         return treneruList;
     }
 
-    public static int atrastTreneriPecEpasta(String epasts) {
+    public static int atrastTreneriPecEpasta(String epasts) { // funkcija <atrastTreneriPecEpasta> pieņem <String> tipa vērtību <epasts> un atgriež <int> tipa vērtību <index>
         for (int i = 0; i < treneruList.size(); i++) {
             String[] trenerInfo = normalizeTrenerInfo(treneruList.get(i).split(","));
             if (trenerInfo[2].equalsIgnoreCase(epasts.trim())) {
@@ -183,7 +184,7 @@ public class Treneri {
         return -1;
     }
 
-    private static String[] normalizeTrenerInfo(String[] trenerInfo) {
+    private static String[] normalizeTrenerInfo(String[] trenerInfo) { // funkcija <normalizeTrenerInfo> pieņem <String[]> tipa vērtību <trenerInfo> un atgriež <String[]> tipa vērtību <normalizedTrenerInfo>
         if (trenerInfo == null) {
             return new String[] {"", "", "", "", "", ""};
         }
@@ -209,7 +210,7 @@ public class Treneri {
         return result;
     }
 
-    private static String normalizeTrenerLine(String line) {
+    private static String normalizeTrenerLine(String line) { // funkcija <normalizeTrenerLine> pieņem <String> tipa vērtību <line> un atgriež <String> tipa vērtību <normalizedLine>
         String[] parts = line.split(",");
         return String.join(",", normalizeTrenerInfo(parts));
     }
@@ -231,7 +232,7 @@ public class Treneri {
         return false;
     }
 
-    public static void mansKonts() {
+    public static void mansKonts() { // funkcija <mansKonts> pieņem <String> tipa vērtību <ievaditaisEpasts> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
 
         if (currentTrainerEmail == null) {
@@ -291,7 +292,7 @@ public class Treneri {
         System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
     }
 
-    public static String[] dabutTreneraInfoPecEpasta(String epasts) {
+    public static String[] dabutTreneraInfoPecEpasta(String epasts) { // funkcija <dabutTreneraInfoPecEpasta> pieņem <String> tipa vērtību <epasts> un atgriež <String[]> tipa vērtību <trenerInfo>
         int index = atrastTreneriPecEpasta(epasts);
         if (index == -1) {
             return null;
@@ -299,11 +300,11 @@ public class Treneri {
         return normalizeTrenerInfo(treneruList.get(index).split(","));
     }
 
-    public static String getCurrentTrainerEmail() {
+    public static String getCurrentTrainerEmail() { // funkcija <getCurrentTrainerEmail> neko nepieņem un atgriež <String> tipa vērtību <currentTrainerEmail>
         return currentTrainerEmail;
     }
 
-    public static String dabutTreneraPilnoVarduPecEpasta(String epasts) {
+    public static String dabutTreneraPilnoVarduPecEpasta(String epasts) { // funkcija <dabutTreneraPilnoVarduPecEpasta> pieņem <String> tipa vērtību <epasts> un atgriež <String> tipa vērtību <vardsUzvards>
         String[] trenerInfo = dabutTreneraInfoPecEpasta(epasts);
         if (trenerInfo == null) {
             return "Nezinams treneris";
@@ -321,7 +322,7 @@ public class Treneri {
         return dabutTreneraPilnoVarduPecEpasta(currentTrainerEmail);
     }
 
-    private static void updateFileTrener() {
+    private static void updateFileTrener() { // funkcija <updateFileTrener> neko nepieņem un atgriež <void> tipa vērtību <void>
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePathforTreneri));
 
@@ -339,7 +340,7 @@ public class Treneri {
         }
     }
 
-    public static void izveletiesTreneri() {
+    public static void izveletiesTreneri() { // funkcija <izveletiesTreneri> pieņem <int> tipa vērtību <izvele> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Treneru saraksts:");
@@ -358,7 +359,7 @@ public class Treneri {
         }
     }
 
-    public static void redigetTerneraprofilaDatus() {
+    public static void redigetTerneraprofilaDatus() { // funkcija <redigetTerneraprofilaDatus> pieņem <String> tipa vērtību <ievaditaisEpasts>, <String> tipa vērtību <jaunsVards>, <String> tipa vērtību <jaunsUzvards>, <String> tipa vērtību <jaunsEpasts>, <String> tipa vērtību <jaunsTelefons>, <String> tipa vērtību <jaunsPkods>, un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Rediget profila datus");
@@ -491,7 +492,7 @@ public class Treneri {
         System.out.println("E-pasts nav atrasts. Ludzu, meginiet velreiz.");
     }
 
-    public static void treneruPieslegsanas() {
+    public static void treneruPieslegsanas() { // funkcija <treneruPieslegsanas> pieņem <String> tipa vērtību <ievaditaisEpasts> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Pieslegsanas");
@@ -514,7 +515,7 @@ public class Treneri {
         System.out.println();
     }
 
-    public static void loadTreneriFromFile() {
+    public static void loadTreneriFromFile() { // funkcija <loadTreneriFromFile> neko nepieņem un atgriež <void> tipa vērtību <void>
         File file = new File(filePathforTreneri);
         if (!file.exists()) {
             return;
