@@ -16,20 +16,23 @@ public class treninuPlani {
         private static final String APRAKSTA_REGEX = "^.{1,300}$";
         private static final String BRIVO_VIETU_REGEX = "^\\d{1,3}$";
 
-        private static void ensureTreniniLoaded() {
+        private static void ensureTreniniLoaded() { // funkcija <ensureTreniniLoaded> neko nepieņem un atgriež <void> tipa vērtību <void>
+                 if (treninuList.isEmpty()) {
+                         loadTreniniFromFile();
+                 }
                 if (treninuList.isEmpty()) {
                         loadTreniniFromFile();
                 }
         }
 
-        private static String cleanValue(String value) {
+        private static String cleanValue(String value) { // funkcija <cleanValue> pieņem <String> tipa vērtību <value> un atgriež <String> tipa vērtību <result>
                 if (value == null) {
                         return "";
                 }
                 return value.trim().replace(",", ";");
         }
 
-        private static String[] getPlanParts(String line) {
+        private static String[] getPlanParts(String line) { // funkcija <getPlanParts> pieņem <String> tipa vērtību <line> un atgriež <String[]> tipa vērtību <result>
                 String[] parts = line.split(",", -1);
                 String[] result = new String[10];
 
@@ -44,11 +47,11 @@ public class treninuPlani {
                 return result;
         }
 
-        private static boolean irDerigsTeksts(String teksts, String regex) {
+        private static boolean irDerigsTeksts(String teksts, String regex) { // funkcija <irDerigsTeksts> pieņem <String> tipa vērtību <teksts> un <String> tipa vērtību <regex> un atgriež <boolean> tipa vērtību <true> vai <false>
                 return teksts != null && teksts.trim().matches(regex);
         }
 
-        public static void treninuPlanaIevade() {
+        public static void treninuPlanaIevade() { // funkcija <treninuPlanaIevade> pieņem <String> tipa vērtību <treneraVards>, <treneraUzvards>, <treneraEpasts>, <treneraTelefons>, <treneraPkods>, <treneraSpecializacija> un atgriež <void> tipa vērtību <void>
                 ensureTreniniLoaded();
                 Scanner scanner = new Scanner(System.in);
 
@@ -202,7 +205,7 @@ public class treninuPlani {
                 System.out.println("Treninu plans veiksmigi pievienots!");
         }
 
-        public static int getIDtreninam() {
+        public static int getIDtreninam() { // funkcija <getIDtreninam> neko nepieņem un atgriež <int> tipa vērtību <id>
                 ensureTreniniLoaded();
 
                 if (treninuList.isEmpty()) {
@@ -218,7 +221,7 @@ public class treninuPlani {
                 }
         }
 
-        public static void updateFileTrenini() {
+        public static void updateFileTrenini() { // funkcija <updateFileTrenini> neko nepieņem un atgriež <void> tipa vērtību <void>
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(filepathforTrenini))) {
                         writer.write("id, treneris, treninaNosaukums, sportaVeids, grutibasPakape, muskuluGrupa, treninaDatums, treninaIlgums, treninaApraksts, brivoVietuSkaits");
                         writer.newLine();
@@ -232,7 +235,7 @@ public class treninuPlani {
                 }
         }
 
-        public static void loadTreniniFromFile() {
+        public static void loadTreniniFromFile() { // funkcija <loadTreniniFromFile> neko nepieņem un atgriež <void> tipa vērtību <void>
                 treninuList.clear();
 
                 File file = new File(filepathforTrenini);
@@ -259,7 +262,7 @@ public class treninuPlani {
                 }
         }
 
-        public static void loadPieteikumiFromFile() {
+        public static void loadPieteikumiFromFile() { // funkcija <loadPieteikumiFromFile> neko nepieņem un atgriež <void> tipa vērtību <void>
                 pieteikumi.clear();
 
                 File file = new File(filepathforPieteikumi);
@@ -267,7 +270,7 @@ public class treninuPlani {
                         return;
                 }
 
-                try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(file))) { 
                         String line;
                         reader.readLine();
 
@@ -281,7 +284,7 @@ public class treninuPlani {
                 }
         }
 
-        public static void searchByTypeandDifficulty() {
+        public static void searchByTypeandDifficulty() { // funkcija <searchByTypeandDifficulty> neko nepieņem un atgriež <void> tipa vērtību <void>
                 ensureTreniniLoaded();
                 Scanner scanner = new Scanner(System.in);
 
@@ -381,7 +384,7 @@ public class treninuPlani {
                 }
         }
 
-        private static void printPlan(String[] parts) {
+        private static void printPlan(String[] parts) { // funkcija <printPlan> pieņem <String[]> tipa vērtību <parts> un atgriež <void> tipa vērtību <void>
                 System.out.println("ID: " + parts[0]);
                 System.out.println("Treneris: " + parts[1]);
                 System.out.println("Nosaukums: " + parts[2]);
@@ -395,7 +398,7 @@ public class treninuPlani {
                 System.out.println("-----------------------------");
         }
 
-        public static void paradaTreninuPlanus() {
+        public static void paradaTreninuPlanus() { // funkcija <paradaTreninuPlanus> neko nepieņem un atgriež <void> tipa vērtību <void>
                 ensureTreniniLoaded();
                 System.out.println("-----PIEEJAMIE TRENINU PLANI-----");
 
@@ -409,7 +412,7 @@ public class treninuPlani {
                 }
         }
 
-        public static boolean isUserPieteiciesTreninam(String userID, int treninaID) {
+        public static boolean isUserPieteiciesTreninam(String userID, int treninaID) { // funkcija <isUserPieteiciesTreninam> pieņem <String> tipa vērtību <userID> un <int> tipa vērtību <treninaID> un atgriež <boolean> tipa vērtību <true> vai <false>
                 for (String pieteikums : pieteikumi) {
                         String[] parts = pieteikums.split(",", -1);
 
@@ -428,7 +431,7 @@ public class treninuPlani {
                 return false;
         }
 
-        public static void paradaPieteikusosTreninus() {
+        public static void paradaPieteikusosTreninus() { // funkcija <paradaPieteikusosTreninus> pieņem <String> tipa vērtību <userEmail> un atgriež <void> tipa vērtību <void>
                 ensureTreniniLoaded();
                 Scanner scanner = new Scanner(System.in);
                 String userEmail = Lietotaji.getCurrentUserEmail();
@@ -466,13 +469,13 @@ public class treninuPlani {
                 }
         }
 
-        public static boolean parbaudaVaiTreninsPilns(String treninaData) {
+        public static boolean parbaudaVaiTreninsPilns(String treninaData) { // funkcija <parbaudaVaiTreninsPilns> pieņem <String> tipa vērtību <treninaData> un atgriež <boolean> tipa vērtību <true> vai <false>
                 String[] parts = getPlanParts(treninaData);
                 int brivasVietas = Integer.parseInt(parts[9]);
                 return brivasVietas <= 0;
         }
 
-        public static void updateBrivasVietas(int treninaID) {
+        public static void updateBrivasVietas(int treninaID) { // funkcija <updateBrivasVietas> pieņem <int> tipa vērtību <treninaID> un atgriež <void> tipa vērtību <void>
                 for (int i = 0; i < treninuList.size(); i++) {
                         String[] parts = getPlanParts(treninuList.get(i));
                         int id = Integer.parseInt(parts[0]);
@@ -488,7 +491,7 @@ public class treninuPlani {
                 }
         }
 
-        public static void izveletiesTreninuPlanuLietotajam() {
+        public static void izveletiesTreninuPlanuLietotajam() { // funkcija <izveletiesTreninuPlanuLietotajam> neko nepieņem un atgriež <void> tipa vērtību <void>
                 ensureTreniniLoaded();
                 Scanner scanner = new Scanner(System.in);
                 String userID = Lietotaji.getCurrentUserEmail();
@@ -516,7 +519,7 @@ public class treninuPlani {
                 pieteiktiesTreninam(userID, treninaID, false);
         }
 
-        public static void pieteiktiesTreninam(String userID, int treninaID, boolean isTreneris) {
+        public static void pieteiktiesTreninam(String userID, int treninaID, boolean isTreneris) { // funkcija <pieteiktiesTreninam> pieņem <String> tipa vērtību <userID>, <int> tipa vērtību <treninaID> un <boolean> tipa vērtību <isTreneris> un atgriež <void> tipa vērtību <void>
                 if (isTreneris) {
                         System.out.println("Treneri nevar pieteikties treniniem!");
                         return;
@@ -557,7 +560,7 @@ public class treninuPlani {
                 System.out.println("Tu esi veiksmigi pieteicies treninam ar ID " + treninaID + ".");
         }
 
-        public static void updatePieteikumiFailu() {
+        public static void updatePieteikumiFailu() { // funkcija <updatePieteikumiFailu> neko nepieņem un atgriež <void> tipa vērtību <void>
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(filepathforPieteikumi))) {
                         writer.write("userID,treninaID");
                         writer.newLine();
@@ -571,7 +574,7 @@ public class treninuPlani {
                 }
         }
 
-        public static void dzestTrenanPlanu(int treninaID, boolean isTreneris) {
+        public static void dzestTrenanPlanu(int treninaID, boolean isTreneris) { // funkcija <dzestTrenanPlanu> pieņem <int> tipa vērtību <treninaID> un <boolean> tipa vērtību <isTreneris> un atgriež <void> tipa vērtību <void>
                 if (!isTreneris) {
                         System.out.println("Tikai treneri var dzest treninu planus!.");
                         return;
@@ -592,7 +595,7 @@ public class treninuPlani {
                 System.out.println("Treninu plans ar ID " + treninaID + " netika atrasts.");
         }
 
-        public static boolean validateAizpilditieLauki(String[] fields) {
+        public static boolean validateAizpilditieLauki(String[] fields) { // funkcija <validateAizpilditieLauki> pieņem <String[]> tipa vērtību <fields> un atgriež <boolean> tipa vērtību <true> vai <false>
                 for (String field : fields) {
                         if (field == null || field.trim().isEmpty()) {
                                 System.out.println("Visiem laukiem jabut aizpilditiem!");
@@ -603,7 +606,7 @@ public class treninuPlani {
                 return true;
         }
 
-        public static boolean validateRakstzimjuGarumu(String input, int minLenght) {
+        public static boolean validateRakstzimjuGarumu(String input, int minLenght) { // funkcija <validateRakstzimjuGarumu> pieņem <String> tipa vērtību <input> un <int> tipa vērtību <minLenght> un atgriež <boolean> tipa vērtību <true> vai <false>
                 if (input == null) {
                         return false;
                 }

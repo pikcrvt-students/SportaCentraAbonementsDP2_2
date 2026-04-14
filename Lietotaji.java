@@ -17,7 +17,7 @@ public class Lietotaji {
         }
     }
 
-    public static boolean vaiKlientaEpastsEksiste(String epasts) {
+    public static boolean vaiKlientaEpastsEksiste(String epasts) { // funkcija <vaiKlientaEpastsEksiste> pieņem <String> tipa vērtību <epasts> un atgriež <boolean> tipa vērtību <boolean>
         nodrosinaKlientaSaglabasanu();
 
         for (String klients : klientuList) {
@@ -46,7 +46,7 @@ public class Lietotaji {
         return telefons != null && telefons.trim().matches(TELEFONA_REGEX);
     }
 
-    public static void klientuRegistresana() {
+    public static void klientuRegistresana() { // funkcija <klientuRegistresana> pieņem <String> tipa vērtību <klientaVards>, <String> tipa vērtību <klientaUzvards>, <String> tipa vērtību <klientaEpasts> un <String> tipa vērtību <klientaTelefons> un atgriež <void> tipa vērtību <void>
         nodrosinaKlientaSaglabasanu();
         Scanner scanner = new Scanner(System.in);
 
@@ -101,7 +101,7 @@ public class Lietotaji {
         }
     }
 
-        if (vaiKlientaEpastsEksiste(klientaEpasts) || Treneri.vaiTreneraEpastsEksiste(klientaEpasts)) {
+        if (vaiKlientaEpastsEksiste(klientaEpasts) || Treneri.vaiTreneraEpastsEksiste(klientaEpasts)) { // funkcija <vaiKlientaEpastsEksiste> pieņem <String> tipa vērtību <klientaEpasts> un atgriež <boolean> tipa vērtību <boolean>
             System.out.println("Sis e-pasts jau ir registrets. Ludzu, izmantojiet citu e-pastu.");
             return;
         }
@@ -113,7 +113,7 @@ public class Lietotaji {
         updateFileforklient();
     }
 
-    public static int getIDklients() {
+    public static int getIDklients() { // funkcija <getIDklients> neko nepieņem un atgriež <int> tipa vērtību <lastID>
         nodrosinaKlientaSaglabasanu();
         if (klientuList.isEmpty()) {
             return 0;
@@ -130,7 +130,7 @@ public class Lietotaji {
         }
     }
 
-    private static void updateFileKlietn() {
+    private static void updateFileKlietn() { // funkcija <updateFileKlietn> neko nepieņem un atgriež <void> tipa vērtību <void>
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePathforKlienti))) {
             writer.write("id, vards, uzvards, epasts, telefons, abonements, balanse");
             writer.newLine();
@@ -144,13 +144,13 @@ public class Lietotaji {
         }
     }
 
-    private static void updateFileforklient() {
+    private static void updateFileforklient() { // funkcija <updateFileforklient> neko nepieņem un atgriež <void> tipa vērtību <void>
         updateFileKlietn();
     }
 
-    private static String[] normalizeKlientInfo(String[] klientInfo) {
+    private static String[] normalizeKlientInfo(String[] klientInfo) { // funkcija <normalizeKlientInfo> pieņem <String[]> tipa vērtību <klientInfo> un atgriež <String[]> tipa vērtību <normalizedKlientInfo>
         if (klientInfo == null) {
-            return new String[] {"", "", "", "", "abonements", "0.0"};
+            return new String[] {"", "", "", "", "abonements", "0.0"}; 
         }
 
         String[] trimmed = new String[klientInfo.length];
@@ -191,7 +191,7 @@ public class Lietotaji {
         return result;
     }
 
-    private static String normalizeKlientLine(String line) {
+    private static String normalizeKlientLine(String line) { // funkcija <normalizeKlientLine> pieņem <String> tipa vērtību <line> un atgriež <String> tipa vērtību <normalizedLine>
         String[] parts = line.split(",");
         return String.join(",", normalizeKlientInfo(parts));
     }
@@ -207,7 +207,7 @@ public class Lietotaji {
         }
     }
 
-    private static int findCurrentUserIndex() {
+    private static int findCurrentUserIndex() { // funkcija <findCurrentUserIndex> neko nepieņem un atgriež <int> tipa vērtību <userIndex>
         if (currentUserEmail == null) {
             return -1;
         }
@@ -222,7 +222,7 @@ public class Lietotaji {
         return -1;
     }
 
-    private static boolean setCurrentUserByEmail(String email) {
+    private static boolean setCurrentUserByEmail(String email) { // funkcija <setCurrentUserByEmail> pieņem <String> tipa vērtību <email> un atgriež <boolean> tipa vērtību <boolean>
         if (email == null) {
             return false;
         }
@@ -239,7 +239,7 @@ public class Lietotaji {
         return false;
     }
 
-    public static void pieslegtiesKlientam() {
+    public static void pieslegtiesKlientam() { // funkcija <pieslegtiesKlientam> neko nepieņem un atgriež <void> tipa vērtību <void>
         System.out.println("Pieslegties");
         System.out.println("Ievadiet savu e-pastu:");
         Scanner scanner = new Scanner(System.in);
@@ -266,7 +266,7 @@ public class Lietotaji {
         }
     }
 
-    public static void mansKonts() {
+    public static void mansKonts() { // funkcija <mansKonts> pieņem <String> tipa vērtību <ievaditaisEpasts> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
         if (currentUserEmail == null) {
             while (true) {
@@ -359,7 +359,7 @@ public class Lietotaji {
         System.out.println("E-pasts nav atrasts. LLudzu, meginiet velreiz.");
     }
 
-    public static void redigetProfilaDatus() {
+    public static void redigetProfilaDatus() { // funkcija <redigetProfilaDatus> pieņem <String> tipa vērtību <ievaditaisEpasts> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
         System.out.println("Rediget profila datus");
         String ievaditaisEpasts;
@@ -432,7 +432,7 @@ public class Lietotaji {
         System.out.println("E-pasts nav atrasts. LLudzu, meginiet velreiz.");
     }
 
-    public static void loadKlientiFromFile() {
+    public static void loadKlientiFromFile() { // funkcija <loadKlientiFromFile> neko nepieņem un atgriež <void> tipa vērtību <void>
         File file = new File(filePathforKlienti);
         if (!file.exists()) {
             return;
@@ -451,7 +451,7 @@ public class Lietotaji {
         }
     }
 
-    public static void naudasIemaksa() {
+    public static void naudasIemaksa() { // funkcija <naudasIemaksa> pieņem <String> tipa vērtību <ievaditaisEpasts> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
         if (currentUserEmail == null) {
             System.out.println("Ievadiet savu e-pastu:");
@@ -484,7 +484,7 @@ public class Lietotaji {
         System.out.println("Naudas iemaksa veiksmiga! Jusu summa: " + newBalance);
     }
 
-    public static void klientuPieslegsanas() {
+    public static void klientuPieslegsanas() { // funkcija <klientuPieslegsanas> pieņem <String> tipa vērtību <ievaditaisEpasts> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
         System.out.println("Pieslegsanas");
         System.out.println("Ievadiet savu e-pastu: ");
@@ -506,7 +506,7 @@ public class Lietotaji {
         System.out.println();
         }
     
-        public static double getCurrentUserBalance(){
+        public static double getCurrentUserBalance(){ // funkcija <getCurrentUserBalance> neko nepieņem un atgriež <double> tipa vērtību <balance>
             int userIndex = findCurrentUserIndex();
             if(userIndex == -1) {
                 System.out.println("Nav pieslegts neviens klients.");
@@ -518,7 +518,7 @@ public class Lietotaji {
 
 
 
-     public static void updateCurrentUserBalance(double newBalance) {
+     public static void updateCurrentUserBalance(double newBalance) { // funkcija <updateCurrentUserBalance> pieņem <double> tipa vērtību <newBalance> un atgriež <void> tipa vērtību <void>
         int userIndex = findCurrentUserIndex();
         if (userIndex == -1) return;
 
@@ -528,7 +528,7 @@ public class Lietotaji {
         updateFileforklient();
     }
 
-    public static void updateCurrentUserAbonements(String abonements) {
+    public static void updateCurrentUserAbonements(String abonements) { // funkcija <updateCurrentUserAbonements> pieņem <String> tipa vērtību <abonements> un atgriež <void> tipa vērtību <void>
         int userIndex = findCurrentUserIndex();
         if (userIndex == -1) return;
 
@@ -538,15 +538,15 @@ public class Lietotaji {
         updateFileforklient();
     }
 
-    public static String getCurrentUserEmail() {
+    public static String getCurrentUserEmail() { // funkcija <getCurrentUserEmail> neko nepieņem un atgriež <String> tipa vērtību <currentUserEmail>
         return currentUserEmail; 
     }
 
-    public static ArrayList<String> klientuList() {
+    public static ArrayList<String> klientuList() { // funkcija <klientuList> neko nepieņem un atgriež <ArrayList<String>> tipa vērtību <klientuList>
         return klientuList; 
     }
 
-     public static int atrastKlientuPecEpasta(String epasts) {
+     public static int atrastKlientuPecEpasta(String epasts) { // funkcija <atrastKlientuPecEpasta> pieņem <String> tipa vērtību <epasts> un atgriež <int> tipa vērtību <index>
         for (int i = 0; i < klientuList.size(); i++) {
             String[] klientInfo = klientuList.get(i).split(",");
             if (klientInfo.length > 2 && klientInfo[2].trim().equalsIgnoreCase(epasts.trim())) {
@@ -556,7 +556,7 @@ public class Lietotaji {
         return -1;
     }
 
-    public static String[] dabutLietotajaInfoPecEpasta(String epasts) {
+    public static String[] dabutLietotajaInfoPecEpasta(String epasts) { // funkcija <dabutLietotajaInfoPecEpasta> pieņem <String> tipa vērtību <epasts> un atgriež <String[]> tipa vērtību <klientInfo>
         int index = atrastKlientuPecEpasta(epasts);
         if (index == -1) {
             return null;

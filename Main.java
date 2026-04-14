@@ -6,7 +6,7 @@ public class Main {
     private static boolean isAdmin = false;
     private static boolean isKlietns = false;
 
-    public static int readInt(Scanner scanner) {
+    public static int readInt(Scanner scanner) { // funkcija <readInt> pieņem <Scanner> tipa vērtību <scanner> un atgriež <int> tipa vērtību <number>
         while (!scanner.hasNextInt()) {
             System.out.println("Nepareiza ievade! Lūdzu ievadiet veselu skaitli.");
             scanner.nextLine();
@@ -14,7 +14,7 @@ public class Main {
         return scanner.nextInt();
     }
 
-    public static double readDouble(Scanner scanner) {
+    public static double readDouble(Scanner scanner) { // funkcija <readDouble> pieņem <Scanner> tipa vērtību <scanner> un atgriež <double> tipa vērtību <number>
         while (!scanner.hasNextDouble()) {
             System.out.println("Nepareiza ievade! Lūdzu ievadiet skaitli.");
             scanner.nextLine();
@@ -22,7 +22,7 @@ public class Main {
         return scanner.nextDouble();
     }
 
-    public static int Registresana() {
+    public static int Registresana() { // funkcija <Registresana> neko nepieņem un atgriež <int> tipa vērtību <regIzvele>
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -108,7 +108,7 @@ public class Main {
         }
     }
 
-    public static void klientaIzvelne(String[] args) {
+    public static void klientaIzvelne(String[] args) { // funkcija <klientaIzvelne> pieņem <String[]> tipa vērtību <args> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("IZVELNE:");
@@ -310,7 +310,7 @@ public class Main {
         }
     }
 
-    public static void treneraIzvelne(String[] args) {
+    public static void treneraIzvelne(String[] args) { // funkcija <treneraIzvelne> pieņem <String[]> tipa vērtību <args> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("IZVELNE:");
@@ -394,7 +394,7 @@ public class Main {
         }
     }
 
-    public static void administratoraIzvelne(String[] args) {
+    public static void administratoraIzvelne(String[] args) { // funkcija <administratoraIzvelne> pieņem <String[]> tipa vērtību <args> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("IZVELNE:");
@@ -493,7 +493,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { // funkcija <main> pieņem <String[]> tipa vērtību <args> un atgriež <void> tipa vērtību <void>
         Lietotaji.loadKlientiFromFile();
         Treneri.loadTreneriFromFile();
         treninuPlani.loadTreniniFromFile();

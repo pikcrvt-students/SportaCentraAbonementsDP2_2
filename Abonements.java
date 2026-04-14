@@ -5,7 +5,7 @@ public class Abonements {
     private static final String NOSAUKUMA_REGEX = "^.{1,15}$";
     private static final String PLANA_REGEX = "^.{1,600}$";
 
-    private static boolean irDerigsAbonements(String nosaukums, double maksa, String plusi, String minusi) {
+    private static boolean irDerigsAbonements(String nosaukums, double maksa, String plusi, String minusi) { // funkcija <irDerigsAbonements> neko nepieņem un atgriež <boolean> tipa vērtību <boolean>
         if (nosaukums == null || !nosaukums.trim().matches(NOSAUKUMA_REGEX)) {
             return false;
         }
@@ -25,7 +25,7 @@ public class Abonements {
         return true;
     }
 
-    public static void abonementuIzvele() {
+    public static void abonementuIzvele() { // funkcija <abonementuIzvele> pieņem <int> tipa vērtību <abonementaIzvele> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
 
         System.out.println();
@@ -66,7 +66,7 @@ public class Abonements {
         }
     }
 
-    private static void paraditAbonementu(Scanner scanner, String nosaukums, double maksa) {
+    private static void paraditAbonementu(Scanner scanner, String nosaukums, double maksa) { // funkcija <paraditAbonementu> pieņem <Scanner> tipa vērtību <scanner>, <String> tipa vērtību <nosaukums> un <double> tipa vērtību <maksa> un atgriež <void> tipa vērtību <void>
         System.out.println(nosaukums);
         System.out.println();
 
@@ -105,7 +105,7 @@ public class Abonements {
         }
     }
 
-    private static void apstradatMaksajumu(Scanner scanner, String abonements, double maksa) {
+    private static void apstradatMaksajumu(Scanner scanner, String abonements, double maksa) { //// funkcija <apstradatMaksajumu> pieņem <Scanner> tipa vērtību <scanner>, <String> tipa vērtību <abonements> un <double> tipa vērtību <maksa> un atgriež <void> tipa vērtību <void>
         System.out.println("Izvelaties apmaksas veidu:");
         System.out.println();
         System.out.println("1. MAKSAT NEDELA (" + formatPrice(maksa / 4) + " eiro / nedela)");
@@ -155,7 +155,7 @@ public class Abonements {
         }
     }
 
-    private static double piemeroStudentaAtlaidi(Scanner scanner, double paymentAmount) {
+    private static double piemeroStudentaAtlaidi(Scanner scanner, double paymentAmount) { // funkcija <piemeroStudentaAtlaidi> pieņem <Scanner> tipa vērtību <scanner> un <double> tipa vērtību <paymentAmount> un atgriež <double> tipa vērtību <discountedAmount>
         System.out.println("Vai jus esat students?");
         System.out.println("1. Ja");
         System.out.println("2. Ne");
@@ -178,11 +178,11 @@ public class Abonements {
         return paymentAmount;
     }
 
-    private static String formatPrice(double amount) {
+    private static String formatPrice(double amount) { // funkcija <formatPrice> pieņem <double> tipa vērtību <amount> un atgriež <String> tipa vērtību <formattedPrice>
         return String.format(Locale.US, "%.2f", amount);
     }
 
-    public static void apskatitManuabonementu() {
+    public static void apskatitManuabonementu() { // funkcija <apskatitManuabonementu> pieņem <String> tipa vērtību <currentUserEmail> un atgriež <void> tipa vērtību <void>
         String currentUserEmail = Lietotaji.getCurrentUserEmail();
 
         for (String klients : Lietotaji.klientuList()) {

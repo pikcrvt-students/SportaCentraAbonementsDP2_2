@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Administratori {
 
-    public static void administratoruRegistresana() {
+    public static void administratoruRegistresana() { //funkcija <administratoruRegistresana> pieņem <int> tipa vērtību <slepkods> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
 
         System.out.println();
@@ -23,7 +23,7 @@ public class Administratori {
         }
     }
 
-    public static void administratoruPieslegsanas() {
+    public static void administratoruPieslegsanas() { //funkcija <administratoruPieslegsana> pieņem <int> tipa vērtību <slepkods> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
 
         System.out.println();
@@ -42,7 +42,7 @@ public class Administratori {
         }
     }
 
-    public static void dzestTrenerakontu() {
+    public static void dzestTrenerakontu() { //funkcija <dzestTrenerakontu> pieņem <String> tipa vērtību <ievaditaisEpasts> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
 
         System.out.println();
@@ -61,7 +61,7 @@ public class Administratori {
         
     }
 
-    public static void dzestLietotajakontu() {
+    public static void dzestLietotajakontu() { //funkcija <dzestLietotajakontu> pieņem <String> tipa vērtību <ievaditaisEpasts> un atgriež <void> tipa vērtību <void>
         Scanner scanner = new Scanner(System.in);
 
         System.out.println();
