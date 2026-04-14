@@ -32,6 +32,20 @@ public class treninuPlani {
                 return value.trim().replace(",", ";");
         }
 
+        private static String stripPrefix(String value, String... prefixes) {
+                if (value == null) {
+                        return "";
+                }
+
+                String trimmed = value.trim();
+                for (String prefix : prefixes) {
+                        if (trimmed.toLowerCase().startsWith(prefix.toLowerCase())) {
+                                return trimmed.substring(prefix.length()).trim();
+                        }
+                }
+                return trimmed;
+        }
+
         private static String[] getPlanParts(String line) { // funkcija <getPlanParts> pieņem <String> tipa vērtību <line> un atgriež <String[]> tipa vērtību <result>
                 String[] parts = line.split(",", -1);
                 String[] result = new String[10];
@@ -43,6 +57,17 @@ public class treninuPlani {
                                 result[i] = "";
                         }
                 }
+
+                result[0] = stripPrefix(result[0], "ID:");
+                result[1] = stripPrefix(result[1], "Autors:", "Treneris:");
+                result[2] = stripPrefix(result[2], "Nosaukums:");
+                result[3] = stripPrefix(result[3], "Sporta veids:");
+                result[4] = stripPrefix(result[4], "Grutibas pakape:", "Grutibas veids:");
+                result[5] = stripPrefix(result[5], "Muskulu grupa:");
+                result[6] = stripPrefix(result[6], "Trenina datums:");
+                result[7] = stripPrefix(result[7], "Trenina ilgums:");
+                result[8] = stripPrefix(result[8], "Trenina apraksts:");
+                result[9] = stripPrefix(result[9], "Brivo vietu skaits:");
 
                 return result;
         }
@@ -247,14 +272,32 @@ public class treninuPlani {
                         String line;
                         reader.readLine();
 
+                        String currentRecord = "";
                         while ((line = reader.readLine()) != null) {
                                 if (line.trim().isEmpty()) {
                                         continue;
                                 }
 
-                                String[] parts = line.split(",", -1);
+                                if (currentRecord.isEmpty()) {
+                                        currentRecord = line.trim();
+                                } else {
+                                        currentRecord += " " + line.trim();
+                                }
+
+                                // If this line ends without a trailing comma, it is the final line of a record.
+                                if (!line.trim().endsWith(",")) {
+                                        String[] parts = currentRecord.split(",", -1);
+                                        if (parts.length >= 10) {
+                                                treninuList.add(currentRecord.trim());
+                                        }
+                                        currentRecord = "";
+                                }
+                        }
+
+                        if (!currentRecord.isEmpty()) {
+                                String[] parts = currentRecord.split(",", -1);
                                 if (parts.length >= 10) {
-                                        treninuList.add(line.trim());
+                                        treninuList.add(currentRecord.trim());
                                 }
                         }
                 } catch (IOException e) {
