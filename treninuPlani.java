@@ -190,15 +190,15 @@ public class treninuPlani {
                 int newID = getIDtreninam() + 1;
 
                 String treninaData = newID + "," +
-                                "Autors: " + cleanValue(treneris) + "," + "\n" +
-                                "Nosaukums: " + cleanValue(treninaNosaukums)  + "," + "\n" +
-                                "Sporta veids: " + cleanValue(sportaVeids) + "," + "\n" +
-                                "Grutibas veids: " + cleanValue(grutibasPakape) + "," + "\n" +
-                                "Muskulu grupa: " + cleanValue(muskuluGrupa) + "," + "\n" +
-                                "Trenina datums: " + cleanValue(treninaDatums) + "," + "\n" +
-                                "Trenina ilgums: " + cleanValue(treninaIlgums) + "," + "\n" +
-                               "Trenina apraksts: " + cleanValue(treninaApraksts) + "," + "\n" +
-                                "Brivo vietu skaits: " + cleanValue(brivoVietuSkaits);
+                                cleanValue(treneris) + "," +
+                                cleanValue(treninaNosaukums)  + "," +
+                                cleanValue(sportaVeids) + "," +
+                                cleanValue(grutibasPakape) + "," +
+                                cleanValue(muskuluGrupa) + "," +
+                                cleanValue(treninaDatums) + "," +
+                                cleanValue(treninaIlgums) + "," +
+                               cleanValue(treninaApraksts) + "," +
+                                cleanValue(brivoVietuSkaits);
 
                 treninuList.add(treninaData);
                 updateFileTrenini();
@@ -386,7 +386,7 @@ public class treninuPlani {
 
         private static void printPlan(String[] parts) { // funkcija <printPlan> pieņem <String[]> tipa vērtību <parts> un atgriež <void> tipa vērtību <void>
                 System.out.println("ID: " + parts[0]);
-                System.out.println("Treneris: " + parts[1]);
+                System.out.println("Autors: " + parts[1]);
                 System.out.println("Nosaukums: " + parts[2]);
                 System.out.println("Sporta veids: " + parts[3]);
                 System.out.println("Grutibas pakape: " + parts[4]);
